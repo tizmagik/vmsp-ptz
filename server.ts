@@ -1,124 +1,179 @@
+// server.ts
+import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import { spawn, ChildProcess } from 'child_process';
-import { Tunnel, bin, install } from 'cloudflared';
 import path from 'path';
 import fs from 'fs';
-import { Server } from 'http';
+import { Cloudflare } from 'cloudflare';
+import { quickTunnel } from 'cloudflared';
 
-// Config (adjust as needed)
-const PORT: number = 8111;
-const COMPANION_PORT: number = 8000;  // Bitfocus Companion port
-const MEDIA_MTX_PATH: string = 'mediamtx.yml';  // Your config file
+// ──────────────────────────────────────────────────────────────
+// Configuration (use .env or replace directly)
+const PORT = 8111;
+const COMPANION_PORT = 8080;
+const MEDIA_MTX_CFG = 'mediamtx.yml';
+const TUNNEL_NAME = 'rtsp-viewer';
+const PUBLIC_HOST = process.env.PUBLIC_HOST || 'vmsp-tunnel.trycloudflare.com'; // default to cf generic tunnel
 
+// ──────────────────────────────────────────────────────────────
 const app = express();
-const projectDir: string = __dirname;
+const __dirname = path.resolve();
 
-// === Serve Static Files ===
-app.use(express.static(projectDir));  // Serves viewer.html, etc.
+// Serve static files (viewer.html, etc.)
+app.use(express.static(__dirname));
 
-// === Proxy /tablet to Companion ===
-app.use('/tablet', createProxyMiddleware({
-  target: `http://localhost:${COMPANION_PORT}`,
-  changeOrigin: true,
-  pathRewrite: { '^/tablet': '/tablet' }
-}));
+// Proxy Companion tablet
+app.use(
+  '/tablet',
+  createProxyMiddleware({
+    target: `http://localhost:${COMPANION_PORT}`,
+    changeOrigin: true,
+    logLevel: 'silent',
+  })
+);
 
-// === Camera Switch Route ===
+// Camera switch endpoint (from Companion)
 app.get('/switch-camera', (req: Request, res: Response) => {
-  const cameraPath: string = (req.query.path as string) || 'left';
-  res.redirect(`/viewer.html?camera=${cameraPath}`);
+  const cam = req.query.path || 'left';
+  res.redirect(`/viewer.html?camera=${encodeURIComponent(cam as string)}`);
 });
 
-// === Start Server ===
-const server: Server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-  console.log(`Viewer: http://localhost:${PORT}/viewer.html`);
+// Start HTTP server
+const server = app.listen(PORT, () => {
+  console.log(` ===>  HTTP server running on http://localhost:${PORT}`);
 });
 
-// === Spawn MediaMTX ===
-function startMediaMTX(): ChildProcess {
-  let mediamtxPath: string;
-  
-  // First, try to use local mediamtx.exe
+// ──────────────────────────────────────────────────────────────
+// Start MediaMTX
+function startMediaMTX(): ChildProcess | null {
+  let exePath: string;
+
   const localPath = path.join(__dirname, 'mediamtx.exe');
   if (fs.existsSync(localPath)) {
-    mediamtxPath = localPath;
+    exePath = localPath;
     console.log('Using local mediamtx.exe');
   } else {
-    // Fallback to mediamtx-installer module
     try {
-      mediamtxPath = require('mediamtx-installer').path;  // Auto-downloads if missing
+      exePath = require('mediamtx-installer').path;
       console.log('Using mediamtx from npm module');
     } catch (err) {
-      console.error('Error: mediamtx.exe not found. Download from https://github.com/bluenviron/mediamtx/releases');
-      process.exit(1);
+      console.warn('⚠️  mediamtx.exe not found - video streaming disabled');
+      console.warn('   Download from: https://github.com/bluenviron/mediamtx/releases');
+      return null;
     }
   }
 
-  const mediamtx: ChildProcess = spawn(mediamtxPath, [MEDIA_MTX_PATH], {
+  const proc = spawn(exePath, [MEDIA_MTX_CFG], {
     stdio: 'pipe',
-    cwd: __dirname
+    cwd: __dirname,
   });
 
-  mediamtx.stdout?.on('data', (data: Buffer) => console.log(`MediaMTX: ${data}`));
-  mediamtx.stderr?.on('data', (data: Buffer) => console.error(`MediaMTX Error: ${data}`));
-  mediamtx.on('close', (code: number | null) => console.log(`MediaMTX exited with code ${code}`));
+  proc.stdout.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));
+  proc.stderr.on('data', (data) => console.error(`MTX ERR: ${data.toString().trim()}`));
+  proc.on('close', (code) => console.log(`MediaMTX exited with code ${code}`));
 
-  console.log('Started MediaMTX (WebRTC on :8889)');
-  return mediamtx;
+  console.log('MediaMTX started (WebRTC on :8889)');
+  return proc;
 }
 
-const mediamtxProcess: ChildProcess = startMediaMTX();
+const mediamtxProcess = startMediaMTX();
 
-// === Start Cloudflare Tunnel ===
-async function startTunnel(): Promise<void> {
+// ──────────────────────────────────────────────────────────────
+// Programmatic Named Cloudflare Tunnel
+interface TunnelStop {
+  (): Promise<void>;
+}
+
+async function startNamedTunnel(): Promise<{ url: string; stop: TunnelStop }> {
+  const accountId = process.env.CF_ACCOUNT_ID;
+  const tunnelToken = process.env.CF_TUNNEL_TOKEN;
+
+  if (!accountId || !tunnelToken) {
+    console.warn('⚠️  CF_ACCOUNT_ID and CF_TUNNEL_TOKEN not set - skipping tunnel setup');
+    console.warn('   Server will only be accessible locally');
+    return {
+      url: `http://localhost:${PORT}`,
+      stop: async () => {}
+    };
+  }
+
+  const cf = new Cloudflare({ apiToken: tunnelToken, accountId: accountId });
+
   try {
-    // Install cloudflared binary if not present
-    if (!fs.existsSync(bin)) {
-      console.log('Installing cloudflared...');
-      await install(bin);
+    // 1. List or create tunnel
+    const listRes = await cf.zeroTrust.tunnels.list({ account_id: accountId });
+    let tunnel = listRes.result.find((t: any) => t.name === TUNNEL_NAME);
+
+    if (!tunnel) {
+      console.log(`Creating tunnel: ${TUNNEL_NAME}`);
+      const createRes = await cf.zeroTrust.tunnels.create({
+        account_id: accountId,
+        name: TUNNEL_NAME,
+        tunnel_type: 'cloudflared',
+      });
+      tunnel = createRes.result;
+    } else {
+      console.log(`Using existing tunnel: ${tunnel.id}`);
     }
 
-    // Run: cloudflared tunnel --hello-world
-    const tunnel = Tunnel.quick();
+    // 2. Ensure public hostname route
+    const routesRes = await cf.zeroTrust.tunnels.routes.list({
+      account_id: accountId,
+      tunnel_id: tunnel.id
+    });
+    const hasRoute = routesRes.result.some((r: any) => r.hostname === PUBLIC_HOST);
 
-    // Wait for the URL
-    tunnel.once('url', (url: string) => {
-      console.log(`\n🚀 Public HTTPS Tunnel: ${url}`);
-      console.log(`Viewer: ${url}/viewer.html`);
-      console.log(`(Tunnel closes when this process exits)`);
+    if (!hasRoute) {
+      console.log(`Adding route: ${PUBLIC_HOST} → http://localhost:${PORT}`);
+      await cf.zeroTrust.tunnels.routes.create({
+        account_id: accountId,
+        tunnel_id: tunnel.id,
+        hostname: PUBLIC_HOST,
+        service: `http://localhost:${PORT}`,
+      });
+    }
+
+    // 3. Start tunnel with token
+    console.log('Starting tunnel...');
+    const { url, stop } = await quickTunnel({
+      token: tunnelToken,
+      port: PORT,
     });
 
-    tunnel.once('connected', (connection: any) => {
-      console.log('Tunnel connected:', connection);
-    });
-    
-    tunnel.on('error', (err: Error) => {
-      console.error('Tunnel error:', err.message);
-    });
+    console.log(`\nTunnel Active: ${url}`);
+    console.log(`Viewer: ${url}/viewer.html\n`);
 
-    tunnel.on('exit', (code: number | null) => {
-      console.log(`Tunnel process exited with code ${code}`);
-    });
-
-    // Store reference for cleanup
-    process.on('SIGINT', () => {
-      console.log('\nShutting down tunnel...');
-      tunnel.stop();
-    });
-  } catch (err) {
-    console.error('Tunnel failed:', (err as Error).message);
+    return { url, stop };
+  } catch (err: any) {
+    console.error('Tunnel setup failed:', err.message);
+    console.warn('Server will continue running locally only');
+    return {
+      url: `http://localhost:${PORT}`,
+      stop: async () => {}
+    };
   }
 }
 
-startTunnel();
-
-// === Graceful Shutdown ===
-process.on('SIGINT', () => {
-  console.log('\nShutting down...');
-  mediamtxProcess.kill();
-  server.close(() => {
-    process.exit(0);
+// ──────────────────────────────────────────────────────────────
+// Run tunnel
+let tunnelStop: TunnelStop | null = null;
+startNamedTunnel()
+  .then(({ stop }) => {
+    tunnelStop = stop;
+  })
+  .catch((err) => {
+    console.error('Failed to start tunnel:', err.message);
+    console.log('Server will continue running locally only');
   });
+
+// ──────────────────────────────────────────────────────────────
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('\nShutting down...');
+  if (tunnelStop) await tunnelStop();
+  if (mediamtxProcess) mediamtxProcess.kill();
+  server.close(() => process.exit(0));
 });
+
+process.on('SIGTERM', () => process.emit('SIGINT', 'SIGINT'));
