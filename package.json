@@ -1,0 +1,35 @@
+{
+  "name": "vmsp-ptz",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/tizmagik/vmsp-ptz#readme",
+  "bugs": {
+    "url": "https://github.com/tizmagik/vmsp-ptz/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tizmagik/vmsp-ptz.git"
+  },
+  "license": "ISC",
+  "author": "Jeremy Gayed <@tizmagik>",
+  "type": "commonjs",
+  "main": "dist/server.js",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "tsx watch server.ts",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "cloudflared": "^0.7.1",
+    "express": "^4.19.2",
+    "http-proxy-middleware": "^3.0.0",
+    "mediamtx-installer": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^24.10.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

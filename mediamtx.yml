@@ -1,0 +1,12 @@
+paths:
+  left:
+    source: rtsp://192.168.100.100
+  main:
+    source: rtsp://192.168.100.101
+  right:
+    source: rtsp://192.168.100.102
+webrtc: yes
+webrtcAddress: :8889
+webrtcAdditionalHosts: [192.168.100.252]
+
+webrtcAllowOrigin: "*"
