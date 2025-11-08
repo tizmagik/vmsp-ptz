@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera + Companion</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .panel {
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    .video-panel {
+      flex: 1 1 60%;
+    }
+
+    .companion-panel {
+      flex: 1 1 40%;
+      min-width: 200px;
+      background: #222;
+      border-left: 1px solid #444;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .companion-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .resizer {
+      width: 10px;
+      background: #444;
+      cursor: col-resize;
+      user-select: none;
+      flex: 0 0 10px;
+      position: relative;
+    }
+
+    .resizer::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 40px;
+      background: #666;
+      border-radius: 2px;
+    }
+
+    .resizer:hover,
+    .resizer.active {
+      background: #666;
+    }
+
+    .status {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      padding: 6px 10px;
+      font-family: monospace;
+      font-size: 0.85em;
+      border-radius: 4px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .loading {
+      background: rgba(51, 40, 0, 0.8);
+      color: #ffeb99;
+    }
+
+    .success {
+      background: rgba(10, 46, 10, 0.8);
+      color: #a3f7a3;
+    }
+
+    .error {
+      background: rgba(51, 10, 10, 0.8);
+      color: #f7a3a3;
+    }
+
+    .cam-buttons {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .cam-btn {
+      padding: 8px 14px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .cam-btn:hover {
+      background: #444;
+    }
+
+    .cam-btn.active {
+      background: #0066cc;
+      border-color: #0088ff;
+      color: white;
+    }
+
+    @media (max-width: 767px) {
+      .main {
+        flex-direction: column;
+      }
+
+      .video-panel {
+        flex: 1 1 60%;
+      }
+
+      .companion-panel {
+        flex: 1 1 40%;
+        min-height: 150px;
+        border-left: none;
+        border-top: 1px solid #444;
+      }
+
+      .resizer {
+        height: 10px;
+        width: 100%;
+        cursor: row-resize;
+      }
+
+      .resizer::before {
+        width: 40px;
+        height: 4px;
+      }
+
+      .cam-buttons {
+        top: 8px;
+        left: 8px;
+        gap: 6px;
+      }
+
+      .cam-btn {
+        padding: 6px 10px;
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main" id="main">
+    <div class="panel video-panel">
+      <div class="cam-buttons">
+        <button class="cam-btn active" data-path="left">Left</button>
+        <button class="cam-btn" data-path="main">Main</button>
+        <button class="cam-btn" data-path="right">Right</button>
+      </div>
+      <iframe id="videoFrame" class="companion-frame" src="https://ptz-rtc.vmspchurch.org/left" title="Camera Stream" allowfullscreen></iframe>
+      <div id="status" class="status success">Live</div>
+    </div>
+    <div class="resizer" id="resizer"></div>
+    <div class="panel companion-panel">
+      <iframe class="companion-frame" src="https://ptz-companion.vmspchurch.org/tablet" title="Companion"
+        allowfullscreen sandbox="allow-scripts allow-same-origin allow-forms allow-modals allow-popups"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = 'https://ptz-rtc.vmspchurch.org';
+    const videoFrame = document.getElementById('videoFrame');
+    const status = document.getElementById('status');
+    const main = document.getElementById('main');
+    const resizer = document.getElementById('resizer');
+    const videoPanel = main.children[0];
+    const companionPanel = main.children[2];
+    let isResizing = false;
+    let currentPath = 'left';
+
+    // === Camera Buttons ===
+    document.querySelectorAll('.cam-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const path = btn.dataset.path;
+        if (path === currentPath) return;
+
+        // Update active button
+        document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        currentPath = path;
+        videoFrame.src = `${BASE_URL}/${path}`;
+        status.textContent = `Live: ${path}`;
+      });
+    });
+
+    // === Smooth Resizer ===
+    const startResize = e => {
+      isResizing = true;
+      resizer.classList.add('active');
+      document.body.style.cursor = window.innerWidth <= 767 ? 'row-resize' : 'col-resize';
+      e.preventDefault();
+    };
+
+    const doResize = e => {
+      if (!isResizing) return;
+      const rect = main.getBoundingClientRect();
+      const isMobile = window.innerWidth <= 767;
+      const ratio = isMobile
+        ? (rect.bottom - e.clientY) / rect.height
+        : (e.clientX - rect.left) / rect.width;
+      const clamped = Math.max(0.2, Math.min(0.8, ratio));
+      if (isMobile) {
+        videoPanel.style.flex = `1 1 ${100 - clamped * 100}%`;
+        companionPanel.style.flex = `1 1 ${clamped * 100}%`;
+      } else {
+        videoPanel.style.flex = `1 1 ${clamped * 100}%`;
+        companionPanel.style.flex = `1 1 ${100 - clamped * 100}%`;
+      }
+    };
+
+    const stopResize = () => {
+      if (isResizing) {
+        isResizing = false;
+        resizer.classList.remove('active');
+        document.body.style.cursor = '';
+      }
+    };
+
+    resizer.addEventListener('mousedown', startResize);
+    document.addEventListener('mousemove', doResize);
+    document.addEventListener('mouseup', stopResize);
+    resizer.addEventListener('touchstart', e => startResize(e.touches[0]));
+    document.addEventListener('touchmove', e => { doResize(e.touches[0]); e.preventDefault(); });
+    document.addEventListener('touchend', stopResize);
+
+    window.addEventListener('resize', () => {
+      resizer.style.cursor = window.innerWidth <= 767 ? 'row-resize' : 'col-resize';
+    });
+  </script>
+</body>
+
+</html>
