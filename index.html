@@ -143,6 +143,78 @@
       color: white;
     }
 
+    .settings-container {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+    }
+
+    .settings-icon {
+      width: 32px;
+      height: 32px;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.2s;
+    }
+
+    .settings-icon:hover {
+      background: #444;
+    }
+
+    .settings-menu {
+      position: absolute;
+      top: 38px;
+      right: 0;
+      background: #333;
+      border: 1px solid #555;
+      border-radius: 4px;
+      min-width: 120px;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .settings-menu.show {
+      display: block;
+    }
+
+    .settings-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9em;
+    }
+
+    .settings-item:hover {
+      background: #444;
+    }
+
+    .settings-item:first-child {
+      border-radius: 4px 4px 0 0;
+    }
+
+    .settings-item:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+
+    .settings-item .checkmark {
+      width: 12px;
+      visibility: hidden;
+    }
+
+    .settings-item.active .checkmark {
+      visibility: visible;
+    }
+
     @media (max-width: 767px) {
       .main {
         flex-direction: column;
@@ -180,6 +252,17 @@
         padding: 6px 10px;
         font-size: 0.8em;
       }
+
+      .settings-container {
+        top: 8px;
+        right: 8px;
+      }
+
+      .settings-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -193,6 +276,23 @@
         <button class="cam-btn" data-path="right">Right</button>
         <button class="cam-btn" data-path="altar">Altar</button>
         <button class="cam-btn" data-path="baptism">Baptism</button>
+      </div>
+      <div class="settings-container">
+        <div class="settings-icon" id="settingsIcon">⚙</div>
+        <div class="settings-menu" id="settingsMenu">
+          <div class="settings-item active" data-mode="auto">
+            <span class="checkmark">✓</span>
+            <span>Auto</span>
+          </div>
+          <div class="settings-item" data-mode="rtc">
+            <span class="checkmark">✓</span>
+            <span>RTC</span>
+          </div>
+          <div class="settings-item" data-mode="hls">
+            <span class="checkmark">✓</span>
+            <span>HLS</span>
+          </div>
+        </div>
       </div>
       <video id="videoPlayer" autoplay muted playsinline style="display: block;"></video>
       <iframe id="hlsFrame" class="companion-frame" style="display: none;"></iframe>
@@ -215,18 +315,81 @@
     const resizer = document.getElementById('resizer');
     const videoPanel = main.children[0];
     const companionPanel = main.children[2];
+    const settingsIcon = document.getElementById('settingsIcon');
+    const settingsMenu = document.getElementById('settingsMenu');
     let isResizing = false;
     let currentPath = 'left';
     let currentMode = 'rtc'; // 'rtc' or 'hls'
-    let useHLSOnly = false; // Once HLS fallback is used, stick with it
+    let preferredMode = 'auto'; // 'auto', 'rtc', or 'hls' - user's preference
+    let useHLSOnly = false; // Once HLS fallback is used in auto mode, stick with it
     let rtcReader = null;
     let rtcTimeout = null; // Timeout to detect if RTC doesn't start playing
+
+    // === Settings Menu ===
+    settingsIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      settingsMenu.classList.toggle('show');
+    });
+
+    // Close settings menu when clicking outside
+    document.addEventListener('click', () => {
+      settingsMenu.classList.remove('show');
+    });
+
+    // Handle settings menu item clicks
+    document.querySelectorAll('.settings-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const mode = item.dataset.mode;
+        
+        // Update active state
+        document.querySelectorAll('.settings-item').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        
+        // Update preferred mode
+        preferredMode = mode;
+        
+        // Reset useHLSOnly if user manually changes mode
+        if (mode !== 'auto') {
+          useHLSOnly = false;
+        }
+        
+        // Reload current stream with new mode
+        loadStream(currentPath);
+        
+        // Close menu
+        settingsMenu.classList.remove('show');
+      });
+    });
+
+    // Load stream based on preferred mode
+    function loadStream(path) {
+      if (preferredMode === 'hls') {
+        fallbackToHLS(path);
+      } else if (preferredMode === 'rtc') {
+        loadRTC(path);
+      } else {
+        // Auto mode
+        if (useHLSOnly) {
+          fallbackToHLS(path);
+        } else {
+          loadRTC(path);
+        }
+      }
+    }
 
     // Switch to HLS fallback
     function fallbackToHLS(path) {
       console.log(`Falling back to HLS for ${path}`);
       currentMode = 'hls';
-      useHLSOnly = true; // Remember that we need to use HLS
+      
+      // If in auto mode, remember that we need to use HLS and update UI
+      if (preferredMode === 'auto') {
+        useHLSOnly = true;
+        // Update settings menu to show HLS is active
+        document.querySelectorAll('.settings-item').forEach(i => i.classList.remove('active'));
+        document.querySelector('.settings-item[data-mode="hls"]').classList.add('active');
+      }
       
       // Hide video player, show HLS iframe
       videoPlayer.style.display = 'none';
@@ -347,18 +510,14 @@
 
         currentPath = path;
         
-        // If HLS fallback was used before, continue using HLS
-        if (useHLSOnly) {
-          fallbackToHLS(path);
-        } else {
-          loadRTC(path);
-        }
+        // Load stream based on current mode preference
+        loadStream(path);
       });
     });
 
     // Initial load - wait for page to be ready
     window.addEventListener('load', () => {
-      loadRTC(currentPath);
+      loadStream(currentPath);
     });
 
     // Cleanup on page unload
