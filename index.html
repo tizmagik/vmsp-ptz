@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Camera + Companion</title>
+  <script defer src="./reader.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -193,9 +194,9 @@
         <button class="cam-btn" data-path="altar">Altar</button>
         <button class="cam-btn" data-path="baptism">Baptism</button>
       </div>
-      <iframe id="videoFrame" class="companion-frame" src="https://ptz-rtc.vmspchurch.org/left" title="Camera Stream" allowfullscreen style="display: block;"></iframe>
-      <video id="videoPlayer" class="companion-frame" autoplay muted playsinline style="display: none;"></video>
-      <div id="status" class="status success">Live (RTC)</div>
+      <video id="videoPlayer" autoplay muted playsinline style="display: block;"></video>
+      <iframe id="hlsFrame" class="companion-frame" style="display: none;"></iframe>
+      <div id="status" class="status loading">Loading...</div>
     </div>
     <div class="resizer" id="resizer"></div>
     <div class="panel companion-panel">
@@ -207,8 +208,8 @@
   <script>
     const RTC_BASE_URL = 'https://ptz-rtc.vmspchurch.org';
     const HLS_BASE_URL = 'https://ptz-hls.vmspchurch.org';
-    const videoFrame = document.getElementById('videoFrame');
     const videoPlayer = document.getElementById('videoPlayer');
+    const hlsFrame = document.getElementById('hlsFrame');
     const status = document.getElementById('status');
     const main = document.getElementById('main');
     const resizer = document.getElementById('resizer');
@@ -217,175 +218,122 @@
     let isResizing = false;
     let currentPath = 'left';
     let currentMode = 'rtc'; // 'rtc' or 'hls'
-    let iframeTimeout = null;
-    let hls = null;
     let useHLSOnly = false; // Once HLS fallback is used, stick with it
-
-    // Load HLS.js library dynamically if needed
-    function loadHlsJs() {
-      return new Promise((resolve, reject) => {
-        if (window.Hls) {
-          resolve(window.Hls);
-          return;
-        }
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
-        script.onload = () => resolve(window.Hls);
-        script.onerror = reject;
-        document.head.appendChild(script);
-      });
-    }
+    let rtcReader = null;
+    let rtcTimeout = null; // Timeout to detect if RTC doesn't start playing
 
     // Switch to HLS fallback
-    async function fallbackToHLS(path) {
+    function fallbackToHLS(path) {
       console.log(`Falling back to HLS for ${path}`);
       currentMode = 'hls';
       useHLSOnly = true; // Remember that we need to use HLS
       
-      // Hide iframe, show video player
-      videoFrame.style.display = 'none';
-      videoPlayer.style.display = 'block';
+      // Hide video player, show HLS iframe
+      videoPlayer.style.display = 'none';
+      hlsFrame.style.display = 'block';
+      
+      // Set HLS iframe source
+      hlsFrame.src = `${HLS_BASE_URL}/${path}`;
       
       status.textContent = `Live: ${path} (HLS)`;
-      status.className = 'status loading';
-
-      try {
-        await loadHlsJs();
-        
-        const hlsUrl = `${HLS_BASE_URL}/${path}/index.m3u8`;
-        
-        if (window.Hls.isSupported()) {
-          // Use HLS.js for browsers that don't support HLS natively
-          if (hls) {
-            hls.destroy();
-          }
-          hls = new window.Hls({
-            enableWorker: true,
-            lowLatencyMode: true,
-          });
-          
-          hls.loadSource(hlsUrl);
-          hls.attachMedia(videoPlayer);
-          
-          hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
-            videoPlayer.play().then(() => {
-              status.textContent = `Live: ${path} (HLS)`;
-              status.className = 'status success';
-            }).catch(err => {
-              console.error('HLS playback error:', err);
-              // Try to play anyway, some browsers require user interaction
-              status.textContent = `Live: ${path} (HLS)`;
-              status.className = 'status success';
-            });
-          });
-          
-          hls.on(window.Hls.Events.ERROR, (event, data) => {
-            console.error('HLS.js error:', data);
-            if (data.fatal) {
-              switch (data.type) {
-                case window.Hls.ErrorTypes.NETWORK_ERROR:
-                  console.error('Fatal network error, trying to recover...');
-                  hls.startLoad();
-                  break;
-                case window.Hls.ErrorTypes.MEDIA_ERROR:
-                  console.error('Fatal media error, trying to recover...');
-                  hls.recoverMediaError();
-                  break;
-                default:
-                  status.textContent = `Error: ${path} (HLS failed)`;
-                  status.className = 'status error';
-                  break;
-              }
-            }
-          });
-        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
-          // Native HLS support (Safari)
-          videoPlayer.src = hlsUrl;
-          videoPlayer.addEventListener('loadedmetadata', () => {
-            videoPlayer.play().then(() => {
-              status.textContent = `Live: ${path} (HLS)`;
-              status.className = 'status success';
-            }).catch(err => {
-              console.error('Native HLS playback error:', err);
-              // Try to show as live anyway
-              status.textContent = `Live: ${path} (HLS)`;
-              status.className = 'status success';
-            });
-          });
-          videoPlayer.addEventListener('error', (err) => {
-            console.error('Native HLS error:', err);
-            status.textContent = `Error: ${path} (HLS failed)`;
-            status.className = 'status error';
-          });
-        } else {
-          throw new Error('HLS not supported in this browser');
-        }
-      } catch (err) {
-        console.error('Failed to load HLS:', err);
-        status.textContent = `Error: ${path} (no HLS support)`;
-        status.className = 'status error';
-      }
+      status.className = 'status success';
     }
 
-    // Try RTC first, with timeout fallback
+    // Load RTC stream using reader.js
     function loadRTC(path) {
       currentMode = 'rtc';
       
-      // Show iframe, hide video player
-      videoFrame.style.display = 'block';
-      videoPlayer.style.display = 'none';
+      // Show video player, hide HLS iframe
+      videoPlayer.style.display = 'block';
+      hlsFrame.style.display = 'none';
       
-      // Clean up HLS if it was running
-      if (hls) {
-        hls.destroy();
-        hls = null;
+      // Clean up previous RTC reader
+      if (rtcReader) {
+        rtcReader.close();
+        rtcReader = null;
       }
-      videoPlayer.src = '';
+      
+      // Clear any existing timeout
+      if (rtcTimeout) {
+        clearTimeout(rtcTimeout);
+        rtcTimeout = null;
+      }
+      
+      videoPlayer.srcObject = null;
       
       status.textContent = `Loading: ${path} (RTC)`;
       status.className = 'status loading';
       
-      // Clear any existing timeout
-      if (iframeTimeout) {
-        clearTimeout(iframeTimeout);
-      }
+      let trackReceived = false;
+      let videoStarted = false;
       
-      // Set iframe source
-      videoFrame.src = `${RTC_BASE_URL}/${path}`;
-      
-      // Set a timeout to fallback to HLS if RTC doesn't load
-      iframeTimeout = setTimeout(() => {
-        console.warn(`RTC timeout for ${path}, falling back to HLS`);
-        fallbackToHLS(path);
-      }, 10000); // 10 second timeout
-      
-      // Try to detect if iframe loads successfully
-      // Note: Due to CORS, we can't reliably detect iframe content load
-      // The timeout is our main fallback mechanism
-    }
-
-    // Listen for messages from the RTC iframe (if it supports postMessage)
-    window.addEventListener('message', (event) => {
-      // Check if message is from our RTC domain
-      if (event.origin === RTC_BASE_URL) {
-        if (event.data && event.data.type === 'rtc-loaded') {
-          // RTC loaded successfully
-          if (iframeTimeout) {
-            clearTimeout(iframeTimeout);
-            iframeTimeout = null;
+      // Set a timeout to fallback if video doesn't start playing
+      rtcTimeout = setTimeout(() => {
+        if (!videoStarted && currentMode === 'rtc') {
+          console.warn('RTC timeout - video not playing, falling back to HLS');
+          if (rtcReader) {
+            rtcReader.close();
+            rtcReader = null;
           }
-          status.textContent = `Live: ${currentPath} (RTC)`;
-          status.className = 'status success';
-        } else if (event.data && event.data.type === 'rtc-error') {
-          // RTC failed
-          if (iframeTimeout) {
-            clearTimeout(iframeTimeout);
-            iframeTimeout = null;
-          }
-          fallbackToHLS(currentPath);
+          fallbackToHLS(path);
         }
-      }
-    });
+      }, 8000); // 8 second timeout
+      
+      // Listen for video playing event
+      const onPlaying = () => {
+        videoStarted = true;
+        if (rtcTimeout) {
+          clearTimeout(rtcTimeout);
+          rtcTimeout = null;
+        }
+        if (trackReceived) {
+          status.textContent = `Live: ${path} (RTC)`;
+          status.className = 'status success';
+        }
+        videoPlayer.removeEventListener('playing', onPlaying);
+      };
+      
+      videoPlayer.addEventListener('playing', onPlaying);
+      
+      // Create WebRTC reader with proper error handling
+      rtcReader = new window.MediaMTXWebRTCReader({
+        url: `${RTC_BASE_URL}/${path}/whep`,
+        onError: (err) => {
+          console.error('WebRTC error:', err);
+          status.textContent = `RTC failed: ${path}`;
+          status.className = 'status error';
+          
+          // Clear timeout since we're handling the error now
+          if (rtcTimeout) {
+            clearTimeout(rtcTimeout);
+            rtcTimeout = null;
+          }
+          
+          videoPlayer.removeEventListener('playing', onPlaying);
+          
+          // Fallback to HLS on error
+          fallbackToHLS(path);
+        },
+        onTrack: (evt) => {
+          console.log('WebRTC track received');
+          trackReceived = true;
+          videoPlayer.srcObject = evt.streams[0];
+          
+          // Try to play the video
+          videoPlayer.play().catch(err => {
+            console.error('Video play error:', err);
+            // On mobile, autoplay might be blocked, but that's ok
+            // The timeout will still trigger if video never starts
+          });
+          
+          // Update status if video is already playing
+          if (videoStarted) {
+            status.textContent = `Live: ${path} (RTC)`;
+            status.className = 'status success';
+          }
+        },
+      });
+    }
 
     // === Camera Buttons ===
     document.querySelectorAll('.cam-btn').forEach(btn => {
@@ -408,8 +356,17 @@
       });
     });
 
-    // Initial load
-    loadRTC(currentPath);
+    // Initial load - wait for page to be ready
+    window.addEventListener('load', () => {
+      loadRTC(currentPath);
+    });
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (rtcReader) {
+        rtcReader.close();
+      }
+    });
 
     // === Smooth Resizer ===
     const startResize = e => {
