@@ -221,11 +221,11 @@
       }
 
       .video-panel {
-        flex: 1 1 60%;
+        flex: 1 1 40%;
       }
 
       .companion-panel {
-        flex: 1 1 40%;
+        flex: 1 1 60%;
         min-height: 150px;
         border-left: none;
         border-top: 1px solid #444;
@@ -254,6 +254,7 @@
       }
 
       .settings-container {
+        display: none; /* TODO: Hide settings for now on mobile for simplicity */
         top: 8px;
         right: 8px;
       }
@@ -271,7 +272,8 @@
   <div class="main" id="main">
     <div class="panel video-panel">
       <div class="cam-buttons">
-        <button class="cam-btn active" data-path="left">Left</button>
+        <button class="cam-btn active" data-path="mv">MV</button>
+        <button class="cam-btn" data-path="left">Left</button>
         <button class="cam-btn" data-path="main">Main</button>
         <button class="cam-btn" data-path="right">Right</button>
         <button class="cam-btn" data-path="altar">Altar</button>
@@ -318,7 +320,7 @@
     const settingsIcon = document.getElementById('settingsIcon');
     const settingsMenu = document.getElementById('settingsMenu');
     let isResizing = false;
-    let currentPath = 'left';
+    let currentPath = 'mv';
     let currentMode = 'rtc'; // 'rtc' or 'hls'
     let preferredMode = 'auto'; // 'auto', 'rtc', or 'hls' - user's preference
     let useHLSOnly = false; // Once HLS fallback is used in auto mode, stick with it
