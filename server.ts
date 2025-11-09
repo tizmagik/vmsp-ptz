@@ -1,7 +1,6 @@
 // server.ts
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
 import { spawn, ChildProcess } from 'child_process';
 import path from 'path';
 import fs from 'fs';
@@ -9,7 +8,6 @@ import fs from 'fs';
 // ──────────────────────────────────────────────────────────────
 // Configuration (use .env or replace directly)
 const PORT = 8111;
-const COMPANION_PORT = 8000;
 const MEDIA_MTX_CFG = 'mediamtx.yml';
 
 // ──────────────────────────────────────────────────────────────
@@ -19,19 +17,9 @@ const __dirname = path.resolve();
 // Serve static files (viewer.html, etc.)
 app.use(express.static(__dirname));
 
-// Proxy Companion tablet
-app.use(
-  '/tablet',
-  createProxyMiddleware({
-    target: `http://localhost:${COMPANION_PORT}`,
-    changeOrigin: true,
-  })
-);
-
-// Camera switch endpoint (from Companion)
-app.get('/switch-camera', (req: Request, res: Response) => {
-  const cam = req.query.path || 'left';
-  res.redirect(`/viewer.html?camera=${encodeURIComponent(cam as string)}`);
+// Serve index.html at root
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start HTTP server
