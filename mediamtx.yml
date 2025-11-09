@@ -1,3 +1,5 @@
+# $schema: https://mediamtx.rtfd.io/schemas/v1.6/mediamtx.schema.json
+
 paths:
   left:
     source: rtsp://192.168.100.100
@@ -9,9 +11,20 @@ paths:
     source: rtsp://192.168.100.103
   baptism:
     source: rtsp://192.168.100.104
+hls: yes
+hlsAddress: :8888
 webrtc: yes
 webrtcAddress: :8889
+# webrtcLocalUDPAddress: "" # Disabled local UDP address for WebRTC
+webrtcLocalTCPAddress: :8189 # Added local TCP address for WebRTC
 webrtcAdditionalHosts: [192.168.100.252, "ptz.vmspchurch.org", "ptz-rtc.vmspchurch.org", "localhost", "remote.vmspchurch.org"]
 webrtcAllowOrigin: "*"
 webrtcICEServers2:
   - url: stun:stun.l.google.com:19302
+  # - url: turn:openrelay.metered.ca:80?transport=tcp
+  #   username: openrelayproject
+  #   password: openrelayproject
+  # # Optional second TURN for redundancy (also TCP-capable)
+  # - url: turn:openrelay.metered.ca:443?transport=tcp
+  #   username: openrelayproject
+  #   password: openrelayproject

@@ -193,8 +193,9 @@
         <button class="cam-btn" data-path="altar">Altar</button>
         <button class="cam-btn" data-path="baptism">Baptism</button>
       </div>
-      <iframe id="videoFrame" class="companion-frame" src="https://ptz-rtc.vmspchurch.org/left" title="Camera Stream" allowfullscreen></iframe>
-      <div id="status" class="status success">Live</div>
+      <iframe id="videoFrame" class="companion-frame" src="https://ptz-rtc.vmspchurch.org/left" title="Camera Stream" allowfullscreen style="display: block;"></iframe>
+      <video id="videoPlayer" class="companion-frame" autoplay muted playsinline style="display: none;"></video>
+      <div id="status" class="status success">Live (RTC)</div>
     </div>
     <div class="resizer" id="resizer"></div>
     <div class="panel companion-panel">
@@ -204,8 +205,10 @@
   </div>
 
   <script>
-    const BASE_URL = 'https://ptz-rtc.vmspchurch.org';
+    const RTC_BASE_URL = 'https://ptz-rtc.vmspchurch.org';
+    const HLS_BASE_URL = 'https://ptz-hls.vmspchurch.org';
     const videoFrame = document.getElementById('videoFrame');
+    const videoPlayer = document.getElementById('videoPlayer');
     const status = document.getElementById('status');
     const main = document.getElementById('main');
     const resizer = document.getElementById('resizer');
@@ -213,6 +216,176 @@
     const companionPanel = main.children[2];
     let isResizing = false;
     let currentPath = 'left';
+    let currentMode = 'rtc'; // 'rtc' or 'hls'
+    let iframeTimeout = null;
+    let hls = null;
+    let useHLSOnly = false; // Once HLS fallback is used, stick with it
+
+    // Load HLS.js library dynamically if needed
+    function loadHlsJs() {
+      return new Promise((resolve, reject) => {
+        if (window.Hls) {
+          resolve(window.Hls);
+          return;
+        }
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/hls.js@latest';
+        script.onload = () => resolve(window.Hls);
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    // Switch to HLS fallback
+    async function fallbackToHLS(path) {
+      console.log(`Falling back to HLS for ${path}`);
+      currentMode = 'hls';
+      useHLSOnly = true; // Remember that we need to use HLS
+      
+      // Hide iframe, show video player
+      videoFrame.style.display = 'none';
+      videoPlayer.style.display = 'block';
+      
+      status.textContent = `Live: ${path} (HLS)`;
+      status.className = 'status loading';
+
+      try {
+        await loadHlsJs();
+        
+        const hlsUrl = `${HLS_BASE_URL}/${path}/index.m3u8`;
+        
+        if (window.Hls.isSupported()) {
+          // Use HLS.js for browsers that don't support HLS natively
+          if (hls) {
+            hls.destroy();
+          }
+          hls = new window.Hls({
+            enableWorker: true,
+            lowLatencyMode: true,
+          });
+          
+          hls.loadSource(hlsUrl);
+          hls.attachMedia(videoPlayer);
+          
+          hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+            videoPlayer.play().then(() => {
+              status.textContent = `Live: ${path} (HLS)`;
+              status.className = 'status success';
+            }).catch(err => {
+              console.error('HLS playback error:', err);
+              // Try to play anyway, some browsers require user interaction
+              status.textContent = `Live: ${path} (HLS)`;
+              status.className = 'status success';
+            });
+          });
+          
+          hls.on(window.Hls.Events.ERROR, (event, data) => {
+            console.error('HLS.js error:', data);
+            if (data.fatal) {
+              switch (data.type) {
+                case window.Hls.ErrorTypes.NETWORK_ERROR:
+                  console.error('Fatal network error, trying to recover...');
+                  hls.startLoad();
+                  break;
+                case window.Hls.ErrorTypes.MEDIA_ERROR:
+                  console.error('Fatal media error, trying to recover...');
+                  hls.recoverMediaError();
+                  break;
+                default:
+                  status.textContent = `Error: ${path} (HLS failed)`;
+                  status.className = 'status error';
+                  break;
+              }
+            }
+          });
+        } else if (videoPlayer.canPlayType('application/vnd.apple.mpegurl')) {
+          // Native HLS support (Safari)
+          videoPlayer.src = hlsUrl;
+          videoPlayer.addEventListener('loadedmetadata', () => {
+            videoPlayer.play().then(() => {
+              status.textContent = `Live: ${path} (HLS)`;
+              status.className = 'status success';
+            }).catch(err => {
+              console.error('Native HLS playback error:', err);
+              // Try to show as live anyway
+              status.textContent = `Live: ${path} (HLS)`;
+              status.className = 'status success';
+            });
+          });
+          videoPlayer.addEventListener('error', (err) => {
+            console.error('Native HLS error:', err);
+            status.textContent = `Error: ${path} (HLS failed)`;
+            status.className = 'status error';
+          });
+        } else {
+          throw new Error('HLS not supported in this browser');
+        }
+      } catch (err) {
+        console.error('Failed to load HLS:', err);
+        status.textContent = `Error: ${path} (no HLS support)`;
+        status.className = 'status error';
+      }
+    }
+
+    // Try RTC first, with timeout fallback
+    function loadRTC(path) {
+      currentMode = 'rtc';
+      
+      // Show iframe, hide video player
+      videoFrame.style.display = 'block';
+      videoPlayer.style.display = 'none';
+      
+      // Clean up HLS if it was running
+      if (hls) {
+        hls.destroy();
+        hls = null;
+      }
+      videoPlayer.src = '';
+      
+      status.textContent = `Loading: ${path} (RTC)`;
+      status.className = 'status loading';
+      
+      // Clear any existing timeout
+      if (iframeTimeout) {
+        clearTimeout(iframeTimeout);
+      }
+      
+      // Set iframe source
+      videoFrame.src = `${RTC_BASE_URL}/${path}`;
+      
+      // Set a timeout to fallback to HLS if RTC doesn't load
+      iframeTimeout = setTimeout(() => {
+        console.warn(`RTC timeout for ${path}, falling back to HLS`);
+        fallbackToHLS(path);
+      }, 10000); // 10 second timeout
+      
+      // Try to detect if iframe loads successfully
+      // Note: Due to CORS, we can't reliably detect iframe content load
+      // The timeout is our main fallback mechanism
+    }
+
+    // Listen for messages from the RTC iframe (if it supports postMessage)
+    window.addEventListener('message', (event) => {
+      // Check if message is from our RTC domain
+      if (event.origin === RTC_BASE_URL) {
+        if (event.data && event.data.type === 'rtc-loaded') {
+          // RTC loaded successfully
+          if (iframeTimeout) {
+            clearTimeout(iframeTimeout);
+            iframeTimeout = null;
+          }
+          status.textContent = `Live: ${currentPath} (RTC)`;
+          status.className = 'status success';
+        } else if (event.data && event.data.type === 'rtc-error') {
+          // RTC failed
+          if (iframeTimeout) {
+            clearTimeout(iframeTimeout);
+            iframeTimeout = null;
+          }
+          fallbackToHLS(currentPath);
+        }
+      }
+    });
 
     // === Camera Buttons ===
     document.querySelectorAll('.cam-btn').forEach(btn => {
@@ -225,10 +398,18 @@
         btn.classList.add('active');
 
         currentPath = path;
-        videoFrame.src = `${BASE_URL}/${path}`;
-        status.textContent = `Live: ${path}`;
+        
+        // If HLS fallback was used before, continue using HLS
+        if (useHLSOnly) {
+          fallbackToHLS(path);
+        } else {
+          loadRTC(path);
+        }
       });
     });
+
+    // Initial load
+    loadRTC(currentPath);
 
     // === Smooth Resizer ===
     const startResize = e => {
