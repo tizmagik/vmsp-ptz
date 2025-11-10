@@ -1,4 +1,6 @@
 import { spawn, ChildProcess } from 'child_process';
+import { Router } from 'express';
+import type { Request, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { AUDIO_DIR, ROOT_DIR } from './config.js';
@@ -97,4 +99,34 @@ export function cleanupAudio(): void {
     audioProcess.kill();
     audioProcess = null;
   }
+}
+
+/**
+ * Create router with audio routes
+ */
+export function createAudioRouter(): Router {
+  const router = Router();
+
+  router.post('/play-audio', (req: Request, res: Response) => {
+    const { filename } = req.body;
+    const result = playAudio(filename);
+    
+    if (!result.success) {
+      const statusCode = result.message === 'Audio file not found' ? 404 : 400;
+      return res.status(statusCode).json(result);
+    }
+    
+    res.json(result);
+  });
+
+  router.post('/stop-audio', (req: Request, res: Response) => {
+    const result = stopAudio();
+    res.json(result);
+  });
+
+  router.get('/audio-status', (req: Request, res: Response) => {
+    res.send(getAudioStatus());
+  });
+
+  return router;
 }

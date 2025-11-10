@@ -1,4 +1,6 @@
 import { spawn, ChildProcess } from 'child_process';
+import { Router } from 'express';
+import type { Request, Response } from 'express';
 import fs from 'fs';
 import { MEDIAMTX_PATH, MEDIAMTX_CONFIG_PATH, ROOT_DIR } from './config.js';
 
@@ -61,4 +63,19 @@ export function stopMediaMTX(): void {
     global.mediamtxProcess.kill();
     global.mediamtxProcess = null;
   }
+}
+
+/**
+ * Create router with MediaMTX routes
+ */
+export function createMediaMTXRouter(): Router {
+  const router = Router();
+
+  router.post('/restart-mediamtx', async (req: Request, res: Response) => {
+    console.log('Restart MediaMTX requested');
+    const result = await restartMediaMTX();
+    res.json(result);
+  });
+
+  return router;
 }

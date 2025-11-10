@@ -6,7 +6,7 @@ import { PORT, BUILD_CLIENT_DIR } from './config.js';
 import { disableCaching } from './middleware.js';
 import { startMediaMTX, stopMediaMTX } from './mediamtx.js';
 import { cleanupAudio } from './audio.js';
-import apiRoutes from './routes.js';
+import { createAPIRouter } from './routes.js';
 
 // Create Express app
 const app = express();
@@ -18,7 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 
 // Mount API routes - MUST come before Vite/React Router middleware
-app.use('/api', apiRoutes);
+app.use('/api', createAPIRouter());
 
 // Setup Vite dev server in development
 const viteDevServer: ViteDevServer | null =
@@ -41,6 +41,7 @@ if (viteDevServer) {
 // Load the built server in production or dev
 const build: any = viteDevServer
   ? () => viteDevServer.ssrLoadModule('virtual:react-router/server-build')
+  // @ts-expect-error -- Build import
   : await import('../build/server/index.js');
 
 // React Router request handler for all other routes
