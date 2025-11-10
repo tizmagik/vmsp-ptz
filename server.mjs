@@ -13,6 +13,11 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 8111;
 const MEDIA_MTX_CFG = 'mediamtx.yml';
 
+// Global audio process tracker
+let audioProcess = null;
+let isAudioPlaying = false;
+let currentAudioFile = '';
+
 // ──────────────────────────────────────────────────────────────
 // Start MediaMTX function
 function startMediaMTX() {
@@ -72,6 +77,79 @@ app.post('/api/restart-mediamtx', (req, res) => {
     global.mediamtxProcess = startMediaMTX();
     res.json({ success: true, message: 'MediaMTX started' });
   }
+});
+
+// API endpoint to play audio on host machine
+app.post('/api/play-audio', (req, res) => {
+  const { filename } = req.body;
+  
+  if (!filename) {
+    return res.status(400).json({ success: false, message: 'Filename required' });
+  }
+  
+  const audioPath = path.join(__dirname, 'public', 'audio', filename);
+  
+  if (!fs.existsSync(audioPath)) {
+    return res.status(404).json({ success: false, message: 'Audio file not found' });
+  }
+  
+  // Stop any existing audio
+  if (audioProcess) {
+    audioProcess.kill();
+    audioProcess = null;
+  }
+  
+  console.log(`Playing audio: ${filename}`);
+  isAudioPlaying = true;
+  currentAudioFile = filename;
+  
+  // Use PowerShell with SoundPlayer for better audio playback
+  const escapedPath = audioPath.replace(/\\/g, '\\\\').replace(/'/g, "''");
+  const powershellCommand = `
+    Add-Type -AssemblyName presentationCore;
+    $player = New-Object System.Windows.Media.MediaPlayer;
+    $player.Open('${escapedPath}');
+    $player.Play();
+    while ($player.NaturalDuration.HasTimeSpan -eq $false) { Start-Sleep -Milliseconds 100 }
+    $duration = $player.NaturalDuration.TimeSpan.TotalSeconds;
+    Start-Sleep -Seconds $duration;
+  `.trim();
+  
+  audioProcess = spawn('powershell.exe', ['-Command', powershellCommand], {
+    stdio: 'pipe',
+    cwd: __dirname,
+  });
+  
+  audioProcess.on('close', (code) => {
+    console.log(`Audio playback finished: ${filename}`);
+    audioProcess = null;
+    isAudioPlaying = false;
+    currentAudioFile = '';
+  });
+  
+  res.json({ success: true, message: `Playing ${filename}` });
+});
+
+// API endpoint to stop audio playback
+app.post('/api/stop-audio', (req, res) => {
+  if (audioProcess) {
+    console.log('Stopping audio playback');
+    audioProcess.kill();
+    audioProcess = null;
+    isAudioPlaying = false;
+    currentAudioFile = '';
+    res.json({ success: true, message: 'Audio stopped' });
+  } else {
+    res.json({ success: false, message: 'No audio playing' });
+  }
+});
+
+// API endpoint to check audio status
+app.get('/api/audio-status', (req, res) => {
+  res.json({ 
+    isPlaying: isAudioPlaying,
+    currentFile: currentAudioFile 
+  });
 });
 
 // Setup Vite dev server in development
