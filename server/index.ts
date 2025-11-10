@@ -1,7 +1,8 @@
 import 'dotenv/config';
 import { createRequestHandler } from '@react-router/express';
-import { spawn } from 'child_process';
+import { spawn, ChildProcess } from 'child_process';
 import express from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -12,24 +13,33 @@ import {
   getAuthUrl,
   exchangeCodeForTokens,
   isAuthenticated,
-} from './youtube-auth.mjs';
+} from './youtube-auth.js';
+import type { ViteDevServer } from 'vite';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Move up one directory to get to project root
+const ROOT_DIR = path.join(__dirname, '..');
 
 // Configuration
 const PORT = process.env.PORT || 8111;
 const MEDIA_MTX_CFG = 'mediamtx.yml';
 
 // Global audio process tracker
-let audioProcess = null;
+let audioProcess: ChildProcess | null = null;
 let isAudioPlaying = false;
 let currentAudioFile = '';
 
+// Extend global namespace for mediamtxProcess
+declare global {
+  var mediamtxProcess: ChildProcess | null;
+}
+
 // ──────────────────────────────────────────────────────────────
 // Start MediaMTX function
-function startMediaMTX() {
-  const exePath = path.join(__dirname, 'mediamtx.exe');
+function startMediaMTX(): ChildProcess | null {
+  const exePath = path.join(ROOT_DIR, 'mediamtx.exe');
   
   if (!fs.existsSync(exePath)) {
     console.warn('⚠️  mediamtx.exe not found - video streaming disabled');
@@ -37,14 +47,14 @@ function startMediaMTX() {
     return null;
   }
 
-  const configPath = path.join(__dirname, MEDIA_MTX_CFG);
+  const configPath = path.join(ROOT_DIR, MEDIA_MTX_CFG);
   const proc = spawn(exePath, [configPath], {
     stdio: 'pipe',
-    cwd: __dirname,
+    cwd: ROOT_DIR,
   });
 
-  proc.stdout.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));
-  proc.stderr.on('data', (data) => console.error(`MTX ERR: ${data.toString().trim()}`));
+  proc.stdout?.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));
+  proc.stderr?.on('data', (data) => console.error(`MTX ERR: ${data.toString().trim()}`));
   proc.on('close', (code) => console.log(`MediaMTX exited with code ${code}`));
 
   console.log('MediaMTX started (WebRTC on :8889)');
@@ -56,7 +66,7 @@ const app = express();
 
 // Disable caching in development
 if (process.env.NODE_ENV !== 'production') {
-  app.use((req, res, next) => {
+  app.use((req: Request, res: Response, next: NextFunction) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
@@ -68,7 +78,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json());
 
 // API endpoint to restart MediaMTX - MUST come before Vite/React Router middleware
-app.post('/api/restart-mediamtx', (req, res) => {
+app.post('/api/restart-mediamtx', (req: Request, res: Response) => {
   console.log('Restart MediaMTX requested');
   
   if (global.mediamtxProcess) {
@@ -88,14 +98,14 @@ app.post('/api/restart-mediamtx', (req, res) => {
 });
 
 // API endpoint to play audio on host machine
-app.post('/api/play-audio', (req, res) => {
+app.post('/api/play-audio', (req: Request, res: Response) => {
   const { filename } = req.body;
   
   if (!filename) {
     return res.status(400).json({ success: false, message: 'Filename required' });
   }
   
-  const audioPath = path.join(__dirname, 'public', 'audio', filename);
+  const audioPath = path.join(ROOT_DIR, 'public', 'audio', filename);
   
   if (!fs.existsSync(audioPath)) {
     return res.status(404).json({ success: false, message: 'Audio file not found' });
@@ -125,7 +135,7 @@ app.post('/api/play-audio', (req, res) => {
   
   audioProcess = spawn('powershell.exe', ['-Command', powershellCommand], {
     stdio: 'pipe',
-    cwd: __dirname,
+    cwd: ROOT_DIR,
   });
   
   audioProcess.on('close', (code) => {
@@ -139,7 +149,7 @@ app.post('/api/play-audio', (req, res) => {
 });
 
 // API endpoint to stop audio playback
-app.post('/api/stop-audio', (req, res) => {
+app.post('/api/stop-audio', (req: Request, res: Response) => {
   if (audioProcess) {
     console.log('Stopping audio playback');
     audioProcess.kill();
@@ -153,7 +163,7 @@ app.post('/api/stop-audio', (req, res) => {
 });
 
 // API endpoint to check audio status
-app.get('/api/audio-status', (req, res) => {
+app.get('/api/audio-status', (req: Request, res: Response) => {
   res.send(currentAudioFile.replace('.mp3', ''));
 });
 
@@ -162,35 +172,35 @@ app.get('/api/audio-status', (req, res) => {
 // ──────────────────────────────────────────────────────────────
 
 // Check YouTube authentication status
-app.get('/api/yt/status', async (req, res) => {
+app.get('/api/yt/status', async (req: Request, res: Response) => {
   try {
     const authenticated = await isAuthenticated();
     res.json({ authenticated });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });
   }
 });
 
 // Initiate YouTube OAuth flow
-app.get('/api/yt/auth', (req, res) => {
+app.get('/api/yt/auth', (req: Request, res: Response) => {
   try {
     const oauth2Client = createOAuth2Client();
     const authUrl = getAuthUrl(oauth2Client);
     res.redirect(authUrl);
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });
   }
 });
 
 // OAuth callback endpoint
-app.get('/api/yt/callback', async (req, res) => {
+app.get('/api/yt/callback', async (req: Request, res: Response) => {
   const { code, error } = req.query;
   
   if (error) {
     return res.status(400).send(`Authentication failed: ${error}`);
   }
   
-  if (!code) {
+  if (!code || typeof code !== 'string') {
     return res.status(400).send('No authorization code received');
   }
   
@@ -206,14 +216,14 @@ app.get('/api/yt/callback', async (req, res) => {
         </body>
       </html>
     `);
-  } catch (error) {
+  } catch (error: any) {
     console.error('OAuth callback error:', error);
     res.status(500).send(`Authentication failed: ${error.message}`);
   }
 });
 
 // Update YouTube broadcast (title, description, thumbnail)
-app.post('/api/yt/update', async (req, res) => {
+app.post('/api/yt/update', async (req: Request, res: Response) => {
   try {
     const { title, description, thumbnail, broadcastId } = req.body;
     
@@ -293,7 +303,7 @@ app.post('/api/yt/update', async (req, res) => {
     }
     
     // Update the broadcast
-    const updateResponse = await youtube.liveBroadcasts.update({
+    await youtube.liveBroadcasts.update({
       part: ['snippet'],
       requestBody: {
         id: targetBroadcastId,
@@ -317,7 +327,7 @@ app.post('/api/yt/update', async (req, res) => {
       description: updatedSnippet.description,
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('YouTube update error:', error);
     res.status(500).json({ 
       success: false, 
@@ -327,7 +337,7 @@ app.post('/api/yt/update', async (req, res) => {
 });
 
 // Get list of live broadcasts
-app.get('/api/yt/broadcasts', async (req, res) => {
+app.get('/api/yt/broadcasts', async (req: Request, res: Response) => {
   try {
     const auth = await getAuthenticatedClient();
     if (!auth) {
@@ -350,7 +360,7 @@ app.get('/api/yt/broadcasts', async (req, res) => {
       broadcasts: response.data.items || [] 
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('YouTube broadcasts error:', error);
     res.status(500).json({ 
       success: false, 
@@ -361,7 +371,7 @@ app.get('/api/yt/broadcasts', async (req, res) => {
 
 
 // Setup Vite dev server in development
-const viteDevServer =
+const viteDevServer: ViteDevServer | null =
   process.env.NODE_ENV === 'production'
     ? null
     : await import('vite').then((vite) =>
@@ -375,13 +385,13 @@ if (viteDevServer) {
   app.use(viteDevServer.middlewares);
 } else {
   // Serve static files in production
-  app.use(express.static(path.join(__dirname, 'build/client')));
+  app.use(express.static(path.join(ROOT_DIR, 'build/client')));
 }
 
 // Load the built server in production or dev
-const build = viteDevServer
+const build: any = viteDevServer
   ? () => viteDevServer.ssrLoadModule('virtual:react-router/server-build')
-  : await import('./build/server/index.js');
+  : await import('../build/server/index.js');
 
 // React Router request handler
 app.all('*', createRequestHandler({ build }));

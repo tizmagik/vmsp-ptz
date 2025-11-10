@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "node server.mjs",
-    "start": "cross-env NODE_ENV=production node server.mjs",
+    "dev": "tsx server/index.ts",
+    "start": "cross-env NODE_ENV=production tsx server/index.ts",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -27,9 +27,11 @@
   },
   "devDependencies": {
     "@react-router/dev": "^7.9.2",
+    "@types/express": "^5.0.5",
     "@types/node": "^22",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
     "vite-tsconfig-paths": "^5.1.4"
