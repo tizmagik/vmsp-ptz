@@ -1,35 +1,34 @@
 {
   "name": "vmsp-ptz",
   "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/tizmagik/vmsp-ptz#readme",
-  "bugs": {
-    "url": "https://github.com/tizmagik/vmsp-ptz/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tizmagik/vmsp-ptz.git"
-  },
-  "license": "ISC",
-  "author": "Jeremy Gayed <@tizmagik>",
-  "type": "commonjs",
-  "main": "dist/server.js",
+  "description": "Camera PTZ control with React Router",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "tsx watch server.ts",
-    "build": "tsc",
-    "watch": "tsc --watch"
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
-    "express": "^4.19.2",
-    "http-proxy-middleware": "^3.0.0",
-    "mediamtx-installer": "^1.0.0"
+    "@react-router/node": "^7.9.2",
+    "@react-router/serve": "^7.9.2",
+    "isbot": "^5.1.31",
+    "mediamtx-webrtc-react": "^0.0.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.2"
   },
   "devDependencies": {
-    "@types/express": "^5.0.5",
-    "@types/node": "^24.10.0",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3"
+    "@react-router/dev": "^7.9.2",
+    "@types/node": "^22",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

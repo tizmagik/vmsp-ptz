@@ -1,8 +1,14 @@
 node_modules/
-dist/
-*.js
-*.js.map
-*.d.ts
-
-*.env
+.env
 .DS_Store
+
+# Build outputs
+/build/
+/.react-router/
+dist/
+
+# Keep public JS files
+!public/*.js
+
+# Backup files
+package-old.json
