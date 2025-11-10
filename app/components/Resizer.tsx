@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 
 interface ResizerProps {
   onResize: (ratio: number) => void;
@@ -55,7 +55,7 @@ export function Resizer({ onResize }: ResizerProps) {
   };
 
   // Set up global event listeners
-  useCallback(() => {
+  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => doResize(e.clientX, e.clientY);
     const handleTouchMove = (e: TouchEvent) => {
       e.preventDefault();
