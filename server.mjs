@@ -41,6 +41,16 @@ function startMediaMTX() {
 // Create Express app
 const app = express();
 
+// Disable caching in development
+if (process.env.NODE_ENV !== 'production') {
+  app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+  });
+}
+
 // Add JSON body parser for API routes
 app.use(express.json());
 

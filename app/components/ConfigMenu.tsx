@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Settings, RotateCw, Check, X, Loader2 } from 'lucide-react';
 
 type StreamMode = 'auto' | 'rtc' | 'hls';
 
@@ -44,7 +45,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Configuration menu"
       >
-        ⚙️
+        <Settings size={16} />
       </button>
       
       {isOpen && (
@@ -81,10 +82,30 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
               onClick={handleRestartMediaMTX}
               disabled={restartStatus === 'restarting'}
             >
-              {restartStatus === 'restarting' && '⏳ Restarting...'}
-              {restartStatus === 'success' && '✅ Restarted!'}
-              {restartStatus === 'error' && '❌ Failed'}
-              {restartStatus === 'idle' && '🔄 Restart MediaMTX'}
+              {restartStatus === 'restarting' && (
+                <>
+                  <Loader2 size={14} className="spin-icon" />
+                  <span>Restarting...</span>
+                </>
+              )}
+              {restartStatus === 'success' && (
+                <>
+                  <Check size={14} />
+                  <span>Restarted!</span>
+                </>
+              )}
+              {restartStatus === 'error' && (
+                <>
+                  <X size={14} />
+                  <span>Failed</span>
+                </>
+              )}
+              {restartStatus === 'idle' && (
+                <>
+                  <RotateCw size={14} />
+                  <span>Restart MediaMTX</span>
+                </>
+              )}
             </button>
           </div>
         </div>
