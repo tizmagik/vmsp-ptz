@@ -19,11 +19,11 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
     const checkInitialStatus = async () => {
       try {
         const response = await fetch('/api/audio-status');
-        const data = await response.json();
+        const currentFile = await response.text();
         
-        if (data.isPlaying && data.currentFile) {
+        if (currentFile) {
           setAudioStatus('playing');
-          setCurrentAudio(data.currentFile.replace('.mp3', ''));
+          setCurrentAudio(currentFile);
         }
       } catch (error) {
         console.error('Error checking initial audio status:', error);
@@ -40,9 +40,9 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
     const interval = setInterval(async () => {
       try {
         const response = await fetch('/api/audio-status');
-        const data = await response.json();
+        const currentFile = await response.text();
         
-        if (!data.isPlaying) {
+        if (!currentFile) {
           setAudioStatus('idle');
           setCurrentAudio('');
         }

@@ -146,10 +146,7 @@ app.post('/api/stop-audio', (req, res) => {
 
 // API endpoint to check audio status
 app.get('/api/audio-status', (req, res) => {
-  res.json({ 
-    isPlaying: isAudioPlaying,
-    currentFile: currentAudioFile 
-  });
+  res.send(currentAudioFile.replace('.mp3', ''));
 });
 
 // Setup Vite dev server in development
