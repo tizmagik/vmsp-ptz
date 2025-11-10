@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Settings, RotateCw, Check, X, Loader2, Volume2, VolumeX } from 'lucide-react';
+import { useState } from 'react';
+import { Settings, RotateCw, Check, X, Loader2, RefreshCw } from 'lucide-react';
 
 type StreamMode = 'auto' | 'rtc' | 'hls';
 
@@ -11,48 +11,6 @@ interface ConfigMenuProps {
 export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [restartStatus, setRestartStatus] = useState<'idle' | 'restarting' | 'success' | 'error'>('idle');
-  const [audioStatus, setAudioStatus] = useState<'idle' | 'playing' | 'success' | 'error'>('idle');
-  const [currentAudio, setCurrentAudio] = useState<string>('');
-
-  // Check audio status on mount
-  useEffect(() => {
-    const checkInitialStatus = async () => {
-      try {
-        const response = await fetch('/api/audio-status');
-        const currentFile = await response.text();
-        
-        if (currentFile) {
-          setAudioStatus('playing');
-          setCurrentAudio(currentFile);
-        }
-      } catch (error) {
-        console.error('Error checking initial audio status:', error);
-      }
-    };
-    
-    checkInitialStatus();
-  }, []);
-
-  // Poll audio status when playing
-  useEffect(() => {
-    if (audioStatus !== 'playing') return;
-
-    const interval = setInterval(async () => {
-      try {
-        const response = await fetch('/api/audio-status');
-        const currentFile = await response.text();
-        
-        if (!currentFile) {
-          setAudioStatus('idle');
-          setCurrentAudio('');
-        }
-      } catch (error) {
-        console.error('Error checking audio status:', error);
-      }
-    }, 500); // Check every 500ms
-
-    return () => clearInterval(interval);
-  }, [audioStatus]);
 
   const handleRestartMediaMTX = async () => {
     if (restartStatus === 'restarting') return;
@@ -80,51 +38,8 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
     }
   };
 
-  const handlePlayAudio = async (filename: string) => {
-    if (audioStatus === 'playing') return;
-    
-    setAudioStatus('playing');
-    setCurrentAudio(filename.replace('.mp3', ''));
-    try {
-      const response = await fetch('/api/play-audio', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filename }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        // Keep status as 'playing' - user can stop it
-        // Will auto-reset when they click stop or audio finishes
-      } else {
-        setAudioStatus('error');
-        setCurrentAudio('');
-        setTimeout(() => setAudioStatus('idle'), 3000);
-      }
-    } catch (error) {
-      console.error('Error playing audio:', error);
-      setAudioStatus('error');
-      setCurrentAudio('');
-      setTimeout(() => setAudioStatus('idle'), 3000);
-    }
-  };
-
-  const handleStopAudio = async () => {
-    try {
-      const response = await fetch('/api/stop-audio', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      
-      const data = await response.json();
-      setAudioStatus('idle');
-      setCurrentAudio('');
-    } catch (error) {
-      console.error('Error stopping audio:', error);
-      setAudioStatus('idle');
-      setCurrentAudio('');
-    }
+  const handleRefreshPage = () => {
+    window.location.reload();
   };
 
   return (
@@ -166,86 +81,46 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
           <div className="settings-divider"></div>
           
           <div className="settings-section">
-            <button
-              className="restart-button"
-              onClick={handleRestartMediaMTX}
-              disabled={restartStatus === 'restarting'}
-            >
-              {restartStatus === 'restarting' && (
-                <>
-                  <Loader2 size={14} className="spin-icon" />
-                  <span>Restarting...</span>
-                </>
-              )}
-              {restartStatus === 'success' && (
-                <>
-                  <Check size={14} />
-                  <span>Restarted!</span>
-                </>
-              )}
-              {restartStatus === 'error' && (
-                <>
-                  <X size={14} />
-                  <span>Failed</span>
-                </>
-              )}
-              {restartStatus === 'idle' && (
-                <>
-                  <RotateCw size={14} />
-                  <span>Restart MediaMTX</span>
-                </>
-              )}
-            </button>
-          </div>
-          
-          <div className="settings-divider"></div>
-          
-          <div className="settings-section">
-            <div className="settings-label">
-              <Volume2 size={14} style={{ display: 'inline-block', marginRight: '6px', verticalAlign: 'middle' }} />
-              Audio:
-            </div>
-            {audioStatus === 'playing' ? (
+            <div className="mode-buttons">
               <button
                 className="restart-button"
-                onClick={handleStopAudio}
+                onClick={handleRestartMediaMTX}
+                disabled={restartStatus === 'restarting'}
               >
-                <VolumeX size={14} />
-                <span>Stop {currentAudio}</span>
+                {restartStatus === 'restarting' && (
+                  <>
+                    <Loader2 size={14} className="spin-icon" />
+                    <span>Restarting...</span>
+                  </>
+                )}
+                {restartStatus === 'success' && (
+                  <>
+                    <Check size={14} />
+                    <span>Restarted!</span>
+                  </>
+                )}
+                {restartStatus === 'error' && (
+                  <>
+                    <X size={14} />
+                    <span>Failed</span>
+                  </>
+                )}
+                {restartStatus === 'idle' && (
+                  <>
+                    <RotateCw size={14} />
+                    <span>Restart MediaMTX</span>
+                  </>
+                )}
               </button>
-            ) : (
-              <div className="mode-buttons">
-                <button
-                  onClick={() => handlePlayAudio('ANNUAL.mp3')}
-                  disabled={audioStatus === 'error'}
-                >
-                  Annual
-                </button>
-                <button
-                  onClick={() => handlePlayAudio('CALLING.mp3')}
-                  disabled={audioStatus === 'error'}
-                >
-                  Calling
-                </button>
-                <button
-                  onClick={() => handlePlayAudio('JOYFUL.mp3')}
-                  disabled={audioStatus === 'error'}
-                >
-                  Joyful
-                </button>
-                <button
-                  onClick={() => handlePlayAudio('MOURNFUL.mp3')}
-                  disabled={audioStatus === 'error'}
-                >
-                  Mournful
-                </button>
-              </div>
-            )}
-            {audioStatus === 'error' && (
-              <div style={{ color: '#f7a3a3', fontSize: '0.85em', marginTop: '8px' }}>
-                Failed to play audio
-              </div>
-            )}
+              
+              <button
+                className="restart-button"
+                onClick={handleRefreshPage}
+              >
+                <RefreshCw size={14} />
+                <span>Refresh App</span>
+              </button>
+            </div>
           </div>
         </div>
       )}
