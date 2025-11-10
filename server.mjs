@@ -13,8 +13,56 @@ const __dirname = path.dirname(__filename);
 const PORT = process.env.PORT || 8111;
 const MEDIA_MTX_CFG = 'mediamtx.yml';
 
+// ──────────────────────────────────────────────────────────────
+// Start MediaMTX function
+function startMediaMTX() {
+  const exePath = path.join(__dirname, 'mediamtx.exe');
+  
+  if (!fs.existsSync(exePath)) {
+    console.warn('⚠️  mediamtx.exe not found - video streaming disabled');
+    console.warn('   Download from: https://github.com/bluenviron/mediamtx/releases');
+    return null;
+  }
+
+  const configPath = path.join(__dirname, MEDIA_MTX_CFG);
+  const proc = spawn(exePath, [configPath], {
+    stdio: 'pipe',
+    cwd: __dirname,
+  });
+
+  proc.stdout.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));
+  proc.stderr.on('data', (data) => console.error(`MTX ERR: ${data.toString().trim()}`));
+  proc.on('close', (code) => console.log(`MediaMTX exited with code ${code}`));
+
+  console.log('MediaMTX started (WebRTC on :8889)');
+  return proc;
+}
+
 // Create Express app
 const app = express();
+
+// Add JSON body parser for API routes
+app.use(express.json());
+
+// API endpoint to restart MediaMTX - MUST come before Vite/React Router middleware
+app.post('/api/restart-mediamtx', (req, res) => {
+  console.log('Restart MediaMTX requested');
+  
+  if (global.mediamtxProcess) {
+    console.log('Killing existing MediaMTX process...');
+    global.mediamtxProcess.kill();
+    
+    // Wait a moment then restart
+    setTimeout(() => {
+      global.mediamtxProcess = startMediaMTX();
+      res.json({ success: true, message: 'MediaMTX restarted' });
+    }, 1000);
+  } else {
+    // Start it if it wasn't running
+    global.mediamtxProcess = startMediaMTX();
+    res.json({ success: true, message: 'MediaMTX started' });
+  }
+});
 
 // Setup Vite dev server in development
 const viteDevServer =
@@ -47,39 +95,15 @@ const server = app.listen(PORT, () => {
   console.log(` ===>  React Router server running on http://localhost:${PORT}`);
 });
 
-// ──────────────────────────────────────────────────────────────
-// Start MediaMTX
-function startMediaMTX() {
-  const exePath = path.join(__dirname, 'mediamtx.exe');
-  
-  if (!fs.existsSync(exePath)) {
-    console.warn('⚠️  mediamtx.exe not found - video streaming disabled');
-    console.warn('   Download from: https://github.com/bluenviron/mediamtx/releases');
-    return null;
-  }
-
-  const configPath = path.join(__dirname, MEDIA_MTX_CFG);
-  const proc = spawn(exePath, [configPath], {
-    stdio: 'pipe',
-    cwd: __dirname,
-  });
-
-  proc.stdout.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));
-  proc.stderr.on('data', (data) => console.error(`MTX ERR: ${data.toString().trim()}`));
-  proc.on('close', (code) => console.log(`MediaMTX exited with code ${code}`));
-
-  console.log('MediaMTX started (WebRTC on :8889)');
-  return proc;
-}
-
-const mediamtxProcess = startMediaMTX();
+// Start MediaMTX on server startup
+global.mediamtxProcess = startMediaMTX();
 
 // ──────────────────────────────────────────────────────────────
 // Graceful shutdown
 process.on('SIGINT', async () => {
   console.log('\nShutting down...');
-  if (mediamtxProcess) {
-    mediamtxProcess.kill();
+  if (global.mediamtxProcess) {
+    global.mediamtxProcess.kill();
   }
   if (viteDevServer) {
     await viteDevServer.close();

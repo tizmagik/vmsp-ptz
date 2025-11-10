@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CameraButtons } from '~/components/CameraButtons';
-import { SettingsMenu } from '~/components/SettingsMenu';
+import { ConfigMenu } from '~/components/ConfigMenu';
 import { StatusIndicator } from '~/components/StatusIndicator';
 import { VideoPlayer } from '~/components/VideoPlayer';
 import { Resizer } from '~/components/Resizer';
@@ -67,7 +67,7 @@ export default function Index() {
           currentPath={currentPath}
           onCameraChange={setCurrentPath}
         />
-        <SettingsMenu
+        <ConfigMenu
           preferredMode={preferredMode}
           onModeChange={setPreferredMode}
         />
