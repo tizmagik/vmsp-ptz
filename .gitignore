@@ -12,3 +12,6 @@ dist/
 
 # Backup files
 package-old.json
+
+# YouTube OAuth token
+youtube-token.json

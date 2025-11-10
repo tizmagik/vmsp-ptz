@@ -17,6 +17,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "googleapis": "^165.0.0",
     "isbot": "^5.1.31",
     "lucide-react": "^0.553.0",
     "mediamtx-webrtc-react": "^0.0.3",

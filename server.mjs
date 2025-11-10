@@ -5,6 +5,14 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { google } from 'googleapis';
+import {
+  createOAuth2Client,
+  getAuthenticatedClient,
+  getAuthUrl,
+  exchangeCodeForTokens,
+  isAuthenticated,
+} from './youtube-auth.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -148,6 +156,209 @@ app.post('/api/stop-audio', (req, res) => {
 app.get('/api/audio-status', (req, res) => {
   res.send(currentAudioFile.replace('.mp3', ''));
 });
+
+// ──────────────────────────────────────────────────────────────
+// YouTube API Endpoints
+// ──────────────────────────────────────────────────────────────
+
+// Check YouTube authentication status
+app.get('/api/yt/status', async (req, res) => {
+  try {
+    const authenticated = await isAuthenticated();
+    res.json({ authenticated });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// Initiate YouTube OAuth flow
+app.get('/api/yt/auth', (req, res) => {
+  try {
+    const oauth2Client = createOAuth2Client();
+    const authUrl = getAuthUrl(oauth2Client);
+    res.redirect(authUrl);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// OAuth callback endpoint
+app.get('/api/yt/callback', async (req, res) => {
+  const { code, error } = req.query;
+  
+  if (error) {
+    return res.status(400).send(`Authentication failed: ${error}`);
+  }
+  
+  if (!code) {
+    return res.status(400).send('No authorization code received');
+  }
+  
+  try {
+    const oauth2Client = createOAuth2Client();
+    await exchangeCodeForTokens(oauth2Client, code);
+    res.send(`
+      <html>
+        <body>
+          <h1>✓ YouTube Authentication Successful!</h1>
+          <p>You can close this window and return to the application.</p>
+          <script>window.close();</script>
+        </body>
+      </html>
+    `);
+  } catch (error) {
+    console.error('OAuth callback error:', error);
+    res.status(500).send(`Authentication failed: ${error.message}`);
+  }
+});
+
+// Update YouTube broadcast (title, description, thumbnail)
+app.post('/api/yt/update', async (req, res) => {
+  try {
+    const { title, description, thumbnail, broadcastId } = req.body;
+    
+    // Validation
+    if (!title) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Title is required' 
+      });
+    }
+    
+    // Get authenticated client
+    const auth = await getAuthenticatedClient();
+    if (!auth) {
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Not authenticated. Please authenticate first at /api/yt/auth' 
+      });
+    }
+    
+    const youtube = google.youtube({ version: 'v3', auth });
+    
+    // If no broadcastId provided, get the active live broadcast
+    let targetBroadcastId = broadcastId;
+    
+    if (!targetBroadcastId) {
+      const broadcastsResponse = await youtube.liveBroadcasts.list({
+        part: ['id', 'snippet', 'status'],
+        broadcastStatus: 'active',
+        maxResults: 1,
+      });
+      
+      if (!broadcastsResponse.data.items || broadcastsResponse.data.items.length === 0) {
+        // Try upcoming broadcasts if no active ones
+        const upcomingResponse = await youtube.liveBroadcasts.list({
+          part: ['id', 'snippet', 'status'],
+          broadcastStatus: 'upcoming',
+          maxResults: 1,
+        });
+        
+        if (!upcomingResponse.data.items || upcomingResponse.data.items.length === 0) {
+          return res.status(404).json({ 
+            success: false, 
+            message: 'No active or upcoming broadcast found' 
+          });
+        }
+        
+        targetBroadcastId = upcomingResponse.data.items[0].id;
+      } else {
+        targetBroadcastId = broadcastsResponse.data.items[0].id;
+      }
+    }
+    
+    // Get current broadcast details
+    const currentBroadcast = await youtube.liveBroadcasts.list({
+      part: ['snippet'],
+      id: [targetBroadcastId],
+    });
+    
+    if (!currentBroadcast.data.items || currentBroadcast.data.items.length === 0) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Broadcast not found' 
+      });
+    }
+    
+    const snippet = currentBroadcast.data.items[0].snippet;
+    
+    // Update snippet with new values
+    const updatedSnippet = {
+      ...snippet,
+      title: title,
+    };
+    
+    if (description !== undefined) {
+      updatedSnippet.description = description;
+    }
+    
+    // Update the broadcast
+    const updateResponse = await youtube.liveBroadcasts.update({
+      part: ['snippet'],
+      requestBody: {
+        id: targetBroadcastId,
+        snippet: updatedSnippet,
+      },
+    });
+    
+    // Handle thumbnail if provided
+    if (thumbnail) {
+      // Thumbnail should be a base64 string or URL
+      // For now, we'll note that this requires additional handling
+      console.log('Thumbnail update requested but not yet implemented');
+      // TODO: Implement thumbnail upload via youtube.thumbnails.set()
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Broadcast updated successfully',
+      broadcastId: targetBroadcastId,
+      title: updatedSnippet.title,
+      description: updatedSnippet.description,
+    });
+    
+  } catch (error) {
+    console.error('YouTube update error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message || 'Failed to update broadcast' 
+    });
+  }
+});
+
+// Get list of live broadcasts
+app.get('/api/yt/broadcasts', async (req, res) => {
+  try {
+    const auth = await getAuthenticatedClient();
+    if (!auth) {
+      return res.status(401).json({ 
+        success: false, 
+        message: 'Not authenticated' 
+      });
+    }
+    
+    const youtube = google.youtube({ version: 'v3', auth });
+    
+    const response = await youtube.liveBroadcasts.list({
+      part: ['id', 'snippet', 'status'],
+      broadcastStatus: 'active',
+      maxResults: 10,
+    });
+    
+    res.json({ 
+      success: true, 
+      broadcasts: response.data.items || [] 
+    });
+    
+  } catch (error) {
+    console.error('YouTube broadcasts error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: error.message 
+    });
+  }
+});
+
 
 // Setup Vite dev server in development
 const viteDevServer =
