@@ -71,6 +71,8 @@ export function VideoPlayer({ path, preferredMode, onStatusChange }: VideoPlayer
     const handlePlaying = () => {
       console.log('Video is actually playing');
       videoPlayingRef.current = true;
+      // Update status to success when video starts playing
+      onStatusChangeRef.current('success', `Live: ${path} (RTC)`);
       // Clear fallback timeout since video is playing
       if (fallbackTimeoutRef.current) {
         clearTimeout(fallbackTimeoutRef.current);
@@ -92,7 +94,7 @@ export function VideoPlayer({ path, preferredMode, onStatusChange }: VideoPlayer
       video.removeEventListener('stalled', handleStalled);
       video.removeEventListener('suspend', handleStalled);
     };
-  }, [videoRef, shouldUseRTC]);
+  }, [videoRef, shouldUseRTC, path]);
 
   // Update status based on connection state
   useEffect(() => {
