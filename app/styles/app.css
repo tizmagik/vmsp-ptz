@@ -12,6 +12,10 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  /* Prevent text size adjustment on iOS */
+  -webkit-text-size-adjust: 100%;
+  /* Safe area padding for iPhone notch/home indicator */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .main {
@@ -112,6 +116,8 @@ video {
   display: flex;
   gap: 8px;
   z-index: 10;
+  /* Improve touch target size on mobile */
+  touch-action: manipulation;
 }
 
 .cam-btn {
@@ -128,6 +134,9 @@ video {
   align-items: center;
   justify-content: center;
   line-height: 1;
+  /* Prevent iOS zoom on input focus and improve touch */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cam-btn:hover {
@@ -160,6 +169,8 @@ video {
   font-size: 16px;
   transition: all 0.2s;
   line-height: 1;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .settings-button:hover {
@@ -439,8 +450,22 @@ video {
   }
 
   .cam-btn {
-    padding: 6px 10px;
-    font-size: 0.8em;
+    padding: 8px 12px;
+    height: 36px;
+    font-size: 0.85em;
+    /* Larger touch targets on mobile */
+    min-width: 44px;
+  }
+
+  .settings-button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  .settings-container {
+    top: 8px;
+    right: 8px;
   }
 }
 
