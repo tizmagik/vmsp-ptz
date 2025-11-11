@@ -11,8 +11,8 @@ paths:
     source: rtsp://192.168.100.103
   baptism:
     source: rtsp://192.168.100.104
-  mv:
-    source: rtsp://localhost:559/mv
+  atem:
+    source: rtsp://localhost:559/atem
 hls: yes
 hlsAddress: :8888
 webrtc: yes

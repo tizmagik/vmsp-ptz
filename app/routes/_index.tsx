@@ -4,19 +4,11 @@ import { ConfigMenu } from '~/components/ConfigMenu';
 import { StatusIndicator } from '~/components/StatusIndicator';
 import { VideoPlayer } from '~/components/VideoPlayer';
 import { Resizer } from '~/components/Resizer';
+import { CAMERAS } from '~/constants/cameras';
 import type { Route } from './+types/_index';
 
 type StreamMode = 'auto' | 'rtc' | 'hls';
 type StatusType = 'loading' | 'success' | 'error';
-
-const CAMERAS = [
-  { path: 'mv', label: 'MV' },
-  { path: 'main', label: 'Main' },
-  { path: 'left', label: 'Left' },
-  { path: 'right', label: 'Right' },
-  { path: 'altar', label: 'Altar' },
-  { path: 'baptism', label: 'Baptism' },
-];
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -26,11 +18,36 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Index() {
-  const [currentPath, setCurrentPath] = useState('mv');
+  const [currentPath, setCurrentPath] = useState('atem');
   const [preferredMode, setPreferredMode] = useState<StreamMode>('auto');
   const [status, setStatus] = useState<StatusType>('loading');
   const [statusMessage, setStatusMessage] = useState('Loading...');
   const [videoRatio, setVideoRatio] = useState(60);
+
+  // Listen for page selection events from the server
+  useEffect(() => {
+    const eventSource = new EventSource('/api/page/events');
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.page) {
+          setCurrentPath(data.page);
+        }
+      } catch (error) {
+        console.error('Error parsing SSE message:', error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('SSE connection error:', error);
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
 
   const handleStatusChange = (newStatus: StatusType, message: string) => {
     setStatus(newStatus);
