@@ -53,7 +53,9 @@ const server = app.listen(PORT, () => {
 });
 
 // Start MediaMTX on server startup
-global.mediamtxProcess = startMediaMTX();
+if (!process.env.SKIP_MEDIAMTX) {
+  global.mediamtxProcess = startMediaMTX();
+}
 
 // ──────────────────────────────────────────────────────────────
 // Graceful shutdown

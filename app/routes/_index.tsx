@@ -11,8 +11,8 @@ type StatusType = 'loading' | 'success' | 'error';
 
 const CAMERAS = [
   { path: 'mv', label: 'MV' },
-  { path: 'left', label: 'Left' },
   { path: 'main', label: 'Main' },
+  { path: 'left', label: 'Left' },
   { path: 'right', label: 'Right' },
   { path: 'altar', label: 'Altar' },
   { path: 'baptism', label: 'Baptism' },
@@ -20,7 +20,7 @@ const CAMERAS = [
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: 'Camera + Companion' },
+    { title: 'VMSP Remote' },
     { name: 'description', content: 'PTZ Camera Control' },
   ];
 }
