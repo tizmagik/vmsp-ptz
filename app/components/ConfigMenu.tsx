@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Settings, RotateCw, Check, X, Loader2, RefreshCw, Youtube, ChevronDown } from 'lucide-react';
 
@@ -22,6 +22,7 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
   const [youtubeStatus, setYoutubeStatus] = useState<'idle' | 'updating' | 'success' | 'error'>('idle');
   const [youtubeError, setYoutubeError] = useState('');
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
+  const thumbnailSelectorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setModalRoot(document.body);
@@ -29,16 +30,20 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
 
   // Close thumbnail dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       const target = event.target as HTMLElement;
-      if (!target.closest('.thumbnail-selector')) {
+      if (thumbnailSelectorRef.current && !thumbnailSelectorRef.current.contains(target)) {
         setShowThumbnailDropdown(false);
       }
     };
 
     if (showThumbnailDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside as EventListener);
+      document.addEventListener('touchstart', handleClickOutside as EventListener);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside as EventListener);
+        document.removeEventListener('touchstart', handleClickOutside as EventListener);
+      };
     }
   }, [showThumbnailDropdown]);
 
@@ -248,7 +253,7 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
               
               <div className="form-group">
                 <label htmlFor="youtube-thumbnail">Thumbnail (optional)</label>
-                <div className="thumbnail-selector">
+                <div className="thumbnail-selector" ref={thumbnailSelectorRef}>
                   <div 
                     className="thumbnail-preview-box"
                     onClick={() => setShowThumbnailDropdown(!showThumbnailDropdown)}
@@ -269,7 +274,11 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
                   </div>
                   
                   {showThumbnailDropdown && (
-                    <div className="thumbnail-dropdown">
+                    <div 
+                      className="thumbnail-dropdown"
+                      onTouchMove={(e) => e.stopPropagation()}
+                      onTouchStart={(e) => e.stopPropagation()}
+                    >
                       <div 
                         className="thumbnail-option"
                         onClick={() => {

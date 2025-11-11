@@ -504,7 +504,12 @@ video {
   border-radius: 4px;
   max-height: 300px;
   overflow-y: auto;
-  z-index: 1000;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  z-index: 1001;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
