@@ -1,6 +1,9 @@
 import { google } from 'googleapis';
 import { Router } from 'express';
 import type { Request, Response } from 'express';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
 import {
   createOAuth2Client,
   getAuthenticatedClient,
@@ -8,6 +11,9 @@ import {
   exchangeCodeForTokens,
   isAuthenticated,
 } from './youtube-auth.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Check YouTube authentication status
@@ -161,10 +167,48 @@ export async function updateBroadcast(params: UpdateBroadcastParams): Promise<Up
   
   // Handle thumbnail if provided
   if (thumbnail) {
-    // Thumbnail should be a base64 string or URL
-    // For now, we'll note that this requires additional handling
-    console.log('Thumbnail update requested but not yet implemented');
-    // TODO: Implement thumbnail upload via youtube.thumbnails.set()
+    try {
+      // Validate thumbnail file exists in public/thumbnails
+      const thumbnailsDir = path.join(__dirname, '..', 'public', 'thumbnails');
+      const thumbnailPath = path.join(thumbnailsDir, thumbnail);
+      
+      // Check if file exists and is within the thumbnails directory (security check)
+      const normalizedPath = path.normalize(thumbnailPath);
+      const normalizedDir = path.normalize(thumbnailsDir);
+      
+      if (!normalizedPath.startsWith(normalizedDir)) {
+        console.error('Thumbnail path traversal attempt blocked:', thumbnail);
+        return {
+          success: false,
+          message: 'Invalid thumbnail path',
+        };
+      }
+      
+      if (!fs.existsSync(thumbnailPath)) {
+        console.error('Thumbnail file not found:', thumbnailPath);
+        return {
+          success: false,
+          message: `Thumbnail file '${thumbnail}' not found`,
+        };
+      }
+      
+      // Upload thumbnail to YouTube
+      await youtube.thumbnails.set({
+        videoId: targetBroadcastId,
+        media: {
+          mimeType: thumbnail.endsWith('.png') ? 'image/png' : 'image/jpeg',
+          body: fs.createReadStream(thumbnailPath),
+        },
+      });
+      
+      console.log('Thumbnail uploaded successfully:', thumbnail);
+    } catch (error: any) {
+      console.error('Failed to upload thumbnail:', error);
+      return {
+        success: false,
+        message: `Failed to upload thumbnail: ${error.message}`,
+      };
+    }
   }
   
   return { 
