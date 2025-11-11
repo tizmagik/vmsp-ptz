@@ -1,20 +1,23 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Settings, RotateCw, Check, X, Loader2, RefreshCw, Youtube } from 'lucide-react';
+import { Settings, RotateCw, Check, X, Loader2, RefreshCw, Youtube, ChevronDown } from 'lucide-react';
 
 type StreamMode = 'auto' | 'rtc' | 'hls';
 
 interface ConfigMenuProps {
   preferredMode: StreamMode;
   onModeChange: (mode: StreamMode) => void;
+  thumbnails: string[];
 }
 
-export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
+export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [restartStatus, setRestartStatus] = useState<'idle' | 'restarting' | 'success' | 'error'>('idle');
   const [showYoutubeForm, setShowYoutubeForm] = useState(false);
   const [youtubeTitle, setYoutubeTitle] = useState('');
   const [youtubeDescription, setYoutubeDescription] = useState('');
+  const [youtubeThumbnail, setYoutubeThumbnail] = useState('');
+  const [showThumbnailDropdown, setShowThumbnailDropdown] = useState(false);
   const [youtubePrivacy, setYoutubePrivacy] = useState<'public' | 'private' | 'unlisted'>('public');
   const [youtubeStatus, setYoutubeStatus] = useState<'idle' | 'updating' | 'success' | 'error'>('idle');
   const [youtubeError, setYoutubeError] = useState('');
@@ -23,6 +26,21 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
   useEffect(() => {
     setModalRoot(document.body);
   }, []);
+
+  // Close thumbnail dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.thumbnail-selector')) {
+        setShowThumbnailDropdown(false);
+      }
+    };
+
+    if (showThumbnailDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [showThumbnailDropdown]);
 
   const handleRestartMediaMTX = async () => {
     if (restartStatus === 'restarting') return;
@@ -70,6 +88,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
         body: JSON.stringify({
           title: youtubeTitle,
           description: youtubeDescription || undefined,
+          thumbnail: youtubeThumbnail || undefined,
           privacy: youtubePrivacy,
         }),
       });
@@ -83,6 +102,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
           setShowYoutubeForm(false);
           setYoutubeTitle('');
           setYoutubeDescription('');
+          setYoutubeThumbnail('');
           setYoutubePrivacy('public');
         }, 2000);
       } else {
@@ -224,6 +244,61 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
                   onChange={(e) => setYoutubeTitle(e.target.value)}
                   className="form-input"
                 />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="youtube-thumbnail">Thumbnail (optional)</label>
+                <div className="thumbnail-selector">
+                  <div 
+                    className="thumbnail-preview-box"
+                    onClick={() => setShowThumbnailDropdown(!showThumbnailDropdown)}
+                  >
+                    {youtubeThumbnail ? (
+                      <>
+                        <img 
+                          src={`/thumbnails/${youtubeThumbnail}`} 
+                          alt={youtubeThumbnail}
+                          className="thumbnail-preview-image"
+                        />
+                        <span className="thumbnail-preview-name">{youtubeThumbnail}</span>
+                      </>
+                    ) : (
+                      <span className="thumbnail-preview-placeholder">(no change)</span>
+                    )}
+                    <ChevronDown size={18} className="thumbnail-dropdown-icon" />
+                  </div>
+                  
+                  {showThumbnailDropdown && (
+                    <div className="thumbnail-dropdown">
+                      <div 
+                        className="thumbnail-option"
+                        onClick={() => {
+                          setYoutubeThumbnail('');
+                          setShowThumbnailDropdown(false);
+                        }}
+                      >
+                        <span className="thumbnail-option-text">(no change)</span>
+                      </div>
+                      {thumbnails.map((thumbnail) => (
+                        <div
+                          key={thumbnail}
+                          className="thumbnail-option"
+                          onClick={() => {
+                            setYoutubeThumbnail(thumbnail);
+                            setShowThumbnailDropdown(false);
+                          }}
+                        >
+                          <img 
+                            src={`/thumbnails/${thumbnail}`} 
+                            alt={thumbnail}
+                            className="thumbnail-option-image"
+                          />
+                          <span className="thumbnail-option-text">{thumbnail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
               
               <div className="form-group">

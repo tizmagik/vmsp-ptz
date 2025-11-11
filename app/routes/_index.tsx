@@ -5,6 +5,7 @@ import { StatusIndicator } from '~/components/StatusIndicator';
 import { VideoPlayer } from '~/components/VideoPlayer';
 import { Resizer } from '~/components/Resizer';
 import { CAMERAS } from '~/constants/cameras';
+import { listThumbnails } from '../../server/youtube.js';
 import type { Route } from './+types/_index';
 
 type StreamMode = 'auto' | 'rtc' | 'hls';
@@ -17,7 +18,12 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export default function Index() {
+export async function loader() {
+  const thumbnails = listThumbnails();
+  return { thumbnails };
+}
+
+export default function Index({ loaderData }: Route.ComponentProps) {
   const [currentPath, setCurrentPath] = useState('atem');
   const [preferredMode, setPreferredMode] = useState<StreamMode>('auto');
   const [status, setStatus] = useState<StatusType>('loading');
@@ -124,6 +130,7 @@ export default function Index() {
         <ConfigMenu
           preferredMode={preferredMode}
           onModeChange={setPreferredMode}
+          thumbnails={loaderData.thumbnails}
         />
         <VideoPlayer
           path={currentPath}

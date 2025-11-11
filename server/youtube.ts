@@ -247,6 +247,26 @@ export async function listBroadcasts(): Promise<any> {
 }
 
 /**
+ * Get list of available thumbnails
+ */
+export function listThumbnails(): string[] {
+  const thumbnailsDir = path.join(__dirname, '..', 'public', 'thumbnails');
+  
+  try {
+    if (!fs.existsSync(thumbnailsDir)) {
+      return [];
+    }
+    
+    const files = fs.readdirSync(thumbnailsDir);
+    // Filter for image files only
+    return files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file)).sort();
+  } catch (error) {
+    console.error('Error reading thumbnails directory:', error);
+    return [];
+  }
+}
+
+/**
  * Create router with YouTube routes
  */
 export function createYouTubeRouter(): Router {
@@ -330,6 +350,19 @@ export function createYouTubeRouter(): Router {
       res.json(result);
     } catch (error: any) {
       console.error('YouTube broadcasts error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: error.message 
+      });
+    }
+  });
+
+  router.get('/yt/thumbnails', (req: Request, res: Response) => {
+    try {
+      const thumbnails = listThumbnails();
+      res.json({ success: true, thumbnails });
+    } catch (error: any) {
+      console.error('Thumbnails list error:', error);
       res.status(500).json({ 
         success: false, 
         message: error.message 
