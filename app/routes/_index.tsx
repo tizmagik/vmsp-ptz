@@ -24,28 +24,65 @@ export default function Index() {
   const [statusMessage, setStatusMessage] = useState('Loading...');
   const [videoRatio, setVideoRatio] = useState(60);
 
-  // Listen for page selection events from the server
+  // Listen for page selection events from the server with auto-reconnect
   useEffect(() => {
-    const eventSource = new EventSource('/api/page/events');
+    let eventSource: EventSource | null = null;
+    let reconnectTimeout: NodeJS.Timeout | null = null;
+    let isComponentMounted = true;
 
-    eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.page) {
-          setCurrentPath(data.page);
-        }
-      } catch (error) {
-        console.error('Error parsing SSE message:', error);
+    const connect = () => {
+      // Clean up existing connection
+      if (eventSource) {
+        eventSource.close();
       }
+
+      eventSource = new EventSource('/api/page/events');
+
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.page) {
+            setCurrentPath(data.page);
+          }
+        } catch (error) {
+          console.error('Error parsing SSE message:', error);
+        }
+      };
+
+      eventSource.onerror = (error) => {
+        console.error('SSE connection error, will attempt to reconnect...', error);
+        
+        if (eventSource) {
+          eventSource.close();
+        }
+
+        // Attempt to reconnect after 2 seconds if component is still mounted
+        if (isComponentMounted) {
+          reconnectTimeout = setTimeout(() => {
+            console.log('Reconnecting SSE...');
+            connect();
+          }, 2000);
+        }
+      };
+
+      eventSource.onopen = () => {
+        console.log('SSE connection established');
+      };
     };
 
-    eventSource.onerror = (error) => {
-      console.error('SSE connection error:', error);
-      eventSource.close();
-    };
+    // Initial connection
+    connect();
 
     return () => {
-      eventSource.close();
+      isComponentMounted = false;
+      
+      if (reconnectTimeout) {
+        clearTimeout(reconnectTimeout);
+      }
+      
+      if (eventSource) {
+        eventSource.close();
+      }
     };
   }, []);
 
