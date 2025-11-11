@@ -33,9 +33,10 @@ export async function handleOAuthCallback(code: string): Promise<void> {
 }
 
 interface UpdateBroadcastParams {
-  title: string;
+  title?: string;
   description?: string;
   thumbnail?: string;
+  privacy?: 'public' | 'private' | 'unlisted';
   broadcastId?: string;
 }
 
@@ -48,18 +49,10 @@ interface UpdateBroadcastResult {
 }
 
 /**
- * Update a YouTube broadcast (title, description, thumbnail)
+ * Update a YouTube broadcast (title, description, thumbnail, privacy)
  */
 export async function updateBroadcast(params: UpdateBroadcastParams): Promise<UpdateBroadcastResult> {
-  const { title, description, thumbnail, broadcastId } = params;
-  
-  // Validation
-  if (!title) {
-    return { 
-      success: false, 
-      message: 'Title is required' 
-    };
-  }
+  const { title, description, thumbnail, privacy, broadcastId } = params;
   
   // Get authenticated client
   const auth = await getAuthenticatedClient();
@@ -112,7 +105,7 @@ export async function updateBroadcast(params: UpdateBroadcastParams): Promise<Up
   
   // Get current broadcast details
   const currentBroadcast = await youtube.liveBroadcasts.list({
-    part: ['snippet'],
+    part: ['snippet', 'status'],
     id: [targetBroadcastId],
   });
   
@@ -124,25 +117,47 @@ export async function updateBroadcast(params: UpdateBroadcastParams): Promise<Up
   }
   
   const snippet = currentBroadcast.data.items[0].snippet;
+  const status = currentBroadcast.data.items[0].status;
   
-  // Update snippet with new values
-  const updatedSnippet = {
-    ...snippet,
-    title: title,
+  // Build update parts array based on what's being updated
+  const partsToUpdate: string[] = [];
+  const updateBody: any = {
+    id: targetBroadcastId,
   };
   
-  if (description !== undefined) {
-    updatedSnippet.description = description;
+  // Update snippet if title or description provided
+  if (title !== undefined || description !== undefined) {
+    partsToUpdate.push('snippet');
+    const updatedSnippet = { ...snippet };
+    
+    if (title !== undefined) {
+      updatedSnippet.title = title;
+    }
+    
+    if (description !== undefined) {
+      updatedSnippet.description = description;
+    }
+    
+    updateBody.snippet = updatedSnippet;
   }
   
-  // Update the broadcast
-  await youtube.liveBroadcasts.update({
-    part: ['snippet'],
-    requestBody: {
-      id: targetBroadcastId,
-      snippet: updatedSnippet,
-    },
-  });
+  // Update status if privacy provided
+  if (privacy !== undefined) {
+    partsToUpdate.push('status');
+    const updatedStatus = { 
+      ...status,
+      privacyStatus: privacy,
+    };
+    updateBody.status = updatedStatus;
+  }
+  
+  // Only update if there are changes to make
+  if (partsToUpdate.length > 0) {
+    await youtube.liveBroadcasts.update({
+      part: partsToUpdate,
+      requestBody: updateBody,
+    });
+  }
   
   // Handle thumbnail if provided
   if (thumbnail) {
@@ -156,8 +171,8 @@ export async function updateBroadcast(params: UpdateBroadcastParams): Promise<Up
     success: true, 
     message: 'Broadcast updated successfully',
     broadcastId: targetBroadcastId,
-    title: updatedSnippet.title || undefined,
-    description: updatedSnippet.description || undefined,
+    title: updateBody.snippet?.title || snippet?.title || undefined,
+    description: updateBody.snippet?.description || snippet?.description || undefined,
   };
 }
 
@@ -241,8 +256,8 @@ export function createYouTubeRouter(): Router {
 
   router.post('/yt/update', async (req: Request, res: Response) => {
     try {
-      const { title, description, thumbnail, broadcastId } = req.body;
-      const result = await updateBroadcast({ title, description, thumbnail, broadcastId });
+      const { title, description, thumbnail, privacy, broadcastId } = req.body;
+      const result = await updateBroadcast({ title, description, thumbnail, privacy, broadcastId });
       
       if (!result.success) {
         const statusCode = result.message?.includes('authenticated') ? 401 : 
