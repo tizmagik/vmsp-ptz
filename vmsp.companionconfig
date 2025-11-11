@@ -3,6 +3,360 @@ type: full
 companionBuild: 4.1.4+8492-stable-4cb4314544
 pages:
   "1":
+    id: HX_W1TtxHEmnP3pv19eNX
+    name: Menu
+    controls:
+      "0":
+        "0":
+          type: pageup
+        "1":
+          type: button
+          style:
+            text: ATEM
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: jrN7anO6cH6dK8hgSD7ak
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"atem"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: 4PKSHuUVpKiGOPo2NlOTV
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 8
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: Main
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: 0KekpcyEmiweosqRqw3Zn
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"main"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: 3VzSqyOVigH1wKCfayzMw
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 7
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: Left
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: pRw0LIYDEggKECf2x7USY
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"left"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: 5dG_3H8dZk03NczzVpQvA
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 6
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "4":
+          type: button
+          style:
+            text: Right
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: abBG4FNr88HReVpquFUK1
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"right"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: lJj8MNZIB06aVv75wVHSt
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 5
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Altar
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: 05UJhphTOUroywQzqQqL3
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"altar"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: LUajGPvviB-081iiA1c7x
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 4
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "6":
+          type: button
+          style:
+            text: Baptism
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: M6lhDKZSaHi5AQ9ZucFeT
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"baptism"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: dY-XlMff3O-UklaC8GDcR
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 3
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "1":
+        "0":
+          type: pagenum
+        "1":
+          type: button
+          style:
+            text: YouTube
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: 4QOQiiqcYYsOKliVMh1DT
+                    definitionId: post
+                    connectionId: ejm5bbPbTH1aMdvImiYMO
+                    options:
+                      url: /api/page
+                      body: '{"page":"youtube"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: x6dPuq4y1LPYPR9_YfsCo
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 2
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "2":
+        "0":
+          type: pagedown
+    gridSize: &a1
+      minColumn: 0
+      maxColumn: 6
+      minRow: 0
+      maxRow: 3
+  "2":
     id: 4lD6v4rafqjlyQWIuvz4_
     name: YouTube
     controls:
@@ -1112,12 +1466,8 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
-    gridSize: &a1
-      minColumn: 0
-      maxColumn: 6
-      minRow: 0
-      maxRow: 3
-  "2":
+    gridSize: *a1
+  "3":
     id: 2OMiRD7rTlZz2frCKgP-C
     name: Baptism
     controls:
@@ -1137,10 +1487,26 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: gZg20ZmA-1Y-H8sIAMCkk
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
@@ -1152,6 +1518,27 @@ pages:
                     options:
                       val: "00"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: SPBX42wh9bFB5nT6YTY5J
+                    definitionId: savePset
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: VTxW3ZD_cl51sfmBY9Hbn
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1169,10 +1556,26 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: URE53FVia2R6q5faR0bvE
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
@@ -1184,6 +1587,27 @@ pages:
                     options:
                       val: "01"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: aUasA3A59otlRpa3JG7lH
+                    definitionId: savePset
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: xIYpjC5bZwmVbblXsRu-I
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1201,10 +1625,26 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: nZ-7YAEl3MaaPnWmQ4mbX
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
@@ -1216,6 +1656,27 @@ pages:
                     options:
                       val: "02"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 26QF3IysjrqgifJK-6gcw
+                    definitionId: savePset
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: b_MKxehBbQd4m97aHr3aJ
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1233,10 +1694,26 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: qBK4hLHr-775zTwGK9LFJ
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
@@ -1248,6 +1725,96 @@ pages:
                     options:
                       val: "03"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: BbRQOPKy6U1Ua6S2Xj-Ml
+                    definitionId: savePset
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: EewRP8YosGFQ-oMj_ToNj
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: vqjbxR6VZy0MfJq3Auq08
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: IllDz5zn0g_209Dn0yXut
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: UGgFZ3SjbL_7GSz_PWiCO
+                    definitionId: savePset
+                    connectionId: ESTwcT9cEb9qkgjXf4uyx
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: l9gNTockQzzxaL0aw_LQo
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1877,8 +2444,69 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: 9tC0xZlazKY9cihgotmm4
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: nrC3qB5oZubJVbdxHuHNc
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: bpi-IUXtZB57a8jr47VXI
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
     gridSize: *a1
-  "3":
+  "4":
     id: 1bNLViMWlI7rsR2BckxAL
     name: Altar
     controls:
@@ -1898,21 +2526,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: JX7-LzOUgC4UD7FueSXWz
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: 02oFjk25jVNklarsTJ3JO
+                    id: sV0a_r9BzO_Gecqt2XU0r
                     connectionId: IKfx2zBO87lCQmE_e77cZ
                     definitionId: recallPset
                     options:
                       val: "00"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 0QL3ODv2_-PHqB0sseBAs
+                    definitionId: savePset
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: 4naICys71qKM8Xj-jnkVs
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1930,21 +2595,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: nYbey1VXKN9UjhS3Yt2wR
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: SJRIVfsfOztRvifASsvxS
+                    id: JIR69Zq5reMK-MCMrTy2G
                     connectionId: IKfx2zBO87lCQmE_e77cZ
                     definitionId: recallPset
                     options:
                       val: "01"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: bPQBw-_c4hymr5lZrnwvN
+                    definitionId: savePset
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: z0DaXXIoWjFZ_3FMrIFjK
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1962,21 +2664,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: H29ACFf7dblipaVEsA-zz
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: pIT5DQ4DxgNtkexeHprwT
+                    id: 4E6fEXnhy_Tgui3ewY8Wm
                     connectionId: IKfx2zBO87lCQmE_e77cZ
                     definitionId: recallPset
                     options:
                       val: "02"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: hVBnYsw4z03FoTsa7-mmQ
+                    definitionId: savePset
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: i7IxVl8UoWqk9cWCBrhmk
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -1994,21 +2733,127 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: cpZpvYgHTP_XmlxTTmrT-
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: uUZxp9CExeTLfWo_gp6Ui
+                    id: 1xxtwQ1_WX1GGfCaOcrky
                     connectionId: IKfx2zBO87lCQmE_e77cZ
                     definitionId: recallPset
                     options:
                       val: "03"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: pIrveGG3fppvzCV4HHeeb
+                    definitionId: savePset
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: H0mXIpgqqnvGoIYZB5oQC
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: rQcGBRkh6WOwmS3yX8FoW
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: lOnUwS2J1VheYDpRf3Zbu
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: YVT8YmMX0HDq3QvVfIrhv
+                    definitionId: savePset
+                    connectionId: IKfx2zBO87lCQmE_e77cZ
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: ZsotuYNBsoca1GCDJMVda
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -2638,8 +3483,69 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: KYcx6LOD-DbwZhbNDHxDv
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: BpBlsWVOnrS6mfxbLbLGc
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: LyAh10E0ELQak2Mndnini
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
     gridSize: *a1
-  "4":
+  "5":
     id: wkpEYgBQAoSo1wWc7Q2eo
     name: Right
     controls:
@@ -2659,21 +3565,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: mJOCz6EKXFuVOcEoj-paL
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: iE3ho-WBseqVyiii7Ld9Q
+                    id: o2-uIPdp6LuyHYZ6LV37C
                     connectionId: qvF2AfqgCSEpySY13vWmG
                     definitionId: recallPset
                     options:
                       val: "00"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: BnfBznmaine3XcHeVGoV0
+                    definitionId: savePset
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: MRc9RG1mkuaqqdlSroG33
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -2691,21 +3634,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: eSCO7TgMEE77gqTStcpAt
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: Of5tMHScdPUqRNJ40ikms
+                    id: 7Rneq68WI5CNiA8QHjQ--
                     connectionId: qvF2AfqgCSEpySY13vWmG
                     definitionId: recallPset
                     options:
                       val: "01"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: isNb6UkOLhuYVBj8lFLdD
+                    definitionId: savePset
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: -KdNz_WKDNt_a1Y5cIncI
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -2723,21 +3703,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: WOMt3WJSFsRMm--K4G1Tg
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: TT8gFF96goKQDbZ5Ey55-
+                    id: qpyPkmVF-C2JXMiex2mqd
                     connectionId: qvF2AfqgCSEpySY13vWmG
                     definitionId: recallPset
                     options:
                       val: "02"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: QZZSAl-EzNlW2Tr3DxrhP
+                    definitionId: savePset
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: Qfzgyv2TVixyPAxpP__AC
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -2755,21 +3772,127 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: Tk4Rm-RSk4h5G2P9u5ZcB
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: FEoBN0liZyVtZztHHJ8XA
+                    id: MyfWRyhJq9or_zkGvGySU
                     connectionId: qvF2AfqgCSEpySY13vWmG
                     definitionId: recallPset
                     options:
                       val: "03"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 90MYmgH3SuTfsntaheIDu
+                    definitionId: savePset
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: x4nNZgv3BRow_vUiD5nOz
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: xrGPCZtYcIxlOf0sbgHh4
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: zS6YEDF1ulnj7xhq5c7cJ
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 7daC5L0wtNL26vx73GXej
+                    definitionId: savePset
+                    connectionId: qvF2AfqgCSEpySY13vWmG
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: xXzfEaqeZzBrdqKrU_ASr
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -3399,8 +4522,69 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: rcquKSD8ApRjRfb0RyXq7
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: AP6DW3tL7Wxf1CbkRHQzt
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: euH9LHJLuSEiC4nV3NTaA
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
     gridSize: *a1
-  "5":
+  "6":
     id: x9mATqROGmMWG0G_iWtu4
     name: Left
     controls:
@@ -3420,21 +4604,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: HOHUpEkNtgG3VYsnL_9-5
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: vR8zGcdyAUUWwYKQMdSJ-
+                    id: Y_fz3XbwKXutvdUq1ofLp
                     connectionId: MwKZJb_5ipC7sTItQlzVW
                     definitionId: recallPset
                     options:
                       val: "00"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: AEybWVjIgt5EvaSem-mGR
+                    definitionId: savePset
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: dlqQ0PpbjOxln_LW-g7Dq
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -3452,21 +4673,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: 1H2NQKueTh8g7zPwXDnNr
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: Q2eCHV4Tsh5cE-ekapGwI
+                    id: rOBaMaiSrKKYpWlAP0PSQ
                     connectionId: MwKZJb_5ipC7sTItQlzVW
                     definitionId: recallPset
                     options:
                       val: "01"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: f0bNIRAzlRMUWcrG7jnGB
+                    definitionId: savePset
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: kwlPdMS4lag_4rn1eKUA1
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -3484,21 +4742,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: zEFts7hyyoxfqHD161x-m
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: niqxoDEb-MIwvb7otVTxU
+                    id: FYycffD59JMKOYUoCmNVE
                     connectionId: MwKZJb_5ipC7sTItQlzVW
                     definitionId: recallPset
                     options:
                       val: "02"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: A_J60y-OvcYgXdfM9YBTH
+                    definitionId: savePset
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: gG2Gpv1Y6K8XadVM8Jtid
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -3516,21 +4811,127 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: jKKiN-kJR6_RMdDYBV-tJ
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: BnAiuTIpWNb1dIYgC72qV
+                    id: 07bl5yN5H-W4WcXaPqmlu
                     connectionId: MwKZJb_5ipC7sTItQlzVW
                     definitionId: recallPset
                     options:
                       val: "03"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: KjnEUXIuzf6lctoFG11_F
+                    definitionId: savePset
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: yhB2b4Ul-5BrdqXIdI0hI
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: qY7byGZIWnkTz0X6WhnaR
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: O3jYHz60TK0zhA6FNGD3T
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: YjTRocZthtWpbK3FkzkDx
+                    definitionId: savePset
+                    connectionId: MwKZJb_5ipC7sTItQlzVW
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: D-it1w9e4oGQlzFYK_NJW
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -4168,8 +5569,69 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: 3u9Hi6OStEBTtxs-ey1jX
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: uomwlXfV8Vy8URw1pffME
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: d8HAWs9YEpvhttoSHY_MS
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
     gridSize: *a1
-  "6":
+  "7":
     id: 82la8yGljKRFwIAO1ENUt
     name: Main
     controls:
@@ -4189,21 +5651,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: 9l9sfSA24W0K2rwVD1Otk
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: OYkDpVIj25MWvdqBkPx9Y
+                    id: VvSvifHTSEb4sxA-hDFTC
                     connectionId: RH4YCAAfRdcWihjRNT-0s
                     definitionId: recallPset
                     options:
                       val: "00"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: Ck5XO3OJLOmUaJSxMUOJo
+                    definitionId: savePset
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: O7-0nQmdRxNUmr5JYgtlH
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -4221,21 +5720,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: 6KuH3j0OYiC2q69EAAXSI
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: BLAR3lnm4Fh31xKUmw3xs
+                    id: meODUJTVACmFcCgVUz23_
                     connectionId: RH4YCAAfRdcWihjRNT-0s
                     definitionId: recallPset
                     options:
                       val: "01"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: kog78qKno4guxa2Ur5itL
+                    definitionId: savePset
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: mm7AK_V2xuPOssmmQiVdN
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -4253,21 +5789,58 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: UdHVdGTgNvmz4lRKPJDkX
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: 5oMPzYw1BxMPuIVj7FQl3
+                    id: jPFdjaIJSF-ZE4hAkbanC
                     connectionId: RH4YCAAfRdcWihjRNT-0s
                     definitionId: recallPset
                     options:
                       val: "02"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: TsVKZAR7H14XnxrRfh8wU
+                    definitionId: savePset
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: 6bPW8r0tMjb8tPt-DFgdb
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -4285,21 +5858,127 @@ pages:
             bgcolor: 0
             show_topbar: default
           options:
-            stepProgression: auto
-            stepExpression: ""
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
-          feedbacks: []
+          feedbacks:
+            - id: tGlpwziyZr3_nj8jFhQdQ
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
           steps:
             "0":
               action_sets:
                 down:
                   - type: action
-                    id: oExpaY3szucPCtLnkNIy6
+                    id: wAf4wXVL1q87kLmwMyyYS
                     connectionId: RH4YCAAfRdcWihjRNT-0s
                     definitionId: recallPset
                     options:
                       val: "03"
                     upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: c0n_8q_uUsipFDE-G0cP1
+                    definitionId: savePset
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: QGTMEwxP3K9e1Mmr7ZMg5
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: Um8XhLTuyGPTNe_4xVgwX
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: AI9RG86YQoBllOiTtfGK6
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: Oe2E7WOq1CQlA6Xq9lgXB
+                    definitionId: savePset
+                    connectionId: RH4YCAAfRdcWihjRNT-0s
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: 08rYV0tsXzOih6pmHz_6t
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
                 up: []
               options:
                 runWhileHeld: []
@@ -4929,8 +6608,69 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: c4JLMsW1C0q3tHaaLXlWA
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: RDDvLOJGKAQXP6VGPRqMJ
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 7GzRHd_5QmsPfLpqPJrEQ
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
     gridSize: *a1
-  "7":
+  "8":
     id: r8sterk25zncKQI2BZeE3
     name: ATEM
     controls:
@@ -5806,6 +7546,11 @@ custom_variables:
     defaultValue: "0"
     persistCurrentValue: true
     sortOrder: 1
+  preset_shift:
+    description: Preset shift button state
+    defaultValue: "0"
+    persistCurrentValue: true
+    sortOrder: 2
 customVariablesCollections: []
 expressionVariables:
   dDaGPpUGWV0l6Lt7eN0k2:
@@ -5981,8 +7726,8 @@ surfaces:
       startup_page_id: r8sterk25zncKQI2BZeE3
       use_last_page: true
       page: 1
-      last_page: 5
-      startup_page: 7
+      last_page: 6
+      startup_page: 8
     config:
       brightness: 100
       rotation: 0
@@ -6003,12 +7748,12 @@ surfaces:
   emulator:upY2sQgNt-otH-JXfXeAl:
     groupConfig:
       name: Auto group
-      last_page_id: 4lD6v4rafqjlyQWIuvz4_
+      last_page_id: 1bNLViMWlI7rsR2BckxAL
       startup_page_id: r8sterk25zncKQI2BZeE3
       use_last_page: true
       page: 1
-      last_page: 1
-      startup_page: 7
+      last_page: 4
+      startup_page: 8
     config:
       brightness: 100
       rotation: 0
