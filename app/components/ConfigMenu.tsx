@@ -15,6 +15,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
   const [showYoutubeForm, setShowYoutubeForm] = useState(false);
   const [youtubeTitle, setYoutubeTitle] = useState('');
   const [youtubeDescription, setYoutubeDescription] = useState('');
+  const [youtubePrivacy, setYoutubePrivacy] = useState<'public' | 'private' | 'unlisted'>('public');
   const [youtubeStatus, setYoutubeStatus] = useState<'idle' | 'updating' | 'success' | 'error'>('idle');
   const [youtubeError, setYoutubeError] = useState('');
   const [modalRoot, setModalRoot] = useState<HTMLElement | null>(null);
@@ -69,6 +70,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
         body: JSON.stringify({
           title: youtubeTitle,
           description: youtubeDescription || undefined,
+          privacy: youtubePrivacy,
         }),
       });
       
@@ -81,6 +83,7 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
           setShowYoutubeForm(false);
           setYoutubeTitle('');
           setYoutubeDescription('');
+          setYoutubePrivacy('public');
         }, 2000);
       } else {
         setYoutubeStatus('error');
@@ -233,6 +236,20 @@ export function ConfigMenu({ preferredMode, onModeChange }: ConfigMenuProps) {
                   rows={4}
                   className="form-textarea"
                 />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="youtube-privacy">Privacy</label>
+                <select
+                  id="youtube-privacy"
+                  value={youtubePrivacy}
+                  onChange={(e) => setYoutubePrivacy(e.target.value as 'public' | 'private' | 'unlisted')}
+                  className="form-input"
+                >
+                  <option value="public">Public</option>
+                  <option value="unlisted">Unlisted</option>
+                  <option value="private">Private</option>
+                </select>
               </div>
               
               {youtubeError && (
