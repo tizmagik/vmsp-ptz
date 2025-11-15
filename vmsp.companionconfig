@@ -8991,12 +8991,84 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "5":
+          type: button
+          style:
+            text: Default\nView
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 3348736
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: L_pL73Xa1MxnISsbSe38g
+                    definitionId: recallPset
+                    connectionId: XX6UNTCBRlYh4_JiLXvCo
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: Kh9eRzW2ntKAkh0Kknyp-
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "true"
+                      mixeffect: 0
+                      key: 0
+                    upgradeIndex: 6
+                    type: action
+                  - id: g4wz9FegtiUVwS-ifeORQ
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: oyBuynzmnA6P_q20KVw1E
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "false"
+                      mixeffect: 0
+                      key: 1
+                    upgradeIndex: 6
+                    type: action
+                  - id: ruDIjLKvosgcwFCZtU0aa
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: AGDjBwLoLW63ZZ5AH9Efa
+                    definitionId: program
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 1
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
         "6":
           type: button
           style:
             text: Annual
             textExpression: false
-            size: "18"
+            size: "14"
             png64: |
               iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABoUlEQVR4AbSV
               gXECIRBFL2kksZJoJdFK1Eo0lWgn2gl57wTmULhhjLnZf8vB7v4FluN9+Oen
@@ -9254,12 +9326,84 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "5":
+          type: button
+          style:
+            text: Sermon\nView
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 3348736
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: _tmKGNKCQc6qAVJT_tEZy
+                    definitionId: recallPset
+                    connectionId: XX6UNTCBRlYh4_JiLXvCo
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: f4TyHWfVFGvll_LaV_BRH
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "false"
+                      mixeffect: 0
+                      key: 0
+                    upgradeIndex: 6
+                    type: action
+                  - id: F0Sgtc8wh573dyZtMypBi
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: Ef_GgSzalBJmaHdwpzKeG
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "false"
+                      mixeffect: 0
+                      key: 1
+                    upgradeIndex: 6
+                    type: action
+                  - id: ZHwcv8Pfb7p-mEZ4jBIoz
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: j0rH51sZaadV8KFpw_-CA
+                    definitionId: program
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 1
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
         "6":
           type: button
           style:
             text: Joyful
             textExpression: false
-            size: "18"
+            size: "14"
             png64: |
               iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABoUlEQVR4AbSV
               gXECIRBFL2kksZJoJdFK1Eo0lWgn2gl57wTmULhhjLnZf8vB7v4FluN9+Oen
@@ -9515,12 +9659,84 @@ pages:
               options:
                 runWhileHeld: []
           localVariables: []
+        "5":
+          type: button
+          style:
+            text: Comunion\nView
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 3348736
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: gABME7GQmqExEEcULyS3P
+                    definitionId: recallPset
+                    connectionId: XX6UNTCBRlYh4_JiLXvCo
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: Gk6u9U3vF-YLpol8jGmDS
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "false"
+                      mixeffect: 0
+                      key: 0
+                    upgradeIndex: 6
+                    type: action
+                  - id: dATXRtwRsg95BeicwMMiv
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: W86XhmByw-EZ35pEVNg89
+                    definitionId: program
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 1
+                    upgradeIndex: 6
+                    type: action
+                  - id: oiw4JqZ3Zy9XrAt0V9LT0
+                    definitionId: wait
+                    connectionId: internal
+                    options:
+                      time: "10"
+                    type: action
+                    children: {}
+                  - id: 9fr8i0oXO6-a37MOKX95p
+                    definitionId: usk
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      onair: "true"
+                      mixeffect: 0
+                      key: 1
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
         "6":
           type: button
           style:
             text: Mourn
             textExpression: false
-            size: "18"
+            size: "14"
             png64: |
               iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABoUlEQVR4AbSV
               gXECIRBFL2kksZJoJdFK1Eo0lWgn2gl57wTmULhhjLnZf8vB7v4FluN9+Oen
