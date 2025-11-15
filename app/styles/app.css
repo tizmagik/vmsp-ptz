@@ -446,15 +446,15 @@ video {
   .cam-buttons {
     top: 8px;
     left: 8px;
-    gap: 8px;
+    gap: 6px;
   }
 
   .cam-btn {
-    padding: 0 10px;
+    padding: 0 8px;
     height: 40px;
-    font-size: 0.85em;
+    font-size: 0.8em;
     /* Larger touch targets on mobile */
-    min-width: 48px;
+    min-width: 44px;
   }
 
   .settings-button {
