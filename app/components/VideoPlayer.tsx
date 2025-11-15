@@ -168,8 +168,9 @@ export function VideoPlayer({ path, preferredMode, onStatusChange }: VideoPlayer
       <video
         ref={videoRef}
         autoPlay
-        muted
         playsInline
+        controls
+        muted={false}
         style={{ display: shouldUseRTC ? 'block' : 'none' }}
       />
       <iframe

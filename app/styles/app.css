@@ -444,7 +444,7 @@ video {
   }
 
   .cam-buttons {
-    top: 8px;
+    top: 24px;
     left: 8px;
     gap: 6px;
   }
@@ -464,7 +464,7 @@ video {
   }
 
   .settings-container {
-    top: 8px;
+    top: 24px;
     right: 8px;
   }
 }
