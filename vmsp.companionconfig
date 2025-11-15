@@ -30,7 +30,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: fF5mkc4v1z9Bkz4qR_UAq
+                  - id: aDshb62Iilqw5arSdM38s
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -41,7 +41,7 @@ pages:
                       result_stringify: true
                     upgradeIndex: 1
                     type: action
-                  - id: 4IRXfVpm2C1rlEunIZIPz
+                  - id: 7_xP_LDSqKDNIzUQ-9NR2
                     definitionId: set_page
                     connectionId: internal
                     options:
@@ -49,7 +49,7 @@ pages:
                       controller: self
                       controller_variable: self
                       page_from_variable: false
-                      page: 8
+                      page: 9
                       page_variable: "1"
                     type: action
                     children: {}
@@ -78,7 +78,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: 1EMhvZPs6Snahj2XNbFQN
+                  - id: 56UOai7TvN6v2oto06B6I
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -89,7 +89,7 @@ pages:
                       result_stringify: true
                     upgradeIndex: 1
                     type: action
-                  - id: -LV_GI9uEnxpUpeoEJGQl
+                  - id: -GQCDDue0V4X2XSG3mxeu
                     definitionId: set_page
                     connectionId: internal
                     options:
@@ -97,7 +97,7 @@ pages:
                       controller: self
                       controller_variable: self
                       page_from_variable: false
-                      page: 7
+                      page: 8
                       page_variable: "1"
                     type: action
                     children: {}
@@ -126,7 +126,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: BxzHfDaMA8EhfT9qRgUCm
+                  - id: kKj1NyO-6Nwa1M73zJuEe
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -137,7 +137,7 @@ pages:
                       result_stringify: true
                     upgradeIndex: 1
                     type: action
-                  - id: GTxFdRTp7ft_G5OOoalFn
+                  - id: n0R6d3z_ER2QKrSkfNkty
                     definitionId: set_page
                     connectionId: internal
                     options:
@@ -145,7 +145,7 @@ pages:
                       controller: self
                       controller_variable: self
                       page_from_variable: false
-                      page: 6
+                      page: 7
                       page_variable: "1"
                     type: action
                     children: {}
@@ -174,7 +174,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: XTThu42_nq2_BMeSbbawt
+                  - id: YrZCjDJU_2nv2y2kWmbn8
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -185,7 +185,7 @@ pages:
                       result_stringify: true
                     upgradeIndex: 1
                     type: action
-                  - id: LzeGChjKRo_aJDXSKzSJz
+                  - id: ygy9bPngFIsUpDlzJE5mT
                     definitionId: set_page
                     connectionId: internal
                     options:
@@ -193,55 +193,7 @@ pages:
                       controller: self
                       controller_variable: self
                       page_from_variable: false
-                      page: 5
-                      page_variable: "1"
-                    type: action
-                    children: {}
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables: []
-        "5":
-          type: button
-          style:
-            text: Altar
-            textExpression: false
-            size: "14"
-            png64: null
-            alignment: center:center
-            pngalignment: center:center
-            color: 16777215
-            bgcolor: 0
-            show_topbar: default
-          options:
-            stepProgression: auto
-            stepExpression: ""
-            rotaryActions: false
-          feedbacks: []
-          steps:
-            "0":
-              action_sets:
-                down:
-                  - id: wBRxAgFMRkg0uhXVuKeCx
-                    definitionId: post
-                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
-                    options:
-                      url: /api/page
-                      body: '{"page":"altar"}'
-                      header: ""
-                      contenttype: application/json
-                      result_stringify: true
-                    upgradeIndex: 1
-                    type: action
-                  - id: R6bhGCjFlgSIn4jOs21yT
-                    definitionId: set_page
-                    connectionId: internal
-                    options:
-                      controller_from_variable: false
-                      controller: self
-                      controller_variable: self
-                      page_from_variable: false
-                      page: 4
+                      page: 6
                       page_variable: "1"
                     type: action
                     children: {}
@@ -250,57 +202,6 @@ pages:
                 runWhileHeld: []
           localVariables: []
         "6":
-          type: button
-          style:
-            text: Baptism
-            textExpression: false
-            size: "14"
-            png64: null
-            alignment: center:center
-            pngalignment: center:center
-            color: 16777215
-            bgcolor: 0
-            show_topbar: default
-          options:
-            stepProgression: auto
-            stepExpression: ""
-            rotaryActions: false
-          feedbacks: []
-          steps:
-            "0":
-              action_sets:
-                down:
-                  - id: KeJ-sCkzdsEA3ywHTI5xx
-                    definitionId: post
-                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
-                    options:
-                      url: /api/page
-                      body: '{"page":"baptism"}'
-                      header: ""
-                      contenttype: application/json
-                      result_stringify: true
-                    upgradeIndex: 1
-                    type: action
-                  - id: PWZ2d-ggPqSCckPicRjEC
-                    definitionId: set_page
-                    connectionId: internal
-                    options:
-                      controller_from_variable: false
-                      controller: self
-                      controller_variable: self
-                      page_from_variable: false
-                      page: 3
-                      page_variable: "1"
-                    type: action
-                    children: {}
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables: []
-      "1":
-        "0":
-          type: pagenum
-        "1":
           type: button
           style:
             text: YouTube
@@ -321,7 +222,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: K2-WDV76Q34mlRsjZXZah
+                  - id: Fhx35iW0a0J8XJVAX2ciY
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -332,7 +233,7 @@ pages:
                       result_stringify: true
                     upgradeIndex: 1
                     type: action
-                  - id: LMmAo0Ij-Fg5ZAg7iIf99
+                  - id: SVAqtO1hvjVBYGP2jxtUF
                     definitionId: set_page
                     connectionId: internal
                     options:
@@ -341,6 +242,153 @@ pages:
                       controller_variable: self
                       page_from_variable: false
                       page: 2
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "1":
+        "0":
+          type: pagenum
+        "1":
+          type: button
+          style:
+            text: Altar
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: JhLV33aajwAYCmvoR30Y4
+                    definitionId: post
+                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
+                    options:
+                      url: /api/page
+                      body: '{"page":"altar"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: r-WIENaR9SA-T-Elj8piD
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 5
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: Baptism
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: ZrQ6hf0lW4mkEgXm2vd9a
+                    definitionId: post
+                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
+                    options:
+                      url: /api/page
+                      body: '{"page":"baptism"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: eqfQ2oZ-g8VZCOYBFKtUm
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 4
+                      page_variable: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: Basement
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: T0r-jTqa9IneEBjhvCPht
+                    definitionId: post
+                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
+                    options:
+                      url: /api/page
+                      body: '{"page":"basement"}'
+                      header: ""
+                      contenttype: application/json
+                      result_stringify: true
+                    upgradeIndex: 1
+                    type: action
+                  - id: vM0gtb-b2dVHhYy1uLVXO
+                    definitionId: set_page
+                    connectionId: internal
+                    options:
+                      controller_from_variable: false
+                      controller: self
+                      controller_variable: self
+                      page_from_variable: false
+                      page: 3
                       page_variable: "1"
                     type: action
                     children: {}
@@ -384,7 +432,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: J6w7QiUareAfH0SDzrviQ
+                  - id: uzgQw1yF_rGeRSUQgiRuA
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -422,7 +470,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: QXV-kOx_ry0zxswQwkWhE
+                  - id: Wy05J2NFFeACxePj0oUoJ
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -460,7 +508,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: vLiU-MOOFhbQA-ztSK59g
+                  - id: hAJ5zd1n4cgVhUTX_m2wA
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -496,7 +544,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: z3vIOwCTPg9Fwc9B1sL1g
+                  - id: SzYxBOUk2xVx20qkMDody
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -532,7 +580,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: Rf6CZr9W7pWL4DgF-yKey
+                  - id: rpY_4G8QWC3LgsRSNgfIW
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -571,7 +619,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: ZPgDrD674zgOHkw664Cp6
+                  - id: uwlee3aEQZume1o0mXE-K
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -604,7 +652,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: 0EzeS2Xk2izaFl4-__-nQ
+                  - id: sB66nCECyiPuzMxaOVcjO
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -637,7 +685,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: RmHDHzzSYLlS1Tc3PVOID
+                  - id: S7m2J7vHcG4DAVfaDdJzq
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -670,7 +718,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: UjrKCk88DFINsH4mM8_Yu
+                  - id: mjlfHbKy5Z5q3fAVxWtMq
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -703,7 +751,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: inQTNYz06siVyAIVgID4q
+                  - id: eJMju33pNJBYwlFxqErL-
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -820,7 +868,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: cIsfYKtA5vuzO2djSQnyn
+                  - id: KOmu_Da6knVO4AiNvBHEV
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -839,7 +887,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 6d6qXIh4ulctho3vNWQEz
+                  - id: YqWXZ8Ls8y80wa8fKEeml
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -858,7 +906,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: nLHBkAl6ROQlo_6gGYAmI
+                  - id: DdE2EtUowz22zbwZIIW2J
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -877,7 +925,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: HEqxxRkDXFaUx8zh8YoI7
+                  - id: asNuBYHOQr48Kc8uVtgRq
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -896,7 +944,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: 0lWs-iPZC0R_3rVVJaA7A
+                  - id: 5QtpcwOo5CPX3UHZHdTQo
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1014,7 +1062,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: 1GuzD5L7-s15qvlk5effT
+                  - id: DEmV_uHRFG19QobCKHtPs
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1033,7 +1081,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: kB7HGPkbiQFqPBrQGZFjw
+                  - id: _n4idMPlXlJD8mm8ZBsk7
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1053,7 +1101,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: KfHu7jKVM1kzaqjGp1tLO
+                  - id: 8GEdniWeHSYAQk8z6_YVZ
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1072,7 +1120,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: TcCiictJZq6kNeAZIcca1
+                  - id: ABm5uFVgJ8wM4eyjO2Vs4
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1091,7 +1139,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: pOg2FhBwqNqccEGQ4zA3X
+                  - id: 9LDBh5ZtA03F3FUGfX_ke
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1210,7 +1258,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: S_73TkFVU9aVzmhqA-hLb
+                  - id: JxXjNKg_OQg1hGd_Qlvww
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1229,7 +1277,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: lEDI4H8ciY4FgYik523-N
+                  - id: 2zFoZdw3eG28aNFJcY2od
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1249,7 +1297,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: WYVNa4lajSdz6m8PLhP7P
+                  - id: cDdMXVPfA0ID4iMzZ_C7V
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1268,7 +1316,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: mle95pEuZIkIBkTUnln5A
+                  - id: nmKV8P9TtXhBqysFBDLqT
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1287,7 +1335,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: rb9ofdXYSExT60jUSQnmC
+                  - id: kK443PK5rGDTtzSOedmbA
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1390,7 +1438,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: HcFVUvg5IMkd2fLAHnTT6
+                  - id: _b3-fqW9VA7ta8TNG2ALO
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1409,7 +1457,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: cMhb1oR8mboT4f7Gn4bnc
+                  - id: -68LzVKh4pICiDuC3Df34
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1435,7 +1483,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: shI0DnNk5sXQa-ykmOyq2
+                  - id: oPeLoTa534_R9l3_Sn46C
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1454,7 +1502,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: 7GhbntpsTWU9Pvu2TQ235
+                  - id: N3nJbHFCxcUD76Oyzxdv7
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1558,7 +1606,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: bylutvPTRz3eE8Vay57Eb
+                  - id: mVQbVpqOp210mbCKtsxGe
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1577,7 +1625,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: yrq0DuLaThYBY22J7FmQA
+                  - id: OakLRwMgrFZVrkSSZbEq3
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1602,7 +1650,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: Hqzo__J0GITdWEdeCzF77
+                  - id: --HOzkS-faQjCC21_hNFY
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1621,7 +1669,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: _eh2DwxqDvIJkE0vW7Pdu
+                  - id: 6a91UYb_pWyOqqqEsScZs
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1708,7 +1756,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: Ij77_Ed4pZjMvUVDGcvCk
+                  - id: xgRE5sUaonW0jPGCY88k7
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1739,7 +1787,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: P-YyvBB6fXeo1W9mwH2x_
+                  - id: YFfe-fYS7BcW24V-WHYB7
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1758,7 +1806,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: LS3aFE-DhHn7E2ngKvXmT
+                  - id: 5IPNLAxo7fcMHqlHc8L67
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1846,7 +1894,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: FMxYJXO3raMqXRi6kkO0P
+                  - id: pllF6cYTIPABQrdhfEWcz
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1877,7 +1925,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: lOUqx53FU2X9wGzKuM5kW
+                  - id: yG-WtgLaloFuDcjquJG_N
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1896,7 +1944,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: V_jK8Yz4l0XgYO8WBpDAf
+                  - id: L9U_P_Zrv35gBh1uWQg6x
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -1984,7 +2032,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: lfyQFQS5q_mpwLBZZhD2K
+                  - id: jdwgZ947TpahFCSuAmpmM
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2003,7 +2051,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: eGmCMmzloedM0atGzY0FI
+                  - id: q5H2u-nV8vftcwOQsiYq5
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2091,7 +2139,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: g9W50DW9yuPbYac2ZBE24
+                  - id: PWIOV1uVARdp0UCRT7Jsz
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2110,7 +2158,7 @@ pages:
             "5":
               action_sets:
                 down:
-                  - id: Ir4XFJqiWUvEJloegaBtT
+                  - id: wH2W7YC85dU1hlnt9pD2j
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2198,7 +2246,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: R4DQ7JZveN3GmwIfJy82x
+                  - id: MNfJHjzNEjkjFTA8S4nXe
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2217,7 +2265,7 @@ pages:
             "4":
               action_sets:
                 down:
-                  - id: 6AE6q02aSH0VgN_4hntwd
+                  - id: cmoPPuCMpxi9nJtYoEZPI
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2289,7 +2337,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: LZXK3_jDJsfkvdQREXoFe
+                  - id: Y-inT8yPCcRBA33UWVo2x
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2367,7 +2415,7 @@ pages:
             "3":
               action_sets:
                 down:
-                  - id: 9JKekddC3V6tI3V7Lh5JP
+                  - id: c4HizRlNCh-lLNHW_rggy
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -2392,8 +2440,8 @@ pages:
           localVariables: []
     gridSize: *a1
   "3":
-    id: g7T9_DffWVQUUD9_lkcYM
-    name: Baptism
+    id: WzW8YCXDuVksOKx-NBwRu
+    name: Basement
     controls:
       "0":
         "0":
@@ -2415,7 +2463,7 @@ pages:
             stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
           feedbacks:
-            - id: 0HkI0u1aCFADF54_d1alp
+            - id: u-EuoTtcAnOvcNSHqGZiP
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -2436,8 +2484,8 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: UATjajBlpdpH-n1syfO6y
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    id: i4gfMoWhtODmqUA6yY6ds
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
                       val: "00"
@@ -2448,14 +2496,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: IeRO4zSAtgp2CRrFQtxAK
+                  - id: UFqnxM9weyQZ5T2-D1yPn
                     definitionId: savePset
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "00"
                     upgradeIndex: -1
                     type: action
-                  - id: aNy0SHNBlwwle_8QVWQ6-
+                  - id: mt0Bw77srIoHdWTY3vlwI
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -2484,7 +2532,7 @@ pages:
             stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
           feedbacks:
-            - id: 1U69zwGbX2oZJqE3nFCUe
+            - id: OMKz2JgrMOimYX7t2FjyB
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -2505,8 +2553,8 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: i390vYS38CCXFg8QMVPo3
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    id: NwsfsxzEu0c_Q1nXEUoiS
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
                       val: "01"
@@ -2517,14 +2565,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 6hwaYVrb4ZHZU2UHmTPIW
+                  - id: 4_APSdO9z36bcWFiXFuYV
                     definitionId: savePset
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "01"
                     upgradeIndex: -1
                     type: action
-                  - id: cxgr5Ni5xNh-Giw1Von9P
+                  - id: R-eUP2cSRqTv5jdMYwWRe
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -2553,7 +2601,7 @@ pages:
             stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
           feedbacks:
-            - id: Lu_CuPp9b-xXl8P0knA23
+            - id: pVqZCusLHGTVF1SnTwP_V
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -2574,8 +2622,8 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: FqF7KUOEbFuhwc8OAIJIk
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    id: 92mZUA9DuIPvtArdSRa3L
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
                       val: "02"
@@ -2586,14 +2634,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: toCvxKq19f5VS3sbAFeMc
+                  - id: -tDpH6mMTBS-pk2rFAaL2
                     definitionId: savePset
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "02"
                     upgradeIndex: -1
                     type: action
-                  - id: qdeShwLd5uwNNcaRjWbwM
+                  - id: gJgsr1vgXyI3RmiWcZqCT
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -2622,7 +2670,7 @@ pages:
             stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
           feedbacks:
-            - id: Sm7X6dfeIfojRlyc2sBPf
+            - id: Ic20NR6eR3PjpGceMdHsp
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -2643,8 +2691,8 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: oXz0kA52I_dLbEshjKawo
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    id: h3EIx9lOTOQ-T0gMpI2rP
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
                       val: "03"
@@ -2655,14 +2703,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: NsnG4e7Dhyi7_bT6KmDPe
+                  - id: zL_tm3JopUrF4iV_3e0-1
                     definitionId: savePset
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "03"
                     upgradeIndex: -1
                     type: action
-                  - id: NuU_exeaw9kHAFOVhwteK
+                  - id: eagOUcEQ1gk3OIrGdQ6k4
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -2691,7 +2739,7 @@ pages:
             stepExpression: $(custom:preset_shift) + 1
             rotaryActions: false
           feedbacks:
-            - id: _FB1vVpdHrc3IAkpew5ov
+            - id: kRS8u9sDhOMM0eQ0fzB4x
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -2712,8 +2760,8 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 9IGDKkIgBwpf_hhMYtatD
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    id: dG0JrVP0KZ8GKxcGJSzIA
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
                       val: "04"
@@ -2724,14 +2772,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: WV0DTK5SZWi7SEvkd9Wu1
+                  - id: j7eTrNSYktGnPsJeV2kS8
                     definitionId: savePset
-                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "04"
                     upgradeIndex: -1
                     type: action
-                  - id: O34RlxaWLsGUOAjdPBcfn
+                  - id: X2XZDZjDDPb5B71ZzKwOM
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -2746,7 +2794,7 @@ pages:
         "6":
           type: button
           style:
-            text: Live\n$(atem:short_7)
+            text: Live\n$(atem:short_6)
             textExpression: false
             size: "14"
             png64: null
@@ -2761,11 +2809,11 @@ pages:
             rotaryActions: false
           feedbacks:
             - type: feedback
-              id: QoICFM7qzDp2ssmr2rgui
+              id: AICDFux2GhJ3t4hTSeGN0
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: program_bg
               options:
-                input: 4
+                input: 6
                 mixeffect: 0
               isInverted: false
               style:
@@ -2777,12 +2825,12 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: SaoakHrdkKLzslbuRDuxj
+                    id: qQbSpuJWXPyyf1CdnGeUo
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: program
                     options:
                       mixeffect: 0
-                      input: 7
+                      input: 6
                     upgradeIndex: 6
                 up: []
               options:
@@ -2813,14 +2861,1053 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 5Zfg78kcgyoTYEZ_ibL7Y
+                    id: bGn4L2jzEJfcVDETZowCD
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: zoomI
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: 2FMf73ZgUVuhCDwR5NU5P
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: zoomS
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAMAAAAk2e+/AAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAABLFBMVEUAAAD/////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              //////////////////////////////////////////////////9PVkEkAAAA
+              Y3RSTlMAAQ/6Uc0OEAvHTzL7TcudsMHvdwnfUwMcG8UGiIfTrIkg9QI+/ZTD
+              e460km73LNovCo1vQUuR4Lwk45/OK+3UERTkekziZlSK8QQnoOsFaaXmLqOy
+              lvPZLYDRZTUWUpiTDfAuEmiSAAABUklEQVRYw+3WZ2+DMBAG4EtTygrQ7NHs
+              Jt1777333vv+/38o6gIMSo0dqf3AK1lIZ/mRjPEJgCBBgvxtQr8WqDKbCiWU
+              G1AnYXU7C7UJqKQSR5oKQwqIPphsYW24nEPjJCYXilf9F+G+qeTmThTP5w8X
+              8gK9NLqOGMGPhD8fdXtBkGihlmlsmF5aqK2xg9FmQe3/DupuEhTpoT41z/V1
+              HVHfxWRRo/6ORBfyjILx9mRo+2MDlS3ggF5q4uP9qzmVNjfOA+EDdDLcWA8I
+              W6FJEJPkCbFI3hCDZEFVPsmC7mQuyYJ0iUuyIAG4JDvEJTkgHskJcUgExC6R
+              ECmxQ4REDa24ILsU6wL/rfYHskmX9C87Pfi9aA5cUmnRx/kffDmncSCkat7X
+              342KSzOIuesNR1WSl7GU8Xfbbs9Gyoo0TvRp6Tie8d2TOsyx51UMEiQIS94B
+              13oTqqYgGGoAAAAASUVORK5CYII=
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: 9fKMejmsyg5y5cskv596T
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: upLeft
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: o5KK-0Q5oU1j58GEOqZ-2
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6AQMAAAApyY3OAAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAIFJREFUKM+90EEK
+              gzAQRmFDFy49ghcp5FquVPBighcRegHBjWDJ68D8U6F7m00+EnhkUlW3ru6r
+              dyCV0INQzSg1zFLLKmU2aeCQQMEEJXIQORRsTLNyKJhNm3IoaPBg4mQorp2M
+              h1+00kKN307o/bZrpt5O/FlPU/c75X91/fPd6wPRD1eHyHEL4wAAAABJRU5E
+              rkJggg==
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: oWJtM3k5D7puSPyZwynH4
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: up
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: yWWVDTYdBfcOSzSSZEXYK
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "4":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAMAAAAk2e+/AAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAABhlBMVEUAAAD/////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              //////////////////////////////////////////////////+X02G5AAAA
+              gXRSTlMAAte32QZhZx7d+TywDTf8/d5VstYPOxULNvKmSY8TFBrxyeGCluJe
+              ELQ5uw7ULND4BedlKuv2P/vDA8UgCk30WO41s8+5X8dABAz6QhHVaR156JpP
+              nihSfTJDNOMBm4bzSICqr23NsRjcGRbtjTCS2lzsOmyu9+WLKb2fTL8+RPDh
+              qO4yAAABfElEQVRYw+3WZW/CUBQG4AO0FBsOwwcMm7sLc3d3d3e388/HGGs7
+              lpD0tsm+9P3S5CT3SdPec+8BkCNHzv9FAVAAEABYdQDkA7jo9GNUIDMBzstb
+              5vr0/Gx8Z35zOjI36R2xbu+619eWa2xCoK0FClF5h1cWxDHEwilEOyLlQc8h
+              okoAlMRcESBh7siQlJBWKkijNaHuPrWBED9iYiDQ7Pv1D4Z4/DXyFo2JgeAg
+              hQEkEgAvT6IgNo/PIUmgd62oj80mqEIpINoXRkmg2j2UBDIWVXKLTSXEUIOF
+              /xbV5aRQsJvvUOoqMqjZZ+c7FcX8ThYCtTbxHV0fkEGDA73D3Dpzi/6rWEYA
+              dSn579PZ/t3IBJChkef0dLRlHXdkJ6TSmSnmiYPq1LQIiGHX9BvZYinJ7/+R
+              6q1czUG0j9KSOTxDc6UhshZhMIQrS78mncwZtzErrNcYL6V2Zd0tJ6i7QFtA
+              YPcvHv25W6J+/Y3BrRA/x6WGuGN5mpUjhyyfsGtrpKE95HoAAAAASUVORK5C
+              YII=
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: MZRF4ij9m5R7Uyysq3HmR
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: upRight
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: 4MQ7l_C_USm0gvkyUH4nk
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "2":
+        "0":
+          type: pagedown
+        "1":
+          type: button
+          style:
+            text: ZOOM\nOUT
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: jrya9_unwdhswjMQj5nNf
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: zoomO
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: 5kM9E269nSrPJnqQMvTP5
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: zoomS
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6AQMAAAApyY3OAAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHpJREFUKM+1kTEO
+              gCAQBM9Q2JjwA/mJPA2fxlN4giWF8TRBBhMpbKSaZie3i8gPb4Y8FNZKGm8Y
+              IAONkNWacIruQLejy+gyug1dQhfRqZa0v6gYA6QfqSWapZnto1B6XdUuFaVH
+              oJunr2MD21nIdJYUEhLYfoGmP777BKKIXC0eYSD5AAAAAElFTkSuQmCC
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: V0oMOHoFPTF6ipnRjxxJy
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: left
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: Ov5EMAa_nhCS2EWzMZN6D
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: HOME
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: M1lzpr2Q8nY61gwRXKH1n
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: home
+                    options: {}
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "4":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6AQMAAAApyY3OAAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAHhJREFUKM+10LER
+              gCAMQFE4CktHcBRWcRMYzVEcwdKCI+od+fGksVCq3/AuiXOfvZnaNXzRClVr
+              EKtMLdSqP2RTRQAFMAFGwAlw7MAk0sAzGnhVoerLKg/F5Pv4NoFNZZNGpk9s
+              xJYeLsDdL5T7S8IFOM/R3OZ+fQeQZV9pMy+bVgAAAABJRU5ErkJggg==
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: b9p1hVnurmkpkf4K9uic5
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: right
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: lbL9oaSddVZACVzGxqFZQ
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "3":
+        "2":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAMAAAAk2e+/AAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAABg1BMVEUAAAD/////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              //////////////////////////////////////////////8aT76cAAAAgHRS
+              TlMAafwJfflezc+3WA7Z5Rk6PAvpBNE73kJT89QxZ48czNIv9A1DnI3qKQUa
+              ymjT4a7HdVuGf85LR20CVHr+tLBlA0GvYSTYZEnbAcazNPX4yB4GrAgnmL6B
+              cj4qIVKIe8kdVadIEe27B90bOG/3Er1rYJq1wibyh+4Q5CMzRllMXDo5euMA
+              AAGfSURBVFjD7dblUwJBGAbw5aSlBJRGQERBkLC7u7u7u7veP90jDnaEcdhj
+              P+k9X5h9Zu43O7PLe4eQECH/KGsIaUooOEcLK75LpehH628idSrE+nMANfyQ
+              3MY2BRm0C6mM462tUwJAJtVyUB1WmsoSFZEk46D6TBcYS3UKPpCYawxD5VxH
+              ImVD/RHIxMQbGintkGQcppkcOkuutQPYfkDfmjck556ZTSydve2YY5UWk0Mw
+              w672VPh+XFqCU8tA+whtL+KOpa+bF3Rh8B4ymDNaSnSzG9IPIpsL34/HTPZf
+              S58auMPYuYNMWcQXOsD3U9ZDOkZkkCvqwSIqUI2WfEDmgiQxRANiIp8GKtDL
+              O6/Znw19oOdXhKoROtEUBr1F5Y9f4dt1XygqKgh6YqcHwMQkQBWICr1H6czT
+              grpoQde0IGnekJEWNEwLMv/GPDDB/M/fDioVeLYA5GqoYt+xNRY4toJkCiBU
+              G7vTEVxJu2Z549RbqXQuba7uVDZWO66mgw6d7kYaEPvvCb+REIp/srGzLP4a
+              a0n8zKFkKUSIkD+Qb9QrYMvxAbaBAAAAAElFTkSuQmCC
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: omxEcoTjqGYm23wYPJ1lt
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: downLeft
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: VzTI8zLLyyBK6fnJXfyc4
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6AQMAAAApyY3OAAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAAABlBMVEUAAAD///+l2Z/dAAAAAXRSTlMAQObYZgAAAIlJREFUKM/F0DEO
+              wyAMBVAjDxk5Qo7CtdiClIv1KJF6gUpZIhXxY2zTDJ2benoS8LFN9MsKbYjx
+              F2XRS1UZ4bCeGFztFmNqphURpidm146kpwFvLDYJpPQtLSLNoySyP2bRpoqi
+              h2oSFW8K3lYAxmJGXA88XMnjeuDmih7XA8vXvNeeqX6U6aY6AacbWAQNWOPU
+              AAAAAElFTkSuQmCC
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: PXeLi5MRVbxg5qLupANNR
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: down
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: hsGOyY6EySKosLUV5Ba4F
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "4":
+          type: button
+          style:
+            text: ""
+            textExpression: false
+            size: "18"
+            png64: |
+              iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAMAAAAk2e+/AAABS2lUWHRYTUw6
+              Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJX
+              NU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4
+              PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42
+              LWMxNDAgNzkuMTYwNDUxLCAyMDE3LzA1LzA2LTAxOjA4OjIxICAgICAgICAi
+              PgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5
+              LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJk
+              ZjphYm91dD0iIi8+CiA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgo8P3hwYWNr
+              ZXQgZW5kPSJyIj8+LUNEtwAAAARnQU1BAACxjwv8YQUAAAABc1JHQgCuzhzp
+              AAABXFBMVEUAAAD/////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              ////////////////////////////////////////////////////////////
+              //////////////////////////////////////////////////////9jYfXu
+              AAAAc3RSTlMAQ98Ox1j9gAtRNTqBPfgu9p/MTQ+G1Qfx7Y0VBYyJgjkGd3ys
+              U+Zz1IQvMM20PgwBp8Mi4TSUiDvlPxylsaF2WfcjJh0S+wLzQLmY4l/ovX3r
+              a1rPLAOSKa4RUEvgcZwbFHqPzodGbX7qPMvCtsEq1laguT+HEwAAAVlJREFU
+              WMPt1sduwkAQgOGxDfFCIITe0nvvvZHee++992TeX4pJQIC9hPWaQ6T41x6s
+              kfY7WGPJAGZm/6qgZjIH4AMgOp2Lq32batTkdW/trPt9+qC70DVmSKS2BXF7
+              A1fX9DDnN2FUSpe8y5hID3SZuJMmrcwmoSFm5vD0BDWSNTnCUmZoD1PZtJCD
+              GfIgRUpBMjPkR4rEAwUtFIkHAkKRuCCaxAdRJE5IK/FCGumWF1JLEW5ILfFD
+              2ST9UBaJA6JLPBCQ57xAJcp5NQbtSgBReJSsH8QI5No8ODo+u397ecL3T35I
+              GhcRA4jig8E9qmjAX2OGnAV5ggrxr0ELOaByVmg6B1TGvEYyTvxcKUaMv/ii
+              7xN/VAZYY2dfSHkkPOYY7Kpf7OmLzLfGPIFGd6izWrRUjdYt9Xfo+ULsLpgR
+              KqGtGyadAEIUmnuhXSAwMAXD5j+omZlZRl+X30CWTm2dHwAAAABJRU5ErkJg
+              gg==
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: BqTlxwp7S-0MbqP039KOv
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: downRight
+                    options: {}
+                    upgradeIndex: -1
+                up:
+                  - type: action
+                    id: 0ePX7E_YBmHtrOUAkv4Pl
+                    connectionId: BI_zWDZksPlzbGWnZZEow
+                    definitionId: stop
+                    options: {}
+                    upgradeIndex: -1
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "6":
+          type: button
+          style:
+            text: Preset
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: ($(custom:preset_shift) + 1)
+            rotaryActions: false
+          feedbacks:
+            - id: OrXGnESSDMpBprVZA2Bfb
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: FuYSO-sGPT1R8BSKebqep
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "1"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: aTIUDBpEWhpHhwC6Sh7H_
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+    gridSize: *a1
+  "4":
+    id: 7MbrShA8yWu5ED-QfkEaa
+    name: Baptism
+    controls:
+      "0":
+        "0":
+          type: pageup
+        "1":
+          type: button
+          style:
+            text: Recall\nPSET\n1
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: SsVI3N81PhQJx7lIc0A9X
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n1
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: 0wYemGC87FjJWbv5xHGbA
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    definitionId: recallPset
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: 5ZDxpmpgvZZw0-aRGwuAh
+                    definitionId: savePset
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    options:
+                      val: "00"
+                    upgradeIndex: -1
+                    type: action
+                  - id: rE_ui6Dnyw5jviqrQYzBo
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: Recall\nPSET\n2
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: mV4-TBnKoYp6NRUkOWitD
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n2
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: n2w-DQhi0MvoUAOXwkdr4
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    definitionId: recallPset
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: w4KYzg9FQ6aSIVMH8hjuF
+                    definitionId: savePset
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    options:
+                      val: "01"
+                    upgradeIndex: -1
+                    type: action
+                  - id: cXwzwWD9BgV3z7IyPaGGR
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: Recall\nPSET\n3
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: hfCbBfAJRTRW9qVys_3__
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n3
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: jgTJ8_MJhgafbXYrS6Fq3
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    definitionId: recallPset
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: kUPFfYOLzJ2wTn-ocfNk6
+                    definitionId: savePset
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    options:
+                      val: "02"
+                    upgradeIndex: -1
+                    type: action
+                  - id: 2zpftLd1EZpk8BlD4zlmZ
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "4":
+          type: button
+          style:
+            text: Recall\nPSET\n4
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: OXQrpHK5wpPpy2gA38QEX
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n4
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: hv3jujcrMmqSH7zqFfh48
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    definitionId: recallPset
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: VdlNugq6u-_QioBiGQy5z
+                    definitionId: savePset
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    options:
+                      val: "03"
+                    upgradeIndex: -1
+                    type: action
+                  - id: z9JXhn5vxkI3twwkYmLvM
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Recall\nPSET\n5
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: expression
+            stepExpression: $(custom:preset_shift) + 1
+            rotaryActions: false
+          feedbacks:
+            - id: iEchb4xar6-lOaTjiTYIW
+              definitionId: bank_current_step
+              connectionId: internal
+              options:
+                location_target: this
+                location_text: $(this:page)/$(this:row)/$(this:column)
+                location_expression: concat($(this:page), '/', $(this:row), '/', $(this:column))
+                step: 2
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16777152
+                text: Save\nPSET\n5
+                textExpression: false
+              isInverted: false
+              children: {}
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: gDvzCaaR0JlEcGraWpyKg
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    definitionId: recallPset
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                up: []
+              options:
+                runWhileHeld: []
+            "1":
+              action_sets:
+                down:
+                  - id: aW61FWbtBqSsgf2fRYqFz
+                    definitionId: savePset
+                    connectionId: t9kMdNHVZ8kICOfWPK6-o
+                    options:
+                      val: "04"
+                    upgradeIndex: -1
+                    type: action
+                  - id: OEahWg5nJ1M5ZXdn2m_D7
+                    definitionId: custom_variable_set_value
+                    connectionId: internal
+                    options:
+                      name: preset_shift
+                      value: "0"
+                    type: action
+                    children: {}
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "6":
+          type: button
+          style:
+            text: Live\n$(atem:short_5)
+            textExpression: false
+            size: "14"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - type: feedback
+              id: T-dDVj4tX3UXlAUYXa7Ez
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: program_bg
+              options:
+                input: 5
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: Ce8kf3LxU3ekQNytdhYfO
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    definitionId: program
+                    options:
+                      mixeffect: 0
+                      input: 5
+                    upgradeIndex: 6
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+      "1":
+        "0":
+          type: pagenum
+        "1":
+          type: button
+          style:
+            text: ZOOM\nIN
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: "16777215"
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks: []
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: g-W5tt_IlleEyXlYsJsxW
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: zoomI
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: _5uX5ajAjF8f5OV1TEib8
+                    id: esaV-n_ZjWhPAZY6eLOam
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: zoomS
                     options: {}
@@ -2877,14 +3964,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: tD4ffRvRNzpmJlze5YxpQ
+                    id: 1l7C6Lg5YF4K7xAv-S0Vm
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: upLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: HP3sThZAdfDtkAHwGt1Xq
+                    id: Q-H-rhYI8WXEfAiLMMnVo
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -2928,14 +4015,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: d0N7NDdUE-KF3_445gVeZ
+                    id: 1sFh8BEsUThNam8DdmyG-
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: up
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: U7km3asGXEbSJFAGu4js7
+                    id: xh3Si6K_DrlX8AM0YMgaO
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -2996,14 +4083,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: o4BuWEzkmajQb7sCvxnfg
+                    id: RvKjdAmJSMLvATfFImCyZ
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: upRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: AnbazjZi-PDhjK2_XnQTi
+                    id: hdOHPjHYhm0BQ-Rok8VAA
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3036,14 +4123,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: l4sppwG_Ll_09jCbvzzcu
+                    id: 8Ah4FrgcscpAYBR2ydh3z
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: zoomO
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: CtNN7dXoGIol35cx2Zn5i
+                    id: pLl8vKCACADeh0MXbMvXl
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: zoomS
                     options: {}
@@ -3086,14 +4173,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: fqMzdn5pOtKgoZp3UVawK
+                    id: E0MFHLT7jiwl8fXDF_VQ8
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: left
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 494BU0ZR0oydvGYpcjx-q
+                    id: uqEV1Czt67a0z2tEEdLGK
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3123,7 +4210,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: NsnV8LCJmEGz85Wste4Vm
+                    id: QAXmWm30UMvCqB2o91rHj
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: home
                     options: {}
@@ -3167,14 +4254,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: kYWwFXGxaWNdY05R04NmY
+                    id: 23rxudPR0xIZyIgNPgj51
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: right
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: cJjwX6jnQU7qqJaecNHtN
+                    id: 75yEyDzNcuHSlhmAHgAQp
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3236,14 +4323,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: XaIiJ-SszncWJbhZJ3-ab
+                    id: STlwoa6olencoepos7w0l
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: downLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: KvT_REb1gxHPZG7ioxy-A
+                    id: hSNT-1ajwaY_KXtJ72p17
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3287,14 +4374,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: _UrdnJPruZT3WmQ6ZAlR6
+                    id: 1PmmqR7rFhT7v54bZM7rX
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: down
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: vC14ZgYSQNLn0uWSFqg65
+                    id: Sw9UMEGzRB3QOIpBuRRzA
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3353,14 +4440,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: M1uZPCg1GrcuFujjxvHEM
+                    id: A3WapwqldwTKOCyRrmCTv
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: downRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: MZ9LCIMx1IvsZWnfrZTBd
+                    id: HswX0Bgh_NKYH82KjzcJ6
                     connectionId: t9kMdNHVZ8kICOfWPK6-o
                     definitionId: stop
                     options: {}
@@ -3385,7 +4472,7 @@ pages:
             stepExpression: ($(custom:preset_shift) + 1)
             rotaryActions: false
           feedbacks:
-            - id: OznBSim7bDhRoOnbDa_wz
+            - id: toMdGU8bDOoJJFNM4KgMx
               definitionId: bank_current_step
               connectionId: internal
               options:
@@ -3403,7 +4490,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: mZcnQdXZMDkuFLKxF5ujX
+                  - id: Ot2hX5fLg5IqGkNJA6Q_2
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3417,7 +4504,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: zPGUwc5Qv30GHBqrkldft
+                  - id: oUGo9bor8Lqj_zSaR6_Xw
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3430,7 +4517,7 @@ pages:
                 runWhileHeld: []
           localVariables: []
     gridSize: *a1
-  "4":
+  "5":
     id: szQM9e1H9M9vDJ7fl3WQY
     name: Altar
     controls:
@@ -3475,7 +4562,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: ssuuuXLyuCtuJOZO6cZ-v
+                    id: 69mGolbAXZ3HFzfh_OfEW
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
@@ -3487,14 +4574,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: PXKMFhax9RrxQbD0WkaSp
+                  - id: PLGZuZLF5iS9wmW0-I4V-
                     definitionId: savePset
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "00"
                     upgradeIndex: -1
                     type: action
-                  - id: ZGPREYUHGELn-IWgZnVbI
+                  - id: txlcmrBlBFABF9McUNeFW
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3544,7 +4631,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: p0PcgsdJFiYdxFSgT8D64
+                    id: l_SzE4IVRxNrzYXjrt_Fi
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
@@ -3556,14 +4643,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: kyaOtak1rbq41wiv1aT3J
+                  - id: NLVObLb0TO0xverNzm4w6
                     definitionId: savePset
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "01"
                     upgradeIndex: -1
                     type: action
-                  - id: j34PZ3BEmhd68zfqigONa
+                  - id: AVCnfIJ65cT0rj-wWyOuO
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3613,7 +4700,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: t0sMsMzZMAM2f4XUn4V9h
+                    id: M46K_uLRCW3Xow_X-9L01
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
@@ -3625,14 +4712,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: HRObVgIhfagpg4Px0Xh2S
+                  - id: E23rvZWQi8jvKsfKhm5F6
                     definitionId: savePset
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "02"
                     upgradeIndex: -1
                     type: action
-                  - id: qvuXbFVwUbf5XcH53b78n
+                  - id: Drm_0Lt8IYeA3vOIBDwQ4
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3682,7 +4769,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: nIiup78LBOABvmyU64o8E
+                    id: 09RQn7np4HSovEewN0nIA
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
@@ -3694,14 +4781,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: et79V74muRMPMJz5KYx0m
+                  - id: ud_NTepvG_ZnDBCsKHn51
                     definitionId: savePset
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "03"
                     upgradeIndex: -1
                     type: action
-                  - id: YdbkUnALORXZFQni_5lGf
+                  - id: 4pSm2mTQCeByI_NrtsOTu
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3751,7 +4838,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: LMRrzy6Ox3HaPg2cWzyLK
+                    id: OFoOhZHcyeIuqsfBCqajA
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: recallPset
                     options:
@@ -3763,14 +4850,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 9Yky9HHkTohyePnl-HBGt
+                  - id: k00sXEKrQxOX8nDAC_egh
                     definitionId: savePset
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     options:
                       val: "04"
                     upgradeIndex: -1
                     type: action
-                  - id: LVdzHDkvMxQyIpbYt_Jq9
+                  - id: bVdY8AEFjGrNen9nLGx37
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -3816,7 +4903,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 3dDkE51AATNcL0S-FPcLQ
+                    id: FI4dLRceypUw_X09Z1xnO
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: program
                     options:
@@ -3852,14 +4939,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: IwCBOA1yc08MPooLBHHSG
+                    id: 6rGC4r7uDoyHwlutWLhan
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: zoomI
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 99tEFn6nOBCFOE2HGkDcL
+                    id: fupX63SdcjsBZ5DB-3aZU
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: zoomS
                     options: {}
@@ -3916,14 +5003,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: vJZ76GLzdLlEaaDlmB53e
+                    id: 7blZW6gjGb-FspD0QmLJY
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: upLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: zavBJSWktGhsq9i0L4tY0
+                    id: xywEuS-1-kpuVvwn0c6nV
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -3967,14 +5054,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: koWRqY92-vMhhSXlw2O7V
+                    id: Tu3iq_Cn5YEGDbWx4eHLw
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: up
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 4a5b1Nq85-Az_bmKUQlhI
+                    id: 25CS4GAI2Y-U5zAiDZJjI
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4035,14 +5122,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: fOw8QognTND7TM7mZ2uAq
+                    id: Nh0QrdNqv9Tc3K_HGQrkK
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: upRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: jBAAPs97A0NGDNCzZ3jX0
+                    id: smUkMUEyJiH5jwhguXbX1
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4075,14 +5162,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: jy0_gzusm5L1u-hUbtQoW
+                    id: 6NnubtimhmDarpGVAVLGX
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: zoomO
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: rx5SHxRwhRevR8ue6jtJi
+                    id: Uhq15lpDCQ2KF6RpBI5Nt
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: zoomS
                     options: {}
@@ -4125,14 +5212,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: zEgqAO1MHb6zPAMVqK5t3
+                    id: 2gCoZ9Hcg3DsGNlA7ddda
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: left
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 4oKFjJVUDlOufOjFDa-8Q
+                    id: tGN67wz26u6O5aB1y9FsI
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4162,7 +5249,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: yaC5rm2YjULbrTinhCyi8
+                    id: hBY_xXnDtFqLWyfxA0rL6
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: home
                     options: {}
@@ -4206,14 +5293,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: UbxKLbje7pLgzSOarWUCE
+                    id: C_JwjOHM4uZefqX_V7DMx
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: right
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: K6oISCe5wlZX8G3lLoj3H
+                    id: InUY4vvbeI9fmMjyNpWb2
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4275,14 +5362,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: vuuyLrE_B2yjder3WfzeJ
+                    id: dwSVtU-fELqYeygesClUg
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: downLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: UJGKNx_1nr2ql7J-upEBa
+                    id: C76uRpBUN01Spt2mXIvrk
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4326,14 +5413,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: pu7vOAID3wOm9arBgdBUg
+                    id: 1nlKYYGi8TE1-eTLj8sBW
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: down
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 2fZ4FLwUPUZq1rF2pR-J5
+                    id: 0d52lQJUi5PnalmZpHwNa
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4392,14 +5479,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: CBy-Bs4Gqhlt0hesmL4qa
+                    id: ZQs_Vi8GElqTafU-R5KqH
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: downRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: XlvNBHmEaXyMDI_NfGmAp
+                    id: LVbum7OfhAuc4Qp4uknEe
                     connectionId: BI_zWDZksPlzbGWnZZEow
                     definitionId: stop
                     options: {}
@@ -4442,7 +5529,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: yI84-Wz6iyAn7xQrjc0UT
+                  - id: UdFuFXQ7mFXjZ30_BP7s5
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4456,7 +5543,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: lgFQoyhsafRAW6NNK5Qgl
+                  - id: nFRihWVTrNG0DuAYpdfV6
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4469,7 +5556,7 @@ pages:
                 runWhileHeld: []
           localVariables: []
     gridSize: *a1
-  "5":
+  "6":
     id: Or-l4ajy0Jctp3jzMLNTJ
     name: Right
     controls:
@@ -4514,7 +5601,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 1FaVgJ28Wyo0ACy2-UBxo
+                    id: sYLLYAkDVemj_Tn7YrxH6
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: recallPset
                     options:
@@ -4526,14 +5613,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: f9uH94CS3Zx4u0EUsuS34
+                  - id: GspuOV6Tba7RQqnYN_84u
                     definitionId: savePset
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     options:
                       val: "00"
                     upgradeIndex: -1
                     type: action
-                  - id: Jpu8xaIcGLIjOsrmE-mko
+                  - id: Q4jNtJEkHfJRma6gC-mWh
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4583,7 +5670,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: qwq06s_Nk7URx5jRW_woS
+                    id: 6mkhhzt8VIEn4ff9clMmb
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: recallPset
                     options:
@@ -4595,14 +5682,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: niCQHv40x54OXs8bB-iod
+                  - id: lR4IdemzQzRi_uGGtexV9
                     definitionId: savePset
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     options:
                       val: "01"
                     upgradeIndex: -1
                     type: action
-                  - id: b7VcsoDJg90lsM5LXCmf7
+                  - id: haOzKGjQlvw5XRxaKJkA3
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4652,7 +5739,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 2nvgehyaeR4rq5yVNZgSr
+                    id: jy778yZ39Tg3UY_AKn_oU
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: recallPset
                     options:
@@ -4664,14 +5751,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: r5cE0JIeX4vM39Txrh5hV
+                  - id: fJEFhKA0Y5WO_Tve6VKIO
                     definitionId: savePset
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     options:
                       val: "02"
                     upgradeIndex: -1
                     type: action
-                  - id: 2f1AzD-3xF3qfgiSg689z
+                  - id: Y8IRd9S0WRm8S-tC8_eek
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4721,7 +5808,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: rogKBsdlVpXSTX56hzbt3
+                    id: DdhMYLcqqvra9WvFkp2hg
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: recallPset
                     options:
@@ -4733,14 +5820,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 6oAYZLGuENczQPUPCfa25
+                  - id: Ne2BxFl-mNkNc0feMqSt4
                     definitionId: savePset
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     options:
                       val: "03"
                     upgradeIndex: -1
                     type: action
-                  - id: 4wJKZKU8Y1M_PkG1K9dOE
+                  - id: 54UF0-unXPteYHEkeE9Aa
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4790,7 +5877,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: HNbSgHdNWRSjCrShdRr_Z
+                    id: MgNxaz-CQD9At7Vho8i48
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: recallPset
                     options:
@@ -4802,14 +5889,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: RyUxudzCqKSZr6D_z0Q2h
+                  - id: 9McXjZJHIS-WGhGeW6-ug
                     definitionId: savePset
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     options:
                       val: "04"
                     upgradeIndex: -1
                     type: action
-                  - id: M04GSwHuMComG5snTo5u4
+                  - id: gnGwUJfn9_zNfYOTDX6tX
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -4855,7 +5942,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: Ohbhl3dlWGPuamJQ2U4oC
+                    id: HbkPvXXaVD3GtHcYdCbK4
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: program
                     options:
@@ -4891,14 +5978,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: VbylzmjIHxeFKCCTSSvqH
+                    id: QrAJNG8HdCaItrN00YYOH
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: zoomI
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: Eb6XK8fg6Zaq66pm5GEpi
+                    id: i-uzyjXMH3ToNyU4Tunj_
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: zoomS
                     options: {}
@@ -4955,14 +6042,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 18s8i3CQC9n9eO4eySWYJ
+                    id: Wp2Rdpzv5m0I4gG2xUsJu
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: upLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: u1lOgdpjggMqMyMOXKa4D
+                    id: ahC8uG0xDGfgp9BCHrKkE
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5006,14 +6093,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 82pt7rhmm852MsORBzaE0
+                    id: q40fTtdvescnrOZAgBkZZ
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: up
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: gwvq8fWHf6ak2m_0dTG7U
+                    id: VCRM4Ws0rHD9v6XVkwmnT
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5074,14 +6161,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: ZTpq6c8GUR-wR3geY14-X
+                    id: 39h4rhiKgf9QQmKgKWGrs
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: upRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: ygOb4uAhEPcR4HdaABIE2
+                    id: R5zq8TcDMO-APtgQmqVPm
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5114,14 +6201,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: nX2rwtp3vU1i5u2rBRmtb
+                    id: 6ZFlJuBVi3rV3RJfhaa8y
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: zoomO
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: onfoms7eCmcCmJVLr_Ekw
+                    id: U3FBm6EmaEZ478k31mnHB
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: zoomS
                     options: {}
@@ -5164,14 +6251,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 5rX4tnLjvWNp6rR8pq07W
+                    id: 4GIZNPDey3p7z_Jhv6-q7
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: left
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: y_O1Ye7orAUkk1Rre2w8q
+                    id: ymQeBeVWXM5q0AxZBEKps
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5201,7 +6288,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: h-wlq9eDspr8pdf1_b6io
+                    id: zoOJg3NhO3_IVbze-FFbm
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: home
                     options: {}
@@ -5245,14 +6332,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: CelhvusAUeX5p-FjjYhZ0
+                    id: 0hiXabEGRGW0adzhu1zNj
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: right
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: c4V9M8TzvJdC32M_KoFWU
+                    id: J-ZEvThiHkl7zedmdtBDz
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5314,14 +6401,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 2dvg2hdgWBPq1Sh_YkAtL
+                    id: Z0r4yROy8xfQ2hnZD0fkR
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: downLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: l6FLoREQZixkXeuPHJ7E4
+                    id: 3rPdfvkGbiM1-6euUCE3i
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5365,14 +6452,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: y6s4ZuBUw0gPdVfk2WTa2
+                    id: oQMkT-xhy_8h8Gxpv5ZAu
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: down
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: n2FjaCRXeS1tf0ZM4Rgxp
+                    id: N4APo8mENh9AOoZqea32P
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5431,14 +6518,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: ieOrQ8EkjIyuwh3PHdJ14
+                    id: gwaY2bpcaNb4yj011eEr8
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: downRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: n67WIPmMUgO5p63Z7esBh
+                    id: 811C6u7Ilwt3F3geIvvUS
                     connectionId: xDxJ0Oi6lS92Wz0Fx2VZd
                     definitionId: stop
                     options: {}
@@ -5481,7 +6568,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: __MZ-ahfjzbk_8knKU93Z
+                  - id: 55nu1YIve0_UKXGMU7k_O
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5495,7 +6582,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 17jz0X_gMEsiazSsFFRRn
+                  - id: jqDwYoP0bkOStEl-bmsn8
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5508,7 +6595,7 @@ pages:
                 runWhileHeld: []
           localVariables: []
     gridSize: *a1
-  "6":
+  "7":
     id: WZahNLVe3zQI8MQkzKutD
     name: Left
     controls:
@@ -5553,7 +6640,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: IPo30IH_o6Z-vI2PWSZmh
+                    id: h7hJHHOSj_lBQM8wBsvkl
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: recallPset
                     options:
@@ -5565,14 +6652,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 8X6Coz3pI7m6rjkhrByUn
+                  - id: o96z6VGJnIv1j6u0dA2To
                     definitionId: savePset
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     options:
                       val: "00"
                     upgradeIndex: -1
                     type: action
-                  - id: -e7Vo7ortB8znucnQPv8F
+                  - id: cZqq7aF5K2K3Muz3Th1Z3
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5622,7 +6709,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 9UpOkqP_17s2x_vFAfmaH
+                    id: bVINWTPG83IwQdM_0Bf4w
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: recallPset
                     options:
@@ -5634,14 +6721,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: imgLjmqe6gCDJTBTP1jnJ
+                  - id: VhD4wCEgAIsGQySDgkMr3
                     definitionId: savePset
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     options:
                       val: "01"
                     upgradeIndex: -1
                     type: action
-                  - id: 1B1Pus8qb9sgBkfV6yZFx
+                  - id: 6fhv1osSvaQyST0L2rVQZ
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5691,7 +6778,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: yzo7W1WuW7gu2_gbxHwXV
+                    id: 5U-zCwCMoeaaaYBYd2bKB
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: recallPset
                     options:
@@ -5703,14 +6790,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: e3LZqS1x7TvgW_N3nv__Y
+                  - id: Bpm19FKSxPxbwfAYX1wJE
                     definitionId: savePset
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     options:
                       val: "02"
                     upgradeIndex: -1
                     type: action
-                  - id: Rryrg5ulibia6noVYzaH-
+                  - id: NrJR7VfMYDneRAYxi6zjg
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5760,7 +6847,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: LkLekgYB-ZOhXBOWc1Usn
+                    id: S7KjdDmXUcHZEci3dRtfQ
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: recallPset
                     options:
@@ -5772,14 +6859,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 6yCXYae2r0u1yrpOuWWuf
+                  - id: DHocY-TRKgXcDRWg5mcyh
                     definitionId: savePset
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     options:
                       val: "03"
                     upgradeIndex: -1
                     type: action
-                  - id: 62CCN_tiX8kMq_f9Bx8SS
+                  - id: musdPuht_VAkcCD-3GYjW
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5829,7 +6916,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: pC7hXqCT7-b1l6k-QATRf
+                    id: -dRUeo3EEMFEfSZ-EUvJX
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: recallPset
                     options:
@@ -5841,14 +6928,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: vimmGd_I8Ra_4yBvR8M97
+                  - id: JBELo_xedehz60xojcYMX
                     definitionId: savePset
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     options:
                       val: "04"
                     upgradeIndex: -1
                     type: action
-                  - id: w07l2pTWTOMvKiUzt6Tup
+                  - id: bBOyaL2WG--EWAMSpkFi-
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -5894,7 +6981,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: zqsMbq94o0mZp6axOtA11
+                    id: rWSKJi_Sg0E5pL9XPzO5e
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: program
                     options:
@@ -5930,14 +7017,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: elGAgTu7bn5huDeAXRcXT
+                    id: Pgvc-kR9_ZjISahDVE9YR
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: zoomI
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: zFyB-m6Ld4GJUftgTm3Ho
+                    id: GnyMnDp0zJgT1BA46mpN1
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: zoomS
                     options: {}
@@ -5994,14 +7081,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: l72hzU07ra_2octi3KZiS
+                    id: a2Tt0UfSk3fhxofbSzoPM
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: upLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: AG0KzTatM7MPfZ1P1CRp4
+                    id: SOB46afzOlgNyBlkpEORv
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: stop
                     options: {}
@@ -6045,7 +7132,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 9T6PUwDovxLSxCasW7Z7w
+                    id: FMreD18f0DEH8Z64h19oO
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6053,7 +7140,7 @@ pages:
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: ZZgg4BDVdAZAgOoViEaJJ
+                    id: RA6bnvkZEgpm4i6ZtodDL
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6115,14 +7202,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: U6bh0qRwMyKpxr3Q8h1BP
+                    id: SEaOE7ZBo0CrIFKM0gTfw
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: upRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: nSk6nZvGetLvpCNkoAdUm
+                    id: tsuu_4-5xAwgBZgql3T8a
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: stop
                     options: {}
@@ -6155,14 +7242,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 0_l7aOJqftqxcTKDjX4Aa
+                    id: QTyDtCdQzn59h6rQecQzJ
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: zoomO
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: iO7eQFqKqdqfAvVMmtRGw
+                    id: _3DfEz4YUWt6gicvP3adb
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: zoomS
                     options: {}
@@ -6205,7 +7292,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: mkiKkGJ71-BNPFyAXPOdi
+                    id: 1cpG19ZIxNnT7Ytc_41D4
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6213,7 +7300,7 @@ pages:
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 3cbRELDgqL1Q-lAf-8SS9
+                    id: KQPCqGtHLkXxP9QNVRlU0
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6244,7 +7331,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 3dDv9OLz-nf4f2Ar_bnw5
+                    id: 5X4yGRvAtELFRAouYbT5V
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: home
                     options: {}
@@ -6288,7 +7375,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: GWkgdtbCTl69FO03G6plh
+                    id: ZRf-qyrXdQ1oBr2ODR42I
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6296,7 +7383,7 @@ pages:
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: El0wiwVUbiLLe6Og58d4t
+                    id: D4eJrt48HVNmxMdFgq4K6
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6359,14 +7446,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: bfBk3tEneyfGb-qRDZNqQ
+                    id: XRO-VCRlXiEKZfAduTSDH
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: downLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: wZJnWyndv4T5C_iFJpu4M
+                    id: HIr5ADJWwZNBR4jYRxL7S
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: stop
                     options: {}
@@ -6410,7 +7497,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: egsTu5_VVZcl9u4LKSh3o
+                    id: CRyF-AP4yNON4B-dapNmC
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6418,7 +7505,7 @@ pages:
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: dqZsxAGTktKnRwFmJ-6ti
+                    id: 4ZVAMS-xsv6nMO52s3Atg
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: osd
                     options:
@@ -6478,14 +7565,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: lcqK_eD-MVxBaA7uuWf22
+                    id: Y5t-_kPajiF2C-tpIxmPO
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: downRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 3C9XXu1XbtH1m3JPbI-wA
+                    id: NwUM7V7JS2kbN33VASQUR
                     connectionId: SehVKPXy2EEm60Q8DVyAC
                     definitionId: stop
                     options: {}
@@ -6528,7 +7615,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: rC5EG68cIos9edlVFKGeH
+                  - id: za3EFLFPLn5V9APRnrRwG
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6542,7 +7629,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: xEtE8pSWcalgrF0cG3GOw
+                  - id: w4S2SPqGhQj_BrPX6PTul
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6555,7 +7642,7 @@ pages:
                 runWhileHeld: []
           localVariables: []
     gridSize: *a1
-  "7":
+  "8":
     id: lnWyraHPkk8iUy9Qn7t35
     name: Main
     controls:
@@ -6600,7 +7687,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 0XyiovlEMG9KKWHAz7FiL
+                    id: ljA74D8Kroi97g-UIinho
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: recallPset
                     options:
@@ -6612,14 +7699,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: mIFAVo6WftrHq7wJIrbhw
+                  - id: iHwYrcapqd4c9ng4lBnnj
                     definitionId: savePset
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     options:
                       val: "00"
                     upgradeIndex: -1
                     type: action
-                  - id: 7YKDZm_3dfRbnmx53Duiy
+                  - id: kZFwNr3EgwRwl70c5JKTt
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6669,7 +7756,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: pO8uQ7EhQK3BjbPMWIC7A
+                    id: PhwiMysGpGAOmg4c3ahEv
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: recallPset
                     options:
@@ -6681,14 +7768,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: l-zn7CgDOA2bL47CPhgwW
+                  - id: JK7lfX6iLJxDkhkt1p-gB
                     definitionId: savePset
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     options:
                       val: "01"
                     upgradeIndex: -1
                     type: action
-                  - id: 7R6EEnCUBdTbR2nd4wcpg
+                  - id: P7t3LiNbcGZvzNGJhXSGE
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6738,7 +7825,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: TZntBY-C9O5fCFn4wCx5P
+                    id: PPmZ0uuMfkWETKbV3PxZd
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: recallPset
                     options:
@@ -6750,14 +7837,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: oX-V7KhhPmoQWkiaZEVOf
+                  - id: VbtBfsa3UNut6LdDRLpVy
                     definitionId: savePset
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     options:
                       val: "02"
                     upgradeIndex: -1
                     type: action
-                  - id: icn4AtBkqZM6yA0Hdlkc4
+                  - id: I6rOa-fQG5eAXo2kFeZGu
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6807,7 +7894,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: F2L7u7h9OHH7c1WCEmddl
+                    id: DGRkd802LST46ynZX_fCB
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: recallPset
                     options:
@@ -6819,14 +7906,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: oVcFgae-fixKxfdw9xfVl
+                  - id: CTVHHN7llW6nMPNxMKJ3Y
                     definitionId: savePset
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     options:
                       val: "03"
                     upgradeIndex: -1
                     type: action
-                  - id: t_wO5j9wT_dbaNxaeMANg
+                  - id: WGxv2IOxkitMSC6wGkuuj
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6876,7 +7963,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: PTzEUm8UPbcLdy-Yf1ur2
+                    id: k38R_vb36LPCTbp01o2wS
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: recallPset
                     options:
@@ -6888,14 +7975,14 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: KJaGPE68E-GYuNGEeXoe3
+                  - id: pmU9pWofNTOc1eNFr4uNJ
                     definitionId: savePset
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     options:
                       val: "04"
                     upgradeIndex: -1
                     type: action
-                  - id: H3oybp2MapnaUBS5pIv_7
+                  - id: y1DL2RraRqRAseRRNpgpy
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -6941,7 +8028,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: LEjw1EfFhEo9BLBWngkMs
+                    id: bMq4zp8mAWx5NWxUl5YiQ
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: program
                     options:
@@ -6977,14 +8064,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: XnNuYD85CVZWuIlI0NQvW
+                    id: LmejElI9EsIDAqA61lD0U
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: zoomI
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: MS0dcwJ_D0168uJGCKmak
+                    id: WJKGU0wOah_zjdKAFYOOt
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: zoomS
                     options: {}
@@ -7041,14 +8128,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: _xIsUaYZLfg9a8WsasQgg
+                    id: cylPpa-WuBjg5eFdE9Nwb
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: upLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: liUP64HOVDuNVj6e5CKnA
+                    id: xYV38Xam2exml1cqe2BGr
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7092,14 +8179,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: pJ9sHobbLaDZpoFL6Vd8U
+                    id: UmomfluUGl4xdfSs2otxx
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: up
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: cxEsnXigSx3pjFJ4rTCIz
+                    id: Ciu1I8zZmG9ZqL3U8466k
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7160,14 +8247,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 4fUhM0nwRwkoASOXU_7YM
+                    id: -Nowuu6e851lQaen-Chvm
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: upRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 0QSUVv4pbbDYEGqi6wLUB
+                    id: e4k0Xez5MjATJyF-GyA0m
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7200,14 +8287,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: OJzDreJY7O9E989XVdIvG
+                    id: 7owMBrsWxRQwWnFyPDYjh
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: zoomO
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: c2fCQnqayRTeQx96lHR_X
+                    id: pQa-6e_RaCDDVfF1HW8Gs
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: zoomS
                     options: {}
@@ -7250,14 +8337,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: HB6FPvOTf436JlAuRnUQl
+                    id: ggHuHnorSlYRvvlQ4UHAQ
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: left
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: iiY5uvsScyEmDB0DgDJus
+                    id: AAutyvo6mHxdxuQBCsf0H
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7287,7 +8374,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: CLRvEGTcbJHVQUE6ZFd1r
+                    id: U7Khg0VOrdxa1jiqn_zh1
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: home
                     options: {}
@@ -7331,14 +8418,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: ThbX9YjcccfamEFqVKnu7
+                    id: bGm1LYPw_r7CqgYfkDTkT
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: right
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: UVbgRNnJ8b5sahKhv3u9e
+                    id: XWqDVKX5mNRcGFCFmO8CC
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7400,14 +8487,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: bzJivvs9DzIq6lvG3y9fQ
+                    id: cyVa154zk5fkpPWWY0zul
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: downLeft
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: 1aCYExuEIUYjT4kSNyDEm
+                    id: kvbH9No9aNp3iDNr1P6WZ
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7451,14 +8538,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: G77wUuMrSbmRwcK74gvWn
+                    id: kVUxYMVtg4qAnq7II9x7P
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: down
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: TZFyr5xjWdewvM1vwVcla
+                    id: p0at-XdovmQVA0sTrqVIh
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7517,14 +8604,14 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: eVcO0cLx3BGbhD89jmisq
+                    id: idC_jM2DkDQE7fiYPG5MA
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: downRight
                     options: {}
                     upgradeIndex: -1
                 up:
                   - type: action
-                    id: TRUwnER-e7NzL-vPWKIrq
+                    id: ckwdPvQVckOpNebcxDFrM
                     connectionId: XX6UNTCBRlYh4_JiLXvCo
                     definitionId: stop
                     options: {}
@@ -7567,7 +8654,7 @@ pages:
             "0":
               action_sets:
                 down:
-                  - id: CajR9V_NtkRwXLKNJ_f9F
+                  - id: Yk9I5ureQ9Jf68b3ZxnbE
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -7581,7 +8668,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: le9wra-fRvvieRrg1wh51
+                  - id: RSZZCBlNgbKvdU8Rr5_dc
                     definitionId: custom_variable_set_value
                     connectionId: internal
                     options:
@@ -7594,8 +8681,8 @@ pages:
                 runWhileHeld: []
           localVariables: []
     gridSize: *a1
-  "8":
-    id: dVVksQ5I0Spp_4bEJt4OE
+  "9":
+    id: wyoeEPZAhNh-ZR0Z5VN8n
     name: ATEM
     controls:
       "0":
@@ -7604,7 +8691,7 @@ pages:
         "1":
           type: button
           style:
-            text: $(atem:short_1)
+            text: Cut
             textExpression: false
             size: "18"
             png64: null
@@ -7618,30 +8705,28 @@ pages:
             stepExpression: ""
             rotaryActions: false
           feedbacks:
-            - type: feedback
-              id: xR5tKveEM2AYJ5_Oc55ww
+            - id: aQ55mqc2sVAQXZB7be78L
+              definitionId: inTransition
               connectionId: 4aFPeVHIvQpVmZ2j864yE
-              definitionId: program_bg
               options:
-                input: 1
                 mixeffect: 0
-              isInverted: false
-              style:
-                bgcolor: 16711680
-                color: 16777215
               upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16711680
+              isInverted: false
           steps:
             "0":
               action_sets:
                 down:
-                  - type: action
-                    id: 3bYF-JKzCuIUm5Lv59qfA
+                  - id: 0iqH9IIp53Kk4sGfXmbWd
+                    definitionId: cut
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
                     options:
                       mixeffect: 0
-                      input: 1
                     upgradeIndex: 6
+                    type: action
                 up: []
               options:
                 runWhileHeld: []
@@ -7649,7 +8734,7 @@ pages:
         "2":
           type: button
           style:
-            text: $(atem:short_5)
+            text: Fade
             textExpression: false
             size: "18"
             png64: null
@@ -7663,30 +8748,28 @@ pages:
             stepExpression: ""
             rotaryActions: false
           feedbacks:
-            - type: feedback
-              id: _yxCho3b8AzqIMUOQOsnc
+            - id: 0NyrDgLDLYfBUirRFlAf7
+              definitionId: inTransition
               connectionId: 4aFPeVHIvQpVmZ2j864yE
-              definitionId: program_bg
               options:
-                input: 5
                 mixeffect: 0
-              isInverted: false
-              style:
-                bgcolor: 16711680
-                color: 16777215
               upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 16711680
+              isInverted: false
           steps:
             "0":
               action_sets:
                 down:
-                  - type: action
-                    id: SAK-c3tr3wMyP4fpMy0mf
+                  - id: y1qE4cj8QfOO6gc-6_gRI
+                    definitionId: auto
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
                     options:
                       mixeffect: 0
-                      input: 5
                     upgradeIndex: 6
+                    type: action
                 up: []
               options:
                 runWhileHeld: []
@@ -7694,7 +8777,7 @@ pages:
         "4":
           type: button
           style:
-            text: PiP
+            text: PIP
             textExpression: false
             size: "18"
             png64: null
@@ -7709,7 +8792,7 @@ pages:
             rotaryActions: false
           feedbacks:
             - type: feedback
-              id: 51ArJpbOwB3xS7HJN2ziX
+              id: NxFsHx4F-PrJY1V4UawOa
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: usk_bg
               options:
@@ -7721,16 +8804,62 @@ pages:
                 color: 16777215
               upgradeIndex: 6
           steps:
-            "0":
+            "1":
               action_sets:
                 down:
                   - type: action
-                    id: jjiQq2TcLx4NM0DLsBe7l
+                    id: P2cXsv7AnJUJq23JmFS5_
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: usk
                     options:
                       onair: toggle
                       key: 0
+                      mixeffect: 0
+                    upgradeIndex: 6
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "5":
+          type: button
+          style:
+            text: Overlay
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - type: feedback
+              id: 8DvSQj5oi6VnGidUUmjti
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: usk_bg
+              options:
+                key: 1
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - type: action
+                    id: RotNMUDpr6bFpVBxhm4Ow
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    definitionId: usk
+                    options:
+                      onair: toggle
+                      key: 1
                       mixeffect: 0
                     upgradeIndex: 6
                 up: []
@@ -7755,7 +8884,7 @@ pages:
             rotaryActions: false
           feedbacks:
             - type: feedback
-              id: UUsL8SP7o4-PgbxorFGrQ
+              id: FhKpDMdoImMijrCspjsnK
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: streamStatus
               options:
@@ -7766,7 +8895,7 @@ pages:
                 color: 0
               upgradeIndex: 6
             - type: feedback
-              id: JYTdmkEL8mCWeS3-JipAD
+              id: YaH_4xJEaoju5L3f4Pbbo
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: streamStatus
               options:
@@ -7777,7 +8906,7 @@ pages:
                 color: 0
               upgradeIndex: 6
             - type: feedback
-              id: hvlDp-FFam1-dyqA2pLCm
+              id: Q4F3RXsDDLvFVYUFT96Fz
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: streamStatus
               options:
@@ -7792,7 +8921,7 @@ pages:
               action_sets:
                 down:
                   - type: action
-                    id: 5fmQjdcaARam0rllxxd8b
+                    id: yCMf2I0mrvqKKF705lFWq
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
                     definitionId: streamStartStop
                     options:
@@ -7805,55 +8934,10 @@ pages:
       "1":
         "0":
           type: pagenum
-        "1":
-          type: button
-          style:
-            text: $(atem:short_2)
-            textExpression: false
-            size: "18"
-            png64: null
-            alignment: center:center
-            pngalignment: center:center
-            color: 16777215
-            bgcolor: 0
-            show_topbar: default
-          options:
-            stepProgression: auto
-            stepExpression: ""
-            rotaryActions: false
-          feedbacks:
-            - type: feedback
-              id: HNJyt4zT5oPW-msUXTsnE
-              connectionId: 4aFPeVHIvQpVmZ2j864yE
-              definitionId: program_bg
-              options:
-                input: 2
-                mixeffect: 0
-              isInverted: false
-              style:
-                bgcolor: 16711680
-                color: 16777215
-              upgradeIndex: 6
-          steps:
-            "0":
-              action_sets:
-                down:
-                  - type: action
-                    id: R8F-RSr22f8jVjpT7M6vh
-                    connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
-                    options:
-                      mixeffect: 0
-                      input: 2
-                    upgradeIndex: 6
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables: []
         "2":
           type: button
           style:
-            text: $(atem:short_6)
+            text: $(atem:short_4)
             textExpression: false
             size: "18"
             png64: null
@@ -7867,12 +8951,24 @@ pages:
             stepExpression: ""
             rotaryActions: false
           feedbacks:
+            - id: C1EaoBkTQWbcZT2bw6gLm
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 4
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
             - type: feedback
-              id: ldUA_8Uva71XnwlNiB_k0
+              id: uag8wkIiys2eYCTywx_8C
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: program_bg
               options:
-                input: 6
+                input: 4
                 mixeffect: 0
               isInverted: false
               style:
@@ -7883,112 +8979,19 @@ pages:
             "0":
               action_sets:
                 down:
-                  - type: action
-                    id: bq1n8lLNvAmBdtcggt9Kk
+                  - id: qAUteSOEJCGsEHlsL8IkT
+                    definitionId: preview
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
                     options:
                       mixeffect: 0
-                      input: 6
+                      input: 4
                     upgradeIndex: 6
+                    type: action
                 up: []
               options:
                 runWhileHeld: []
           localVariables: []
-      "2":
-        "0":
-          type: pagedown
-        "1":
-          type: button
-          style:
-            text: $(atem:short_3)
-            textExpression: false
-            size: "18"
-            png64: null
-            alignment: center:center
-            pngalignment: center:center
-            color: 16777215
-            bgcolor: 0
-            show_topbar: default
-          options:
-            stepProgression: auto
-            stepExpression: ""
-            rotaryActions: false
-          feedbacks:
-            - type: feedback
-              id: A64fo27RZqu4bD3RcBCAD
-              connectionId: 4aFPeVHIvQpVmZ2j864yE
-              definitionId: program_bg
-              options:
-                input: 3
-                mixeffect: 0
-              isInverted: false
-              style:
-                bgcolor: 16711680
-                color: 16777215
-              upgradeIndex: 6
-          steps:
-            "0":
-              action_sets:
-                down:
-                  - type: action
-                    id: HJmEzWsOdAPQtiV6OOY9X
-                    connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
-                    options:
-                      mixeffect: 0
-                      input: 3
-                    upgradeIndex: 6
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables: []
-        "2":
-          type: button
-          style:
-            text: $(atem:short_7)
-            textExpression: false
-            size: "18"
-            png64: null
-            alignment: center:center
-            pngalignment: center:center
-            color: 16777215
-            bgcolor: 0
-            show_topbar: default
-          options:
-            stepProgression: auto
-            stepExpression: ""
-            rotaryActions: false
-          feedbacks:
-            - type: feedback
-              id: nD8UcX7tS7RwEhbFzeYtG
-              connectionId: 4aFPeVHIvQpVmZ2j864yE
-              definitionId: program_bg
-              options:
-                input: 7
-                mixeffect: 0
-              isInverted: false
-              style:
-                bgcolor: 16711680
-                color: 16777215
-              upgradeIndex: 6
-          steps:
-            "0":
-              action_sets:
-                down:
-                  - type: action
-                    id: xlJY6pP-DqLrjktkKzTWF
-                    connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
-                    options:
-                      mixeffect: 0
-                      input: 7
-                    upgradeIndex: 6
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables: []
-        "5":
+        "6":
           type: button
           style:
             text: Annual
@@ -8016,7 +9019,7 @@ pages:
             stepExpression: '$(custom:audio_bell_status) != "" ? 2 : 1'
             rotaryActions: false
           feedbacks:
-            - id: Vmc8qdC0kswNPDq_USGSH
+            - id: TqnQi-UTmnIObkc70PYC3
               definitionId: check_expression
               connectionId: internal
               options:
@@ -8034,7 +9037,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: 9TK991M0yTioVwYdmXQDm
+                  - id: cNgs61c5g9kwKK1KEH0fZ
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8051,7 +9054,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: 7VfK_jOk54yIoKlt6kJRP
+                  - id: 4UBmuiffeuW13FsEWqyo5
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8066,7 +9069,7 @@ pages:
               options:
                 runWhileHeld: []
           localVariables:
-            - id: l2Jk5vu_kpKHUd28mofXJ
+            - id: kE3NGdLD6okPscsqFwxrh
               definitionId: user_value
               connectionId: internal
               options:
@@ -8077,100 +9080,13 @@ pages:
               isInverted: false
               variableName: bell_annual_button
               children: {}
-        "6":
-          type: button
-          style:
-            text: Calling
-            textExpression: false
-            size: "18"
-            png64: |
-              iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABoUlEQVR4AbSV
-              gXECIRBFL2kksZJoJdFK1Eo0lWgn2gl57wTmULhhjLnZf8vB7v4FluN9+Oen
-              iyCEsA0hnMLtuaBsb3tymyUg0BJcCLQDS6B88rK9cwzYpqsuTYLoeMLNgFf0
-              6o0HvQArcAaOOZsmSZMA5wNQjsRdAAMO6CuwvWHQmaGGZGu7QJWA7NdYmd2Z
-              YAbisxT6ndUPvZJ94lPdkyoBTl9AMYC6ikiyj4PVZWoRJGOzi/5N5UwcdMbq
-              Ai2C0ThmWDjcf0xsRp/78QcC1jIZpszufWrfo+3EN9s8EDDyNMHEl+ZNXk2Q
-              iuMWnXeNIJXbbAXhO5Vka3lP+4eCgDU0uEuUDlNhPPPhHlhxD+chExDc0kwn
-              s3q4WgSxktJ58B+VZ5IJcP4GygYHs7HdjeiTEkyxiiVyBgY8MJunBOdE4JLx
-              ORQE/iGTwTj45Kv4f+UlYopu7B79VzHRnFsmyD0vbnQRsCFr4FXpDSe8ZHKl
-              zOXURRADeD684YQF8RH7Z1UXAZtyJIoFYPlaITv6Ut0z1JYuAt0NCLyXvT67
-              guv3CwAA//95HAqvAAAABklEQVQDAE52xjFRqyBwAAAAAElFTkSuQmCC
-            alignment: center:center
-            pngalignment: left:top
-            color: 16777215
-            bgcolor: 3355392
-            show_topbar: default
-          options:
-            stepProgression: expression
-            stepExpression: '$(custom:audio_bell_status) != "" ? 2 : 1'
-            rotaryActions: false
-          feedbacks:
-            - id: hVwlitW9KUI3K4YKSOUaj
-              definitionId: check_expression
-              connectionId: internal
-              options:
-                expression: $(custom:audio_bell_status) != ""
-              type: feedback
-              style:
-                color: 16777215
-                bgcolor: 16711680
-                text: STOP $(custom:audio_bell_status)
-                textExpression: false
-                size: "14"
-              isInverted: false
-              children: {}
-          steps:
-            "1":
-              action_sets:
-                down:
-                  - id: 8FXUasjjpk36vVtB_thCo
-                    definitionId: post
-                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
-                    options:
-                      url: /api/play-audio
-                      body: '{"filename": "Calling.mp3"}'
-                      header: ""
-                      contenttype: application/json
-                      result_stringify: true
-                    upgradeIndex: 1
-                    type: action
-                up: []
-              options:
-                runWhileHeld: []
-            "2":
-              action_sets:
-                down:
-                  - id: 9sX-oGzKRDdzFwcH8lcjY
-                    definitionId: post
-                    connectionId: HHo6AkZ2sB4UAOwjwqVuw
-                    options:
-                      url: /api/stop-audio
-                      body: "{}"
-                      header: ""
-                      contenttype: application/json
-                      result_stringify: true
-                    upgradeIndex: 1
-                    type: action
-                up: []
-              options:
-                runWhileHeld: []
-          localVariables:
-            - id: GCC82QCGIAfMcLdbYRSlE
-              definitionId: user_value
-              connectionId: internal
-              options:
-                startup_value: "1"
-                persist_value: true
-              type: feedback
-              style: {}
-              isInverted: false
-              variableName: bell_annual_button
-              children: {}
-      "3":
+      "2":
+        "0":
+          type: pagedown
         "1":
           type: button
           style:
-            text: $(atem:short_4)
+            text: $(atem:short_2)
             textExpression: false
             size: "18"
             png64: null
@@ -8184,12 +9100,24 @@ pages:
             stepExpression: ""
             rotaryActions: false
           feedbacks:
+            - id: NTcqM6EFyFN1HYNlh0JHd
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 2
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
             - type: feedback
-              id: w1V8aJ9Ic5JfXsOzRnBQb
+              id: voZn5guh-_w02vPXY8oBu
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: program_bg
               options:
-                input: 4
+                input: 2
                 mixeffect: 0
               isInverted: false
               style:
@@ -8200,14 +9128,14 @@ pages:
             "0":
               action_sets:
                 down:
-                  - type: action
-                    id: XGPLFgGJ91wX6XO3rGiiq
+                  - id: a4BAqaDMxToLzNLjwXmgn
+                    definitionId: preview
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
                     options:
                       mixeffect: 0
-                      input: 4
+                      input: 2
                     upgradeIndex: 6
+                    type: action
                 up: []
               options:
                 runWhileHeld: []
@@ -8215,7 +9143,7 @@ pages:
         "2":
           type: button
           style:
-            text: $(atem:short_8)
+            text: $(atem:short_1)
             textExpression: false
             size: "18"
             png64: null
@@ -8229,12 +9157,24 @@ pages:
             stepExpression: ""
             rotaryActions: false
           feedbacks:
+            - id: yF-7ubwKxNny7Rwfg3p3j
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 1
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
             - type: feedback
-              id: 5ATaBDFsaD-Wf1v8Vqe99
+              id: mdr76WmY_iCq8Cuz03hq1
               connectionId: 4aFPeVHIvQpVmZ2j864yE
               definitionId: program_bg
               options:
-                input: 8
+                input: 1
                 mixeffect: 0
               isInverted: false
               style:
@@ -8245,19 +9185,76 @@ pages:
             "0":
               action_sets:
                 down:
-                  - type: action
-                    id: EoBzCm0yCG83qWrhZk6x_
+                  - id: Qasc8tabSKgUMbo3Y203M
+                    definitionId: preview
                     connectionId: 4aFPeVHIvQpVmZ2j864yE
-                    definitionId: program
                     options:
                       mixeffect: 0
-                      input: 8
+                      input: 1
                     upgradeIndex: 6
+                    type: action
                 up: []
               options:
                 runWhileHeld: []
           localVariables: []
-        "5":
+        "3":
+          type: button
+          style:
+            text: $(atem:short_3)
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - id: JRXxyIYHq44hl5vk6aZFo
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 3
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
+            - type: feedback
+              id: XxrOTNg9-UbBubKVMhiBZ
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: program_bg
+              options:
+                input: 3
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: GNFj5HbOPUyStUzb25ukb
+                    definitionId: preview
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 3
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "6":
           type: button
           style:
             text: Joyful
@@ -8285,7 +9282,7 @@ pages:
             stepExpression: '$(custom:audio_bell_status) != "" ? 2 : 1'
             rotaryActions: false
           feedbacks:
-            - id: qyaZZHXv4v3J72Q4aubPT
+            - id: Oi0F8Tn2r3vDBTZP84clz
               definitionId: check_expression
               connectionId: internal
               options:
@@ -8303,7 +9300,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: ru_qi2FT_sUcgOf7ano8v
+                  - id: y3TOfD0B1zhe7BvN7rD6D
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8320,7 +9317,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: H3Mctk9bTsr1bJ3d1kxpe
+                  - id: YwmPjW21nmWlpuIrLRfqW
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8335,7 +9332,7 @@ pages:
               options:
                 runWhileHeld: []
           localVariables:
-            - id: X0z9bd1u6AaPwo0bqryiz
+            - id: OTgkauohJLonfs62JNdGN
               definitionId: user_value
               connectionId: internal
               options:
@@ -8346,6 +9343,178 @@ pages:
               isInverted: false
               variableName: bell_annual_button
               children: {}
+      "3":
+        "1":
+          type: button
+          style:
+            text: $(atem:short_5)
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - id: MPH6BrDB6x2minboA90DC
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 5
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
+            - type: feedback
+              id: Rz_H0xzUZNpcbX-xFr8Hj
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: program_bg
+              options:
+                input: 5
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: bSIe7aQw6t_vV5YxRFC1y
+                    definitionId: preview
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 5
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "2":
+          type: button
+          style:
+            text: $(atem:short_6)
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - id: nnXlfrJiH7Bf6Yvc0pbS2
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 6
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
+            - type: feedback
+              id: uIxIXesM_QdSpI0_YiN9H
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: program_bg
+              options:
+                input: 6
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: dhAmWOqsKp3DkvVYWu61w
+                    definitionId: preview
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 6
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
+        "3":
+          type: button
+          style:
+            text: $(atem:short_8)
+            textExpression: false
+            size: "18"
+            png64: null
+            alignment: center:center
+            pngalignment: center:center
+            color: 16777215
+            bgcolor: 0
+            show_topbar: default
+          options:
+            stepProgression: auto
+            stepExpression: ""
+            rotaryActions: false
+          feedbacks:
+            - id: ICGITmprUSR3LU9rEYmqJ
+              definitionId: preview_bg
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              options:
+                mixeffect: 0
+                input: 8
+              upgradeIndex: 6
+              type: feedback
+              style:
+                color: 0
+                bgcolor: 65280
+              isInverted: false
+            - type: feedback
+              id: H_E31qI0cMzW-0WCfQD8P
+              connectionId: 4aFPeVHIvQpVmZ2j864yE
+              definitionId: program_bg
+              options:
+                input: 8
+                mixeffect: 0
+              isInverted: false
+              style:
+                bgcolor: 16711680
+                color: 16777215
+              upgradeIndex: 6
+          steps:
+            "0":
+              action_sets:
+                down:
+                  - id: 2Huq6ct3c41Ui0CRus0U8
+                    definitionId: preview
+                    connectionId: 4aFPeVHIvQpVmZ2j864yE
+                    options:
+                      mixeffect: 0
+                      input: 8
+                    upgradeIndex: 6
+                    type: action
+                up: []
+              options:
+                runWhileHeld: []
+          localVariables: []
         "6":
           type: button
           style:
@@ -8374,7 +9543,7 @@ pages:
             stepExpression: '$(custom:audio_bell_status) != "" ? 2 : 1'
             rotaryActions: false
           feedbacks:
-            - id: 8kWAEN7r_6QWzXZKjHo8p
+            - id: Vse-pRNR8hLwyKYKkOxep
               definitionId: check_expression
               connectionId: internal
               options:
@@ -8392,7 +9561,7 @@ pages:
             "1":
               action_sets:
                 down:
-                  - id: Oz0PHgB35YLo5RwS7t2hT
+                  - id: DejgfT-lkwSvZx20s4sFd
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8409,7 +9578,7 @@ pages:
             "2":
               action_sets:
                 down:
-                  - id: F0sglcxHCNKMbx5Hwc36u
+                  - id: RERkfCDXOCSqb8nPowcIu
                     definitionId: post
                     connectionId: HHo6AkZ2sB4UAOwjwqVuw
                     options:
@@ -8424,7 +9593,7 @@ pages:
               options:
                 runWhileHeld: []
           localVariables:
-            - id: ZwCey1UDlDlcDRlPyay9B
+            - id: 4KRQBNTpYw-MIAdEbzxfO
               definitionId: user_value
               connectionId: internal
               options:
@@ -8476,10 +9645,15 @@ custom_variables:
     persistCurrentValue: true
     sortOrder: 3
   youtube_button_shift:
-    description: A custom variable
+    description: YouTube categories shift button state
     defaultValue: "1"
     persistCurrentValue: true
     sortOrder: 4
+  active_camera:
+    description: Active camera button state
+    defaultValue: "0"
+    persistCurrentValue: true
+    sortOrder: 5
 customVariablesCollections: []
 expressionVariables:
   dDaGPpUGWV0l6Lt7eN0k2:
@@ -8690,11 +9864,11 @@ surfaces:
   emulator:upY2sQgNt-otH-JXfXeAl:
     groupConfig:
       name: Auto group
-      last_page_id: dVVksQ5I0Spp_4bEJt4OE
+      last_page_id: wyoeEPZAhNh-ZR0Z5VN8n
       startup_page_id: HX_W1TtxHEmnP3pv19eNX
       use_last_page: true
       page: 1
-      last_page: 8
+      last_page: 9
       startup_page: 1
     config:
       brightness: 100
