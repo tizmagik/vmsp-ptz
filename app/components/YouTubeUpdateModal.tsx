@@ -12,6 +12,7 @@ interface YouTubeUpdateModalProps {
 
 export function YouTubeUpdateModal({ isOpen, onClose, thumbnails, modalRoot }: YouTubeUpdateModalProps) {
   const [title, setTitle] = useState('');
+  const [autoAppendDate, setAutoAppendDate] = useState(true);
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState('');
   const [privacy, setPrivacy] = useState<'public' | 'private' | 'unlisted'>('public');
@@ -27,12 +28,22 @@ export function YouTubeUpdateModal({ isOpen, onClose, thumbnails, modalRoot }: Y
     setStatus('updating');
     setError('');
     
+    // Append date if checkbox is checked
+    let finalTitle = title;
+    if (autoAppendDate) {
+      const now = new Date();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const year = now.getFullYear();
+      finalTitle = `${title} - ${month}/${day}/${year}`;
+    }
+    
     try {
       const response = await fetch('/api/yt/update', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          title,
+          title: finalTitle,
           description: description || undefined,
           thumbnail: thumbnail || undefined,
           privacy,
@@ -96,6 +107,17 @@ export function YouTubeUpdateModal({ isOpen, onClose, thumbnails, modalRoot }: Y
               onChange={(e) => setTitle(e.target.value)}
               className="form-input"
             />
+            <div style={{ marginTop: '8px' }}>
+              <label style={{ display: 'flex', alignItems: 'center', fontSize: '14px', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={autoAppendDate}
+                  onChange={(e) => setAutoAppendDate(e.target.checked)}
+                  style={{ marginRight: '8px' }}
+                />
+                Auto-append date: {new Date().getMonth() + 1}/{new Date().getDate()}/{new Date().getFullYear()}
+              </label>
+            </div>
           </div>
           
           <div className="form-group">
