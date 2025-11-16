@@ -3,6 +3,7 @@ import { CameraButtons } from '~/components/CameraButtons';
 import { ConfigMenu } from '~/components/ConfigMenu';
 import { StatusIndicator } from '~/components/StatusIndicator';
 import { VideoPlayer } from '~/components/VideoPlayer';
+import { AudioPlayer } from '~/components/AudioPlayer';
 import { Resizer } from '~/components/Resizer';
 import { CAMERAS } from '~/constants/cameras';
 import { listThumbnails } from '../../server/youtube.js';
@@ -132,6 +133,7 @@ export default function Index({ loaderData }: Route.ComponentProps) {
           onModeChange={setPreferredMode}
           thumbnails={loaderData.thumbnails}
         />
+        <AudioPlayer streamUrl="https://ptz-hls.vmspchurch.org/atem-audio/index.m3u8" />
         <VideoPlayer
           path={currentPath}
           preferredMode={preferredMode}
