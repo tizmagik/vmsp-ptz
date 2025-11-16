@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import Hls from 'hls.js';
 
 interface AudioPlayerProps {
@@ -9,11 +9,8 @@ interface AudioPlayerProps {
 export function AudioPlayer({ streamUrl }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const hlsRef = useRef<Hls | null>(null);
-  const [isMuted, setIsMuted] = useState(true); // Start muted to allow autoplay
-  const [volume, setVolume] = useState(0.8);
   const [isPlaying, setIsPlaying] = useState(false);
   const [error, setError] = useState<string>('');
-  const [autoplayAttempted, setAutoplayAttempted] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -46,38 +43,21 @@ export function AudioPlayer({ streamUrl }: AudioPlayerProps) {
     if (audio.canPlayType('application/vnd.apple.mpegurl')) {
       console.log('Using native HLS support');
       audio.src = streamUrl;
-      audio.muted = true; // Start muted for autoplay
-      audio.play().then(() => {
-        console.log('Audio autoplay successful (muted)');
-        setAutoplayAttempted(true);
-      }).catch(error => {
-        console.log('Audio autoplay prevented:', error);
-        setError('Click play to start');
-      });
+      // Don't autoplay - wait for user interaction
     } else if (Hls.isSupported()) {
       console.log('Using hls.js');
       // Use hls.js for other browsers
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: true,
-        debug: true,
+        debug: false,
       });
       
       hlsRef.current = hls;
       hls.loadSource(streamUrl);
       hls.attachMedia(audio);
       
-      hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        console.log('HLS manifest parsed, attempting to play');
-        audio.muted = true; // Start muted for autoplay
-        audio.play().then(() => {
-          console.log('Audio autoplay successful (muted)');
-          setAutoplayAttempted(true);
-        }).catch(error => {
-          console.log('Audio autoplay prevented:', error);
-          setError('Click play to start');
-        });
-      });
+      // Don't autoplay - wait for user interaction
 
       hls.on(Hls.Events.ERROR, (_event, data) => {
         console.error('HLS error:', data);
@@ -116,19 +96,15 @@ export function AudioPlayer({ streamUrl }: AudioPlayerProps) {
     };
   }, [streamUrl]);
 
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = volume;
-    }
-  }, [volume]);
-
-  const togglePlayPause = () => {
+  const toggleAudio = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
     if (isPlaying) {
       audio.pause();
     } else {
+      audio.muted = false;
+      audio.volume = 1.0;
       audio.play().catch(error => {
         console.error('Failed to play:', error);
         setError('Failed to play');
@@ -136,44 +112,18 @@ export function AudioPlayer({ streamUrl }: AudioPlayerProps) {
     }
   };
 
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMuted;
-      setIsMuted(!isMuted);
-    }
-  };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.muted = false;
-      setIsMuted(false);
-    }
-  };
-
   return (
     <div className="audio-player">
-      <audio
-        ref={audioRef}
-        muted={isMuted}
-      />
+      <audio ref={audioRef} />
       <div className="audio-controls">
-        <button
-          className="audio-mute-btn"
-          onClick={togglePlayPause}
-          title={isPlaying ? 'Pause' : 'Play'}
-        >
-          {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-        </button>
-        <button
-          className={`audio-mute-btn ${autoplayAttempted && isMuted ? 'audio-unmute-hint' : ''}`}
-          onClick={toggleMute}
-          title={isMuted ? 'Unmute (audio is playing muted)' : 'Mute'}
-        >
-          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-        </button>
         {error && <span className="audio-error" title={error}>⚠</span>}
+        <button
+          className="audio-toggle-btn"
+          onClick={toggleAudio}
+          title={isPlaying ? 'Stop Audio' : 'Play Audio'}
+        >
+          {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
+        </button>
       </div>
     </div>
   );
