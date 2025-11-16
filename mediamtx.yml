@@ -13,10 +13,25 @@ paths:
     source: rtsp://192.168.100.104
   # basement:
   #   source: rtsp://192.168.100.105
+  # atem:
+  #   source: rtsp://localhost:559/atem
   atem:
-    source: rtsp://localhost:559/atem
+    source: publisher
+    # sourceOnDemand: yes
+    runOnInit: ffmpeg -f dshow -rtbufsize 200M -i video="Blackmagic Design" -f dshow -i audio="Microphone (Blackmagic Design)" -c:v h264 -preset ultrafast -tune zerolatency -b:v 4500k -g 60 -c:a libopus -b:a 96k -ac 2 -ar 48000 -application lowdelay -f rtsp rtsp://127.0.0.1:8554/atem
+    runOnInitRestart: yes
+    runOnDemandRestart: yes
+    runOnDemandStartTimeout: 15s
+
 hls: yes
 hlsAddress: :8888
+hlsSegmentDuration: 4s
+hlsPartDuration: 1s
+hlsVariant: lowLatency
+# hlsSegmentType: mpegts          # ← this is the magic for iPhone/Safari audio
+# hlsUseSystemTime: yes
+
+
 webrtc: yes
 webrtcAddress: :8889
 # webrtcLocalUDPAddress: "" # Disabled local UDP address for WebRTC
