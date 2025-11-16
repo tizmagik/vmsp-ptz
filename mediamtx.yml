@@ -18,7 +18,7 @@ paths:
   atem:
     source: publisher
     # sourceOnDemand: yes
-    runOnInit: ffmpeg -f dshow -rtbufsize 200M -i video="Blackmagic Design" -f dshow -i audio="Microphone (Blackmagic Design)" -c:v h264 -preset ultrafast -tune zerolatency -b:v 4500k -g 60 -c:a libopus -b:a 96k -ac 2 -ar 48000 -application lowdelay -f rtsp rtsp://127.0.0.1:8554/atem
+    runOnInit: ffmpeg -f dshow -rtbufsize 200M -i video="Blackmagic Design" -f dshow -i audio="Microphone (Blackmagic Design)" -c:v h264 -preset ultrafast -tune zerolatency -b:v 4500k -g 60 -c:a aac -b:a 128k -ac 2 -ar 44100 -f rtsp rtsp://127.0.0.1:8554/atem
     runOnInitRestart: yes
     runOnDemandRestart: yes
     runOnDemandStartTimeout: 15s
