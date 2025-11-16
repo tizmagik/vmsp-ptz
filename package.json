@@ -9,6 +9,7 @@
     "dev": "tsx server/index.ts",
     "dev:no-mediamtx": "cross-env SKIP_MEDIAMTX=1 tsx server/index.ts",
     "start": "cross-env NODE_ENV=production tsx server/index.ts",
+    "start:watch": "cross-env NODE_ENV=production tsx server/watchdog.ts",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {

@@ -22,6 +22,7 @@ export function startMediaMTX(): ChildProcess | null {
   const proc = spawn(MEDIAMTX_PATH, [MEDIAMTX_CONFIG_PATH], {
     stdio: 'pipe',
     cwd: ROOT_DIR,
+    windowsHide: true,
   });
 
   proc.stdout?.on('data', (data) => console.log(`MTX: ${data.toString().trim()}`));

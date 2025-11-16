@@ -18,3 +18,4 @@ youtube-token.json
 
 # CloudFlare credentials
 .cloudflared/
+*.log
