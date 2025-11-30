@@ -11,8 +11,8 @@ paths:
     source: rtsp://192.168.100.103
   baptism:
     source: rtsp://192.168.100.104
-  # basement:
-  #   source: rtsp://192.168.100.105
+  basement:
+    source: rtsp://192.168.100.105
   # atem:
   #   source: rtsp://localhost:559/atem
   atem:
