@@ -132,7 +132,7 @@ export function VideoPlayer({ path, preferredMode, onStatusChange }: VideoPlayer
             console.warn('RTC timeout - video not playing, falling back to HLS');
             setUseHLSOnly(true);
           }
-        }, 10_000);
+        }, 7_000);
       }
 
       if (connectionState === 'getting_codecs' || connectionState === 'running') {
