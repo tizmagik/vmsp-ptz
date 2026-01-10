@@ -11,6 +11,7 @@ import {
   exchangeCodeForTokens,
   isAuthenticated,
 } from './youtube-auth.js';
+import { THUMBNAILS_DIR } from './config.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -168,13 +169,12 @@ export async function updateBroadcast(params: UpdateBroadcastParams): Promise<Up
   // Handle thumbnail if provided
   if (thumbnail) {
     try {
-      // Validate thumbnail file exists in public/thumbnails
-      const thumbnailsDir = path.join(__dirname, '..', 'public', 'thumbnails');
-      const thumbnailPath = path.join(thumbnailsDir, thumbnail);
+      // Validate thumbnail file exists
+      const thumbnailPath = path.join(THUMBNAILS_DIR, thumbnail);
       
       // Check if file exists and is within the thumbnails directory (security check)
       const normalizedPath = path.normalize(thumbnailPath);
-      const normalizedDir = path.normalize(thumbnailsDir);
+      const normalizedDir = path.normalize(THUMBNAILS_DIR);
       
       if (!normalizedPath.startsWith(normalizedDir)) {
         console.error('Thumbnail path traversal attempt blocked:', thumbnail);
@@ -250,14 +250,12 @@ export async function listBroadcasts(): Promise<any> {
  * Get list of available thumbnails
  */
 export function listThumbnails(): string[] {
-  const thumbnailsDir = path.join(__dirname, '..', 'public', 'thumbnails');
-  
   try {
-    if (!fs.existsSync(thumbnailsDir)) {
+    if (!fs.existsSync(THUMBNAILS_DIR)) {
       return [];
     }
     
-    const files = fs.readdirSync(thumbnailsDir);
+    const files = fs.readdirSync(THUMBNAILS_DIR);
     // Filter for image files only
     return files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file)).sort();
   } catch (error) {

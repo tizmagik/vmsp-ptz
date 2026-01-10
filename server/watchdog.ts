@@ -16,7 +16,8 @@ function startServer() {
     join(__dirname, 'index.ts')
   ], {
     stdio: 'inherit',
-    windowsHide: false
+    windowsHide: false,
+    env: process.env
   });
 
   child.on('exit', (code) => {
