@@ -20,6 +20,10 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
     setModalRoot(document.body);
   }, []);
 
+  const handleRefreshPage = () => {
+    window.location.reload();
+  };
+
   const handleRestartMediaMTX = async () => {
     if (restartStatus === 'restarting') return;
     
@@ -34,20 +38,25 @@ export function ConfigMenu({ preferredMode, onModeChange, thumbnails }: ConfigMe
       
       if (data.success) {
         setRestartStatus('success');
-        setTimeout(() => setRestartStatus('idle'), 2000);
+        setTimeout(() => {
+          setRestartStatus('idle');
+          handleRefreshPage();
+        }, 2000);
       } else {
         setRestartStatus('error');
-        setTimeout(() => setRestartStatus('idle'), 3000);
+        setTimeout(() => {
+          setRestartStatus('idle');
+          handleRefreshPage();
+        }, 3000);
       }
     } catch (error) {
       console.error('Error restarting MediaMTX:', error);
       setRestartStatus('error');
-      setTimeout(() => setRestartStatus('idle'), 3000);
+      setTimeout(() => {
+        setRestartStatus('idle');
+        handleRefreshPage();
+      }, 3000);
     }
-  };
-
-  const handleRefreshPage = () => {
-    window.location.reload();
   };
 
   return (
