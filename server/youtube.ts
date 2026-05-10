@@ -236,7 +236,8 @@ export async function listBroadcasts(): Promise<any> {
   
   const response = await youtube.liveBroadcasts.list({
     part: ['id', 'snippet', 'status'],
-    broadcastStatus: 'active',
+    // broadcastStatus: 'active',
+    mine: true,
     maxResults: 10,
   });
   
@@ -262,6 +263,370 @@ export function listThumbnails(): string[] {
     console.error('Error reading thumbnails directory:', error);
     return [];
   }
+}
+
+interface PrepareBroadcastParams {
+  title?: string;
+  description?: string;
+  privacy?: 'public' | 'private' | 'unlisted';
+  scheduledStartTime?: string;
+}
+
+interface PrepareBroadcastResult {
+  success: boolean;
+  message?: string;
+  broadcastId?: string;
+  streamId?: string;
+  streamKey?: string;
+  rtmpUrl?: string;
+  title?: string;
+}
+
+/**
+ * Prepare a new broadcast ready to receive stream from ATEM.
+ * Uses a reusable stream so the RTMP key stays the same.
+ * Sets enableAutoStart so broadcast goes live automatically when stream starts.
+ */
+export async function prepareBroadcast(params: PrepareBroadcastParams = {}): Promise<PrepareBroadcastResult> {
+  const auth = await getAuthenticatedClient();
+  if (!auth) {
+    return { 
+      success: false, 
+      message: 'Not authenticated. Please authenticate first at /api/yt/auth' 
+    };
+  }
+  
+  const youtube = google.youtube({ version: 'v3', auth });
+  
+  // Check if there's already a broadcast in 'ready' or 'live' state
+  const activeResponse = await youtube.liveBroadcasts.list({
+    part: ['id', 'snippet', 'status', 'contentDetails'],
+    broadcastStatus: 'active',
+    maxResults: 1,
+  });
+  
+  if (activeResponse.data.items && activeResponse.data.items.length > 0) {
+    const activeBroadcast = activeResponse.data.items[0];
+    const status = activeBroadcast.status?.lifeCycleStatus;
+    return {
+      success: true,
+      message: `Broadcast already ${status}: "${activeBroadcast.snippet?.title}"`,
+      broadcastId: activeBroadcast.id || undefined,
+      title: activeBroadcast.snippet?.title || undefined,
+    };
+  }
+  
+  // Check for upcoming broadcasts that are ready
+  const upcomingResponse = await youtube.liveBroadcasts.list({
+    part: ['id', 'snippet', 'status', 'contentDetails'],
+    broadcastStatus: 'upcoming',
+    maxResults: 5,
+  });
+
+  console.log('Upcoming broadcasts found:', upcomingResponse.data.items);
+  
+  const readyBroadcast = upcomingResponse.data.items?.find(
+    b => b.status?.lifeCycleStatus === 'ready'
+  );
+  
+  if (readyBroadcast) {
+    return {
+      success: true,
+      message: `Broadcast already ready: "${readyBroadcast.snippet?.title}"`,
+      broadcastId: readyBroadcast.id || undefined,
+      title: readyBroadcast.snippet?.title || undefined,
+      readyBroadcast,
+    };
+  }
+  
+  // Default title with current date/time
+  const now = new Date();
+  const defaultTitle = `VMSP Church Live Stream - ${now.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  })}`;
+  
+  const title = params.title || defaultTitle;
+  const description = params.description || '#vmsp #vmspchurch #coptic';
+  const privacy = params.privacy || 'public';
+  
+  // Schedule for now (or slightly in the future)
+  const scheduledStartTime = params.scheduledStartTime || new Date(Date.now() + 60000).toISOString();
+  
+  try {
+    // Step 1: Find an existing reusable stream or create one
+    let streamId: string | undefined;
+    let streamKey: string | undefined;
+    let rtmpUrl: string | undefined;
+    
+    const streamsResponse = await youtube.liveStreams.list({
+      part: ['id', 'snippet', 'cdn', 'contentDetails', 'status'],
+      mine: true,
+      maxResults: 50,
+    });
+    
+    // Look for a reusable stream
+    const reusableStream = streamsResponse.data.items?.find(
+      stream => stream.contentDetails?.isReusable === true
+    );
+    
+    if (reusableStream) {
+      streamId = reusableStream.id || undefined;
+      streamKey = reusableStream.cdn?.ingestionInfo?.streamName;
+      rtmpUrl = reusableStream.cdn?.ingestionInfo?.ingestionAddress;
+      console.log('Found existing reusable stream:', streamId);
+    } else {
+      // Create a new reusable stream
+      console.log('Creating new reusable stream...');
+      const newStream = await youtube.liveStreams.insert({
+        part: ['snippet', 'cdn', 'contentDetails', 'status'],
+        requestBody: {
+          snippet: {
+            title: 'VMSP Church Live Stream',
+            description: '#vmsp #vmspchurch #coptic',
+          },
+          cdn: {
+            frameRate: 'variable',
+            ingestionType: 'rtmp',
+            resolution: 'variable',
+          },
+          contentDetails: {
+            isReusable: true,
+          },
+        },
+      });
+      
+      streamId = newStream.data.id || undefined;
+      streamKey = newStream.data.cdn?.ingestionInfo?.streamName;
+      rtmpUrl = newStream.data.cdn?.ingestionInfo?.ingestionAddress;
+      console.log('Created new reusable stream:', streamId);
+    }
+    
+    if (!streamId) {
+      return {
+        success: false,
+        message: 'Failed to get or create stream',
+      };
+    }
+    
+    // Step 2: Create a new broadcast with autoStart enabled
+    console.log('Creating broadcast:', title);
+    const broadcastResponse = await youtube.liveBroadcasts.insert({
+      part: ['snippet', 'contentDetails', 'status'],
+      requestBody: {
+        snippet: {
+          title,
+          description,
+          scheduledStartTime,
+        },
+        contentDetails: {
+          enableAutoStart: true,  // Auto-start when stream begins
+          enableAutoStop: true,   // Auto-stop when stream ends
+          enableDvr: true,
+          enableEmbed: true,
+          recordFromStart: true,
+          monitorStream: {
+            enableMonitorStream: false,  // Skip testing phase
+          },
+        },
+        status: {
+          privacyStatus: privacy,
+          selfDeclaredMadeForKids: false,
+        },
+      },
+    });
+    
+    const broadcastId = broadcastResponse.data.id;
+    
+    if (!broadcastId) {
+      return {
+        success: false,
+        message: 'Failed to create broadcast',
+      };
+    }
+    
+    console.log('Created broadcast:', broadcastId);
+    
+    // Step 3: Bind the stream to the broadcast
+    console.log('Binding stream to broadcast...');
+    await youtube.liveBroadcasts.bind({
+      id: broadcastId,
+      part: ['id', 'snippet', 'contentDetails', 'status'],
+      streamId: streamId,
+    });
+    
+    console.log('Broadcast prepared successfully!');
+    
+    return {
+      success: true,
+      message: `Broadcast "${title}" is ready. Start streaming from ATEM and it will go live automatically.`,
+      broadcastId,
+      streamId,
+      streamKey,
+      rtmpUrl: rtmpUrl ? `${rtmpUrl}/${streamKey}` : undefined,
+      title,
+    };
+    
+  } catch (error: any) {
+    console.error('Failed to prepare broadcast:', error);
+    return {
+      success: false,
+      message: `Failed to prepare broadcast: ${error.message}`,
+    };
+  }
+}
+
+/**
+ * Check if a broadcast is ready for streaming. The "ready" state happens automatically
+ * when the broadcast is bound to a stream and the stream is receiving video.
+ * This endpoint returns the current status and what's needed to get to ready state.
+ */
+export async function completeBroadcast(broadcastId?: string): Promise<UpdateBroadcastResult> {
+  const auth = await getAuthenticatedClient();
+  if (!auth) {
+    return { 
+      success: false, 
+      message: 'Not authenticated. Please authenticate first at /api/yt/auth' 
+    };
+  }
+  
+  const youtube = google.youtube({ version: 'v3', auth });
+  
+  // If no broadcastId provided, find an upcoming broadcast
+  let targetBroadcastId = broadcastId;
+  let snippet: any;
+  let status: any;
+  let contentDetails: any;
+  
+  if (!targetBroadcastId) {
+    // Try upcoming broadcasts first (these can become ready)
+    const upcomingResponse = await youtube.liveBroadcasts.list({
+      part: ['id', 'snippet', 'status', 'contentDetails'],
+      broadcastStatus: 'upcoming',
+      maxResults: 1,
+    });
+    
+    if (upcomingResponse.data.items && upcomingResponse.data.items.length > 0) {
+      targetBroadcastId = upcomingResponse.data.items[0].id || undefined;
+      snippet = upcomingResponse.data.items[0].snippet;
+      status = upcomingResponse.data.items[0].status;
+      contentDetails = upcomingResponse.data.items[0].contentDetails;
+    } else {
+      // Check active broadcasts
+      const activeResponse = await youtube.liveBroadcasts.list({
+        part: ['id', 'snippet', 'status', 'contentDetails'],
+        broadcastStatus: 'active',
+        maxResults: 1,
+      });
+      
+      if (activeResponse.data.items && activeResponse.data.items.length > 0) {
+        targetBroadcastId = activeResponse.data.items[0].id || undefined;
+        snippet = activeResponse.data.items[0].snippet;
+        status = activeResponse.data.items[0].status;
+        contentDetails = activeResponse.data.items[0].contentDetails;
+      }
+    }
+    
+    if (!targetBroadcastId) {
+      return { 
+        success: false, 
+        message: 'No upcoming or active broadcast found. Create a new scheduled broadcast first.' 
+      };
+    }
+  } else {
+    // Get broadcast details for the provided ID
+    const currentBroadcast = await youtube.liveBroadcasts.list({
+      part: ['snippet', 'status', 'contentDetails'],
+      id: [targetBroadcastId],
+    });
+    
+    if (!currentBroadcast.data.items || currentBroadcast.data.items.length === 0) {
+      return { 
+        success: false, 
+        message: 'Broadcast not found' 
+      };
+    }
+    
+    snippet = currentBroadcast.data.items[0].snippet;
+    status = currentBroadcast.data.items[0].status;
+    contentDetails = currentBroadcast.data.items[0].contentDetails;
+  }
+  
+  const lifeCycleStatus = status?.lifeCycleStatus;
+  const boundStreamId = contentDetails?.boundStreamId;
+  
+  // Check if already in ready state
+  if (lifeCycleStatus === 'ready') {
+    return {
+      success: true,
+      message: 'Broadcast is already in ready state. You can start streaming!',
+      broadcastId: targetBroadcastId,
+      title: snippet?.title || undefined,
+    };
+  }
+  
+  // Check if already complete
+  if (lifeCycleStatus === 'complete') {
+    return {
+      success: false,
+      message: 'Broadcast is already complete. Create a new scheduled broadcast.',
+    };
+  }
+  
+  // Check if already live
+  if (lifeCycleStatus === 'live' || lifeCycleStatus === 'liveStarting') {
+    return {
+      success: true,
+      message: `Broadcast is already ${lifeCycleStatus}.`,
+      broadcastId: targetBroadcastId,
+      title: snippet?.title || undefined,
+    };
+  }
+  
+  // If no stream bound, that's the problem
+  if (!boundStreamId) {
+    return {
+      success: false,
+      message: 'Broadcast has no stream bound. Bind a stream to this broadcast first.',
+      broadcastId: targetBroadcastId,
+    };
+  }
+  
+  // Check the stream status
+  const streamResponse = await youtube.liveStreams.list({
+    part: ['status', 'snippet'],
+    id: [boundStreamId],
+  });
+  
+  if (!streamResponse.data.items || streamResponse.data.items.length === 0) {
+    return {
+      success: false,
+      message: 'Bound stream not found.',
+      broadcastId: targetBroadcastId,
+    };
+  }
+  
+  const streamStatus = streamResponse.data.items[0].status?.streamStatus;
+  const streamHealth = streamResponse.data.items[0].status?.healthStatus?.status;
+  
+  // The broadcast will automatically transition to "ready" when stream is active
+  if (streamStatus === 'active') {
+    // Stream is active, broadcast should be or become ready
+    return {
+      success: true,
+      message: `Stream is active (health: ${streamHealth}). Broadcast status: ${lifeCycleStatus}. If status is "created", it should transition to "ready" shortly.`,
+      broadcastId: targetBroadcastId,
+      title: snippet?.title || undefined,
+    };
+  }
+  
+  return {
+    success: false,
+    message: `Stream status is "${streamStatus}" (needs to be "active"). Start sending video from ATEM to the RTMP endpoint. Broadcast will automatically become "ready" when YouTube receives video.`,
+    broadcastId: targetBroadcastId,
+    title: snippet?.title || undefined,
+  };
 }
 
 /**
@@ -364,6 +729,47 @@ export function createYouTubeRouter(): Router {
       res.status(500).json({ 
         success: false, 
         message: error.message 
+      });
+    }
+  });
+
+  router.post('/yt/complete', async (req: Request, res: Response) => {
+    try {
+      const { broadcastId } = req.body;
+      const result = await completeBroadcast(broadcastId);
+      
+      if (!result.success) {
+        const statusCode = result.message?.includes('authenticated') ? 401 : 
+                           result.message?.includes('not found') ? 404 : 400;
+        return res.status(statusCode).json(result);
+      }
+      
+      res.json(result);
+    } catch (error: any) {
+      console.error('YouTube complete broadcast error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: error.message || 'Failed to complete broadcast' 
+      });
+    }
+  });
+
+  router.post('/yt/prepare', async (req: Request, res: Response) => {
+    try {
+      const { title, description, privacy, scheduledStartTime } = req.body;
+      const result = await prepareBroadcast({ title, description, privacy, scheduledStartTime });
+      
+      if (!result.success) {
+        const statusCode = result.message?.includes('authenticated') ? 401 : 400;
+        return res.status(statusCode).json(result);
+      }
+      
+      res.json(result);
+    } catch (error: any) {
+      console.error('YouTube prepare broadcast error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: error.message || 'Failed to prepare broadcast' 
       });
     }
   });
