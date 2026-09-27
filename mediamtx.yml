@@ -40,7 +40,9 @@ hlsVariant: lowLatency
 
 webrtc: yes
 webrtcAddress: :8889
-# webrtcLocalUDPAddress: "" # Disabled local UDP address for WebRTC
+# UDP media uses MediaMTX's default :8189; the TCP listener below is also enabled.
+# VMSP's Broadcast VLAN needs an established/related return-traffic exception;
+# see README.md "RTC access on the VMSP network" before changing these hosts/ports.
 webrtcLocalTCPAddress: :8189 # Added local TCP address for WebRTC
 webrtcAdditionalHosts: [192.168.100.252, "ptz.vmspchurch.org", "ptz-rtc.vmspchurch.org", "localhost", "remote.vmspchurch.org"]
 webrtcAllowOrigin: "*"
