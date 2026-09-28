@@ -7,24 +7,28 @@ monitoring, MediaMTX, and YouTube broadcast metadata.
 The app is a React Router 7 server-rendered UI served by Express. A MediaMTX
 process on the Windows streaming PC reads the cameras and capture devices and
 publishes WebRTC and HLS streams. The deployed app is at
-[`remote.vmspchurch.org`](https://remote.vmspchurch.org/).
+https://remote.vmspchurch.org/.
+
+This repository is the PTZ camera control app for the live production environment.
+It sits beside the ScreenTinker signage app in the adjacent sibling project at
+`../screentinker/server`, and the helper in `st-data/start-screentinker.bat` can
+launch that service.
 
 ## What the operator sees
 
 - **Preview:** Choose M/V (ATEM), Main, Left, Right, Altar, Baptism, or Basement.
-  The status badge identifies the selected source and whether it is using RTC
-  or HLS.
+  The status badge identifies the selected source and whether it is using RTC or HLS.
 - **Stream mode:** The gear menu offers Auto, RTC, and HLS. Auto tries RTC first
   and falls back to HLS on an RTC error or if video has not started in seven
   seconds. RTC is intended for lower latency; HLS is the fallback.
-- **Audio:** The speaker button plays the separate `atem-audio` HLS stream in
-  the browser. Video previews are muted by default.
+- **Audio:** The speaker button plays the separate `atem-audio` HLS stream in the
+  browser. Video previews are muted by default.
 - **Companion:** The right panel embeds the Bitfocus Companion emulator for
-  production controls, including the PTZ and switcher buttons. Drag the divider
-  to resize the preview and Companion panels.
-- **Maintenance:** The gear menu can refresh the page, restart MediaMTX, or
-  update the current YouTube broadcast's title, description, thumbnail, and
-  privacy setting. The title form can append today's date.
+  production controls, including PTZ and switcher buttons. Drag the divider to
+  resize the preview and Companion panels.
+- **Maintenance:** The gear menu can refresh the page, restart MediaMTX, or update
+  the current YouTube broadcast's title, description, thumbnail, and privacy
+  setting. The title form can append today's date.
 
 The camera buttons change the preview in the current browser. An external
 controller can select a page for all connected browsers through
@@ -64,23 +68,50 @@ Companion iframe. Those URLs are currently set in the React components; this
 repository does not contain the Cloudflare Tunnel configuration for the public
 hostnames.
 
+## Architecture overview
+
+This project is the church's PTZ camera control and live video interface. It combines a
+React + Express app with MediaMTX, real-time camera switching, and optional external
+integrations such as YouTube and Bitfocus Companion.
+
+### PTZ app
+The main app is a React Router SSR application with an Express server.
+
+- Client UI: `app/`
+- Server entry: `server/index.ts`
+- API routes: `server/routes.ts`
+- Shared camera definitions: `app/constants/cameras.ts`
+- Streaming config: `mediamtx.yml`
+
+### Streaming and sync
+MediaMTX is the streaming layer. It receives RTSP input from the camera sources and makes
+those streams available over WebRTC and HLS. The app uses server-side event streaming
+(SSE) to keep browser tabs in sync. When a user changes the selected camera, the server
+updates the current page state and pushes the new value to connected clients.
+
+### ScreenTinker launcher
+The sibling project is located one directory up and adjacent to this one:
+
+- `../screentinker/server`
+
+The helper at `st-data/start-screentinker.bat` changes into that folder and runs the
+sibling project’s `npm start` command.
+
 ## Run the project
 
-**Requirements:** Node.js 20 or newer and npm. Full local streaming requires
-Windows, the included `mediamtx.exe`, FFmpeg on `PATH`, reachable RTSP cameras,
-and the Blackmagic video/audio capture devices named in `mediamtx.yml`.
-Host-side audio playback also uses Windows PowerShell and the included
-`nircmd.exe`.
+**Requirements:** Node.js 20 or newer and npm. Full local streaming requires Windows,
+the included `mediamtx.exe`, FFmpeg on `PATH`, reachable RTSP cameras, and the
+Blackmagic video/audio capture devices named in `mediamtx.yml`. Host-side audio playback
+also uses Windows PowerShell and the included `nircmd.exe`.
 
 ```sh
 npm ci
 npm run dev              # Express, Vite, and MediaMTX
 ```
 
-Open `http://localhost:8111`. For UI/API development without starting the
-bundled MediaMTX process, use `npm run dev:no-mediamtx`. The preview still
-points at the configured VMSP stream hostnames, so this mode does not create
-local test streams.
+Open `http://localhost:8111`. For UI/API development without starting the bundled
+MediaMTX process, use `npm run dev:no-mediamtx`. The preview still points at the
+configured VMSP stream hostnames, so this mode does not create local test streams.
 
 On the Windows streaming PC, build and run with the watchdog:
 
@@ -90,16 +121,16 @@ npm run build
 npm run start:watch
 ```
 
-`start-server.bat` runs the build and watchdog steps from the project folder.
-The watchdog restarts the Express server after an unexpected exit; Express
-starts MediaMTX and stops it during graceful shutdown. `npm start` runs the
-production server without the watchdog. Run `npm run typecheck` to check the
-TypeScript and generated React Router types.
+`start-server.bat` runs the build and watchdog steps from the project folder. The
+watchdog restarts the Express server after an unexpected exit; Express starts MediaMTX and
+stops it during graceful shutdown. `npm start` runs the production server without the
+watchdog. Run `npm run typecheck` to check the TypeScript and generated React Router types.
 
-### Configuration and credentials
+## Configuration and credentials
 
-Express loads a local `.env` file through `dotenv`. The file, the OAuth token,
-build output, and `node_modules` are ignored by Git.
+Copy [.env.example](.env.example) to `.env` and fill in the values for your local environment
+before running the app. The file, the OAuth token, build output, and `node_modules` are
+ignored by Git.
 
 | Variable | Use |
 | --- | --- |
@@ -111,16 +142,15 @@ build output, and `node_modules` are ignored by Git.
 | `YOUTUBE_REDIRECT_URI` | OAuth callback URL ending in `/api/yt/callback` |
 | `DEFAULT_AUDIO_DEVICE` | Windows sound device restored after host-side audio playback; defaults to `Speakers` |
 
-To connect the YouTube account, configure the three `YOUTUBE_*` values and
-visit `/api/yt/auth` on the app host. The callback writes `youtube-token.json`
-in the project root; keep that file private. The gear-menu update action edits
-an active broadcast, or the first upcoming one if none is active. Available
-thumbnail images live in `public/thumbnails/`.
+To connect the YouTube account, configure the three `YOUTUBE_*` values and visit
+`/api/yt/auth` on the app host. The callback writes `youtube-token.json` in the project
+root; keep that file private. The gear-menu update action edits an active broadcast, or the
+first upcoming one if none is active. Available thumbnail images live in `public/thumbnails/`.
 
 ## API and key files
 
-All API routes are mounted under `/api` by [`server/index.ts`](server/index.ts)
-before the React Router handler.
+All API routes are mounted under `/api` by [`server/index.ts`](server/index.ts) before the
+React Router handler.
 
 | Route | Purpose |
 | --- | --- |
@@ -133,50 +163,46 @@ before the React Router handler.
 | `POST /api/yt/update`, `GET /api/yt/broadcasts`, `GET /api/yt/thumbnails` | Broadcast metadata and available images |
 | `POST /api/yt/prepare`, `POST /api/yt/complete` | Prepare a broadcast or check whether it is ready to stream |
 
-The calendar feed reads `CHMEETINGS_API_KEY` from the server's `.env` and returns
-only `{ id, title, start, location }` for today and the next six dates in
-`America/New_York`. It includes recurring occurrences, refreshes the server
-cache periodically, and permits cross-origin GET requests from ScreenTinker.
-This endpoint is public: anyone with its URL can read the displayed event
-names, times, and locations. Do not put the API key in the widget or commit
-it to the repository. After deploying the server with the environment variable,
-use `https://remote.vmspchurch.org/api/chmeetings/events` as the widget feed.
+The calendar feed reads `CHMEETINGS_API_KEY` from the server's `.env` and returns only
+`{ id, title, start, location }` for today and the next six dates in `America/New_York`.
+It includes recurring occurrences, refreshes the server cache periodically, and permits
+cross-origin GET requests from ScreenTinker. This endpoint is public: anyone with its URL can
+read the displayed event names, times, and locations. Do not put the API key in the widget or
+commit it to the repository. After deploying the server with the environment variable, use
+`https://remote.vmspchurch.org/api/chmeetings/events` as the widget feed.
 
-`server/page.ts` holds the shared camera selection in memory, so it resets to
-`atem` when the server restarts. The browser reconnects to the SSE stream after
-a disconnect. `server/youtube.ts` owns the YouTube API calls, while
-`server/youtube-auth.ts` stores and refreshes OAuth tokens. `server/audio.ts`
-plays host-side MP3 files from `public/audio/`; the browser's audio toggle is a
-separate HLS player in `app/components/AudioPlayer.tsx`. The Companion export is
-tracked as `vmsp.companionconfig`.
+`server/page.ts` holds the shared camera selection in memory, so it resets to `atem` when the
+server restarts. The browser reconnects to the SSE stream after a disconnect. `server/youtube.ts`
+owns the YouTube API calls, while `server/youtube-auth.ts` stores and refreshes OAuth tokens.
+`server/audio.ts` plays host-side MP3 files from `public/audio/`; the browser's audio toggle is a
+separate HLS player in `app/components/AudioPlayer.tsx`. The Companion export is tracked as
+`vmsp.companionconfig`.
 
 ## Troubleshooting
 
-- **No preview:** Check the status badge, the selected stream mode, and the
-  MediaMTX output in the Express console (`MTX:` / `MTX ERR:`). For an RTSP
-  camera, also check its address in `mediamtx.yml`. For M/V or ATEM audio,
-  check that FFmpeg and the named Blackmagic capture device are available.
-- **HLS works but RTC does not:** Check TCP port `8189` from the viewer's
-  network, then review the VMSP UniFi rule below. WHEP signaling succeeding
-  does not prove that direct RTC media can reach the streaming PC.
-- **YouTube update fails:** Check `GET /api/yt/status`, the OAuth environment
-  variables, and the private `youtube-token.json` file. The update action
-  needs an active or upcoming broadcast.
-- **Page selection changes after a restart:** The shared selection is held in
-  server memory and starts again at `atem`.
+- **No preview:** Check the status badge, the selected stream mode, and the MediaMTX output
+  in the Express console (`MTX:` / `MTX ERR:`). For an RTSP camera, also check its address in
+  `mediamtx.yml`. For M/V or ATEM audio, check that FFmpeg and the named Blackmagic capture
+  device are available.
+- **HLS works but RTC does not:** Check TCP port `8189` from the viewer's network, then review
+  the VMSP UniFi rule below. WHEP signaling succeeding does not prove that direct RTC media can
+  reach the streaming PC.
+- **YouTube update fails:** Check `GET /api/yt/status`, the OAuth environment variables, and the
+  private `youtube-token.json` file. The update action needs an active or upcoming broadcast.
+- **Page selection changes after a restart:** The shared selection is held in server memory and
+  starts again at `atem`.
 
 ## RTC access on the VMSP network
 
-The app uses `https://ptz-rtc.vmspchurch.org/<path>/whep` for WebRTC
-signaling. MediaMTX runs on the streaming PC at `192.168.100.252` in the
-**Broadcast** network (VLAN 3, `192.168.100.0/24`). Its direct WebRTC media
-listener uses TCP/UDP port `8189`; `8889` is the signaling listener behind the
-HTTPS endpoint. HLS can work even when the direct RTC media path is blocked.
+The app uses `https://ptz-rtc.vmspchurch.org/<path>/whep` for WebRTC signaling. MediaMTX runs
+on the streaming PC at `192.168.100.252` in the **Broadcast** network (VLAN 3,
+`192.168.100.0/24`). Its direct WebRTC media listener uses TCP/UDP port `8189`; `8889` is the
+signaling listener behind the HTTPS endpoint. HLS can work even when the direct RTC media path
+is blocked.
 
-On 2026-09-27, viewers on the **Default** network (`192.168.0.0/19`) could
-reach signaling and play HLS, but RTC failed. The Broadcast network's
-**Isolate Network** setting blocked the streaming PC's media replies to
-Default. The fix was this rule on `VMSP-Church-UDM` under
+On 2026-09-27, viewers on the **Default** network (`192.168.0.0/19`) could reach signaling and
+play HLS, but RTC failed. The Broadcast network's **Isolate Network** setting blocked the
+streaming PC's media replies to Default. The fix was this rule on `VMSP-Church-UDM` under
 **Traffic & Firewall Rules → Advanced → LAN In**:
 
 | Setting | Value |
@@ -188,12 +214,54 @@ Default. The fix was this rule on `VMSP-Church-UDM` under
 | Destination | Network `Default`, IPv4 subnet |
 | Advanced / Match State | Manual; Established and Related only |
 
-This permits replies for RTC connections initiated from Default while keeping
-other Broadcast-to-Default traffic isolated. It does not require exposing
-`8889` directly to Default; signaling uses the HTTPS endpoint.
+This permits replies for RTC connections initiated from Default while keeping other
+Broadcast-to-Default traffic isolated. It does not require exposing `8889` directly to
+Default; signaling uses the HTTPS endpoint.
 
-To check the path from a Mac on Default, run
-`nc -G 3 -vz 192.168.100.252 8189`, then select RTC in the app and check a
-live stream. After the rule was saved, the port check succeeded and the ATEM
-and Main streams both played in RTC mode. If the PC's address or the RTC port
-changes, update this rule and `mediamtx.yml` together.
+To check the path from a Mac on Default, run `nc -G 3 -vz 192.168.100.252 8189`, then select
+RTC in the app and check a live stream. After the rule was saved, the port check succeeded and
+the ATEM and Main streams both played in RTC mode. If the PC's address or the RTC port changes,
+update this rule and `mediamtx.yml` together.
+
+## Project layout
+
+```text
+vmsp-ptz/
+  app/                  React UI and route modules
+  server/               Express server and API logic
+  public/               Static files and audio assets
+  st-data/              Helper scripts and local startup files
+  mediamtx.yml          MediaMTX source and stream config
+  package.json          App scripts and dependencies
+  README.md             This documentation
+```
+
+## Common run commands
+
+```powershell
+# Development mode with MediaMTX enabled
+npm run dev
+
+# Development mode without MediaMTX
+npm run dev:no-mediamtx
+
+# Production build
+npm run build
+
+# Production server
+npm start
+
+# Watchdog / restart-based production startup
+npm run start:watch
+
+# Typechecking
+npm run typecheck
+```
+
+## Notes
+
+This project is tuned for a local church production environment with PTZ cameras, networked RTSP
+sources, and a browser-based control surface. It is built to run on a Windows machine, but the app
+logic is still organized so it can be maintained and extended cleanly in a typical Node.js
+development workflow.
+>>>>>>> Stashed changes

@@ -19,3 +19,8 @@ youtube-token.json
 # CloudFlare credentials
 .cloudflared/
 *.log
+
+# ScreenTinker
+st-data/*
+!st-data/README.md
+!st-data/start-screentinker.bat
