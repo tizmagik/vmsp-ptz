@@ -431,9 +431,15 @@
 
   #vmsp-week .vmsp-confetti {
     position: absolute;
-    inset: -35px 0 0;
+    z-index: 2;
+    inset: 0;
     overflow: hidden;
     pointer-events: none;
+    visibility: hidden;
+  }
+
+  #vmsp-week.vmsp-celebrating .vmsp-confetti {
+    visibility: visible;
   }
 
   #vmsp-week .vmsp-confetti i {
@@ -517,12 +523,11 @@
   (() => {
     "use strict";
 
-    const REMOTE_BASE_URL = "http://192.168.100.252:8111/api/chmeetings"; 
-    //const REMOTE_BASE_URL = "https://remote.vmspchurch.org/api/chmeetings"; // Remote URL would require authentication
-
     const CONFIG = {
-      eventsFeedUrl: `${REMOTE_BASE_URL}/events`,
-      celebrationsFeedUrl: `${REMOTE_BASE_URL}/celebrations`,
+      feedBaseUrls: [
+        "http://192.168.100.252:8111/api/chmeetings",
+        "https://remote.vmspchurch.org/api/chmeetings"
+      ],
       churchTimeZone: "America/New_York",
       daysIncludingToday: 7,
       maxEventsPerPage: 12,
@@ -585,30 +590,49 @@
       return el;
     };
 
+    // Keep confetti above the entire frame, including the header and footer.
+    const confetti = make("div", "vmsp-confetti");
+    confetti.setAttribute("aria-hidden", "true");
+    const confettiColors = ["#ffa68e", "#ffcf9b", "#90d9d2", "#a8baff", "#f7e6a7"];
+    for (let i = 0; i < 40; i++) {
+      const piece = document.createElement("i");
+      piece.style.setProperty("--x", `${(i * 37.7) % 100}%`);
+      piece.style.setProperty("--size", `${6 + i % 4 * 2}px`);
+      piece.style.setProperty("--color", confettiColors[i % confettiColors.length]);
+      piece.style.setProperty("--duration", `${5 + i % 5}s`);
+      piece.style.setProperty("--delay", `${-i * .53}s`);
+      confetti.append(piece);
+    }
+    root.append(confetti);
+
     // The server feed returns only [{id, title, start, location}].
     // The ChMeetings API key never enters this widget.
-    async function fetchFeed(url, label) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), CONFIG.requestTimeoutSeconds * 1000);
-      try {
-        const response = await fetch(url, { cache: "no-store", signal: controller.signal });
-        if (!response.ok) throw new Error(`${label} feed returned HTTP ${response.status}.`);
-        return await response.json();
-      } finally {
-        clearTimeout(timeout);
+    async function fetchFeed(path, label, dataKey) {
+      let lastError;
+      for (const baseUrl of CONFIG.feedBaseUrls) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), CONFIG.requestTimeoutSeconds * 1000);
+        try {
+          const response = await fetch(`${baseUrl}/${path}`, { cache: "no-store", signal: controller.signal });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const payload = await response.json();
+          if (!Array.isArray(payload?.[dataKey])) throw new Error("Unexpected feed response");
+          return payload[dataKey];
+        } catch (error) {
+          lastError = error;
+        } finally {
+          clearTimeout(timeout);
+        }
       }
+      throw new Error(`${label} feed unavailable from both endpoints: ${lastError?.message || "Unknown error"}`);
     }
 
     async function fetchEvents() {
-      const payload = await fetchFeed(CONFIG.eventsFeedUrl, "Calendar");
-      if (!Array.isArray(payload.events)) throw new Error("Unexpected calendar feed response.");
-      return payload.events;
+      return fetchFeed("events", "Calendar", "events");
     }
 
     async function fetchCelebrations() {
-      const payload = await fetchFeed(CONFIG.celebrationsFeedUrl, "Celebrations");
-      if (!Array.isArray(payload.celebrations)) throw new Error("Unexpected celebrations feed response.");
-      return payload.celebrations;
+      return fetchFeed("celebrations", "Celebrations", "celebrations");
     }
 
     function prepare(events, first, last, pageCapacity) {
@@ -689,19 +713,6 @@
       countLabel.textContent = `${page.items.length} special date${page.items.length === 1 ? "" : "s"}`;
 
       const celebration = make("div", "vmsp-celebrate");
-      const confetti = make("div", "vmsp-confetti");
-      const colors = ["#ffa68e", "#ffcf9b", "#90d9d2", "#a8baff", "#f7e6a7"];
-      for (let i = 0; i < 28; i++) {
-        const piece = document.createElement("i");
-        piece.style.setProperty("--x", `${(i * 37.7) % 100}%`);
-        piece.style.setProperty("--size", `${6 + i % 4 * 2}px`);
-        piece.style.setProperty("--color", colors[i % colors.length]);
-        piece.style.setProperty("--duration", `${5 + i % 5}s`);
-        piece.style.setProperty("--delay", `${-i * .53}s`);
-        confetti.append(piece);
-      }
-      celebration.append(confetti);
-
       const panels = make("div", "vmsp-celebrate-panels");
       if (!birthdays.length || !anniversaries.length) panels.classList.add("is-single");
       for (const [kind, entries, title] of [
