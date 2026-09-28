@@ -1,5 +1,3 @@
-import { Router } from 'express';
-
 type ApiEvent = {
   id: string | number;
   title?: string;
@@ -15,35 +13,29 @@ type ApiOccurrence = {
   start?: string;
 };
 
-type DisplayEvent = { id: string; title: string; start: string; location: string };
+export type DisplayEvent = { id: string; title: string; start: string; location: string };
 
 const API_BASE = 'https://api.chmeetings.com/api/v1';
 const SERIES_SEARCH_START = '2016-01-01';
 const MASTER_TTL_MS = 5 * 60_000;
-const FEED_TTL_MS = 60_000;
+const FEED_TTL_MS = 5 * 60_000;
+const FAILURE_RETRY_MS = 60_000;
 
 const addDays = (key: string, count: number): string => {
   const [year, month, day] = key.split('-').map(Number);
   return new Date(Date.UTC(year, month - 1, day + count)).toISOString().slice(0, 10);
 };
 
-const churchDate = (date: Date): string => {
-  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
-  }).formatToParts(date).map((part) => [part.type, part.value]));
-  return `${parts.year}-${parts.month}-${parts.day}`;
-};
-
 const locationOf = (event: ApiEvent): string =>
   event.location?.name?.trim() || event.location?.formatted_address?.trim() || '';
 
-/** Public event feed for the ScreenTinker sign. The ChMeetings key stays server-side. */
-export function createChMeetingsRouter(): Router {
-  const router = Router();
+/** Cached ChMeetings event lookup. The API key stays server-side. */
+function createCalendarFeed() {
   let masterCache: { last: string; until: number; events: ApiEvent[] } | undefined;
   let masterInFlight: { last: string; promise: Promise<ApiEvent[]> } | undefined;
   let feedCache: { first: string; until: number; events: DisplayEvent[] } | undefined;
   let feedInFlight: { first: string; promise: Promise<DisplayEvent[]> } | undefined;
+  let retryAfter = 0;
 
   async function getPaged<T>(path: string, query: Record<string, string>, apiKey: string): Promise<T[]> {
     const results: T[] = [];
@@ -94,6 +86,7 @@ export function createChMeetingsRouter(): Router {
   async function getFeed(first: string, last: string, apiKey: string): Promise<DisplayEvent[]> {
     if (feedCache?.first === first && Date.now() < feedCache.until) return feedCache.events;
     if (feedInFlight?.first === first) return feedInFlight.promise;
+    if (Date.now() < retryAfter) throw new Error('Calendar feed is cooling down after an upstream failure');
     const promise = (async () => {
       const masters = await getMasters(last, apiKey);
       const result: DisplayEvent[] = [];
@@ -138,29 +131,21 @@ export function createChMeetingsRouter(): Router {
     feedInFlight = { first, promise };
     try {
       return await promise;
+    } catch (error) {
+      retryAfter = Date.now() + FAILURE_RETRY_MS;
+      throw error;
     } finally {
       if (feedInFlight?.promise === promise) feedInFlight = undefined;
     }
   }
 
-  router.get('/chmeetings/events', async (_req, res) => {
-    // The sign is cross-origin. The response is intentionally a public, reduced feed.
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'public, max-age=60');
-    const apiKey = process.env.CHMEETINGS_API_KEY;
-    if (!apiKey) {
-      res.status(503).json({ error: 'Calendar feed is not configured.' });
-      return;
-    }
-    const first = churchDate(new Date());
-    const last = addDays(first, 6);
-    try {
-      res.json({ first, last, events: await getFeed(first, last, apiKey) });
-    } catch (error) {
-      console.error('Failed to refresh ChMeetings calendar feed:', error);
-      res.status(502).json({ error: 'Calendar feed is temporarily unavailable.' });
-    }
-  });
+  return getFeed;
+}
 
-  return router;
+const calendarFeed = createCalendarFeed();
+
+export async function loadChMeetingsEvents(first: string, last: string): Promise<DisplayEvent[]> {
+  const apiKey = process.env.CHMEETINGS_API_KEY;
+  if (!apiKey) throw new Error('ChMeetings API key is not configured');
+  return calendarFeed(first, last, apiKey);
 }

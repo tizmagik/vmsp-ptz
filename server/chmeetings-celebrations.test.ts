@@ -1,8 +1,6 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
 import { after, test } from 'node:test';
-import express from 'express';
-import { celebrationsForWeek, createChMeetingsCelebrationsRouter } from './chmeetings-celebrations.js';
+import { celebrationsForWeek, loadChMeetingsCelebrations } from './chmeetings-celebrations.js';
 
 const nativeFetch = globalThis.fetch;
 const priorKey = process.env.CHMEETINGS_API_KEY;
@@ -29,7 +27,7 @@ test('birthdays and anniversaries span New Year without exposing years', () => {
   ]);
 });
 
-test('endpoint returns names and dates only, with cached upstream reads', async () => {
+test('celebrations service returns names and dates only, with cached upstream reads', async () => {
   process.env.CHMEETINGS_API_KEY = 'test-only-secret';
   let calls = 0;
   globalThis.fetch = async (input, init) => {
@@ -47,21 +45,8 @@ test('endpoint returns names and dates only, with cached upstream reads', async 
       paging: { total_count: 1 },
     }), { status: 200 });
   };
-  const app = express();
-  app.use('/api', createChMeetingsCelebrationsRouter());
-  const server = createServer(app).listen(0);
-  try {
-    const address = server.address();
-    assert.ok(address && typeof address !== 'string');
-    const url = `http://127.0.0.1:${address.port}/api/chmeetings/celebrations`;
-    const response = await nativeFetch(url);
-    assert.equal(response.status, 200);
-    assert.equal(response.headers.get('access-control-allow-origin'), '*');
-    const payload = await response.json() as { celebrations: unknown[] };
-    assert.deepEqual(payload.celebrations, [{ kind: 'birthday', date: today, name: 'Maria C' }]);
-    assert.equal((await nativeFetch(url)).status, 200);
-    assert.equal(calls, 1);
-  } finally {
-    server.close();
-  }
+  const celebrations = await loadChMeetingsCelebrations(today);
+  assert.deepEqual(celebrations, [{ kind: 'birthday', date: today, name: 'Maria C' }]);
+  await loadChMeetingsCelebrations(today);
+  assert.equal(calls, 1);
 });

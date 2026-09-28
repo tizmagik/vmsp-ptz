@@ -1,5 +1,3 @@
-import { Router } from 'express';
-
 type Person = {
   id?: number | string;
   full_name?: string | null;
@@ -10,17 +8,11 @@ type Person = {
   is_archived?: boolean;
 };
 
-type Celebration = { kind: 'birthday' | 'anniversary'; date: string; name: string };
+export type Celebration = { kind: 'birthday' | 'anniversary'; date: string; name: string };
 
 const API_URL = 'https://api.chmeetings.com/api/v1/people';
 const CACHE_TTL_MS = 5 * 60_000;
-
-const churchDate = (date: Date): string => {
-  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
-  }).formatToParts(date).map((part) => [part.type, part.value]));
-  return `${parts.year}-${parts.month}-${parts.day}`;
-};
+const FAILURE_RETRY_MS = 60_000;
 
 const addDays = (key: string, count: number): string => {
   const [year, month, day] = key.split('-').map(Number);
@@ -53,11 +45,11 @@ export function celebrationsForWeek(people: Person[], first: string): Celebratio
     a.date.localeCompare(b.date) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name));
 }
 
-/** Public names-only celebration feed. Full People records never leave this server. */
-export function createChMeetingsCelebrationsRouter(): Router {
-  const router = Router();
+/** Cached names-only celebration lookup. Full People records stay server-side. */
+function createCelebrationsFeed() {
   let cache: { first: string; until: number; celebrations: Celebration[] } | undefined;
   let inFlight: { first: string; promise: Promise<Celebration[]> } | undefined;
+  let retryAfter = 0;
 
   async function loadPeople(apiKey: string): Promise<Person[]> {
     const people: Person[] = [];
@@ -87,6 +79,7 @@ export function createChMeetingsCelebrationsRouter(): Router {
   async function getCelebrations(first: string, apiKey: string): Promise<Celebration[]> {
     if (cache?.first === first && Date.now() < cache.until) return cache.celebrations;
     if (inFlight?.first === first) return inFlight.promise;
+    if (Date.now() < retryAfter) throw new Error('Celebrations feed is cooling down after an upstream failure');
     const promise = (async () => {
       const people = await loadPeople(apiKey);
       const celebrations = celebrationsForWeek(people, first);
@@ -96,27 +89,21 @@ export function createChMeetingsCelebrationsRouter(): Router {
     inFlight = { first, promise };
     try {
       return await promise;
+    } catch (error) {
+      retryAfter = Date.now() + FAILURE_RETRY_MS;
+      throw error;
     } finally {
       if (inFlight?.promise === promise) inFlight = undefined;
     }
   }
 
-  router.get('/chmeetings/celebrations', async (_req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'public, max-age=60');
-    const apiKey = process.env.CHMEETINGS_API_KEY;
-    if (!apiKey) {
-      res.status(503).json({ error: 'Celebrations feed is not configured.' });
-      return;
-    }
-    const first = churchDate(new Date());
-    try {
-      res.json({ first, last: addDays(first, 6), celebrations: await getCelebrations(first, apiKey) });
-    } catch (error) {
-      console.error('Failed to refresh ChMeetings celebrations feed:', error);
-      res.status(502).json({ error: 'Celebrations feed is temporarily unavailable.' });
-    }
-  });
+  return getCelebrations;
+}
 
-  return router;
+const celebrationsFeed = createCelebrationsFeed();
+
+export async function loadChMeetingsCelebrations(first: string): Promise<Celebration[]> {
+  const apiKey = process.env.CHMEETINGS_API_KEY;
+  if (!apiKey) throw new Error('ChMeetings API key is not configured');
+  return celebrationsFeed(first, apiKey);
 }

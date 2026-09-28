@@ -1,8 +1,6 @@
 import assert from 'node:assert/strict';
-import { createServer } from 'node:http';
 import { after, test } from 'node:test';
-import express from 'express';
-import { createChMeetingsRouter } from './chmeetings.js';
+import { loadChMeetingsEvents } from './chmeetings.js';
 
 const nativeFetch = globalThis.fetch;
 const priorKey = process.env.CHMEETINGS_API_KEY;
@@ -19,7 +17,7 @@ const localDay = () => {
   return `${parts.year}-${parts.month}-${parts.day}`;
 };
 
-test('public feed returns only display fields and reuses cached upstream data', async () => {
+test('calendar service returns only display fields and reuses cached upstream data', async () => {
   const day = localDay();
   const calls: URL[] = [];
   process.env.CHMEETINGS_API_KEY = 'test-only-secret';
@@ -47,45 +45,20 @@ test('public feed returns only display fields and reuses cached upstream data', 
     ], paging: { total_count: 2 } }), { status: 200 });
   };
 
-  const app = express();
-  app.use('/api', createChMeetingsRouter());
-  const server = createServer(app).listen(0);
-  try {
-    const address = server.address();
-    assert.ok(address && typeof address !== 'string');
-    const url = `http://127.0.0.1:${address.port}/api/chmeetings/events`;
-    const first = await nativeFetch(url);
-    assert.equal(first.status, 200);
-    assert.equal(first.headers.get('access-control-allow-origin'), '*');
-    const feed = await first.json() as { first: string; events: Record<string, string>[] };
-    assert.equal(feed.first, day);
-    assert.deepEqual(feed.events.find((event) => event.id === '1'), {
-      id: '1', title: 'Bible study', start: `${day}T19:00:00`, location: 'Main church',
-    });
-    assert.deepEqual(feed.events.find((event) => event.id === 'occ-1'), {
-      id: 'occ-1', title: 'Weekly service', start: `${day}T09:00:00`, location: 'Parish hall',
-    });
-    const count = calls.length;
-    assert.ok(count > 1);
-    assert.equal((await nativeFetch(url)).status, 200);
-    assert.equal(calls.length, count);
-  } finally {
-    server.close();
-  }
+  const feed = await loadChMeetingsEvents(day, day);
+  assert.deepEqual(feed.find((event) => event.id === '1'), {
+    id: '1', title: 'Bible study', start: `${day}T19:00:00`, location: 'Main church',
+  });
+  assert.deepEqual(feed.find((event) => event.id === 'occ-1'), {
+    id: 'occ-1', title: 'Weekly service', start: `${day}T09:00:00`, location: 'Parish hall',
+  });
+  const count = calls.length;
+  assert.ok(count > 1);
+  await loadChMeetingsEvents(day, day);
+  assert.equal(calls.length, count);
 });
 
-test('missing key returns a controlled configuration error', async () => {
+test('calendar service requires a server-side key', async () => {
   delete process.env.CHMEETINGS_API_KEY;
-  const app = express();
-  app.use('/api', createChMeetingsRouter());
-  const server = createServer(app).listen(0);
-  try {
-    const address = server.address();
-    assert.ok(address && typeof address !== 'string');
-    const response = await nativeFetch(`http://127.0.0.1:${address.port}/api/chmeetings/events`);
-    assert.equal(response.status, 503);
-    assert.deepEqual(await response.json(), { error: 'Calendar feed is not configured.' });
-  } finally {
-    server.close();
-  }
+  await assert.rejects(loadChMeetingsEvents(localDay(), localDay()), /not configured/);
 });

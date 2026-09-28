@@ -7,6 +7,7 @@ import { disableCaching } from './middleware.js';
 import { startMediaMTX, stopMediaMTX } from './mediamtx.js';
 import { cleanupAudio } from './audio.js';
 import { createAPIRouter } from './routes.js';
+import { createEventsPageRouter } from './events-page.js';
 
 // Create Express app
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.json());
 
 // Mount API routes - MUST come before Vite/React Router middleware
 app.use('/api', createAPIRouter());
+app.use(createEventsPageRouter());
 
 // Setup Vite dev server in development
 const viteDevServer: ViteDevServer | null =

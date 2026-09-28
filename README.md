@@ -154,8 +154,6 @@ React Router handler.
 
 | Route | Purpose |
 | --- | --- |
-| `GET /api/chmeetings/events` | Public seven-day church calendar feed for ScreenTinker |
-| `GET /api/chmeetings/celebrations` | Public seven-day birthday and wedding anniversary names/dates for ScreenTinker |
 | `POST /api/page` | Set the shared camera page; body: `{ "page": "main" }` |
 | `GET /api/page/current`, `GET /api/page/events` | Read the current page or subscribe to SSE updates |
 | `POST /api/restart-mediamtx` | Restart the MediaMTX child process |
@@ -164,13 +162,20 @@ React Router handler.
 | `POST /api/yt/update`, `GET /api/yt/broadcasts`, `GET /api/yt/thumbnails` | Broadcast metadata and available images |
 | `POST /api/yt/prepare`, `POST /api/yt/complete` | Prepare a broadcast or check whether it is ready to stream |
 
-The calendar feed reads `CHMEETINGS_API_KEY` from the server's `.env` and returns only
-`{ id, title, start, location }` for today and the next six dates in `America/New_York`.
-It includes recurring occurrences, refreshes the server cache periodically, and permits
-cross-origin GET requests from ScreenTinker. This endpoint is public: anyone with its URL can
-read the displayed event names, times, and locations. Do not put the API key in the widget or
-commit it to the repository. After deploying the server with the environment variable, use
-`https://remote.vmspchurch.org/api/chmeetings/events` as the widget feed.
+The public [`/events`](https://remote.vmspchurch.org/events) page serves the complete
+signage design, with the current seven-day event schedule embedded in its HTML.
+Celebrations are off by default; add `?celebrations` to include the week's
+birthday and wedding anniversary names. It refreshes the same page URL, preserving
+the live slides without a browser-facing ChMeetings data API. The server reads
+`CHMEETINGS_API_KEY` from `.env`; the key never enters the page. Anyone who can
+open `/events` can see the displayed names, events, times, and locations.
+
+Paste `st-data/calendar-widget.html` into a ScreenTinker Text/HTML widget. The
+small iframe loader tries `http://192.168.100.252:8111/events` first and falls
+back to `https://remote.vmspchurch.org/events` if the local page cannot load.
+Set `INCLUDE_CELEBRATIONS` to `true` in the snippet to use `?celebrations`.
+The full page source is `st-data/events-page.html`. Both server-side feeds cache
+successful ChMeetings results for five minutes.
 
 `server/page.ts` holds the shared camera selection in memory, so it resets to `atem` when the
 server restarts. The browser reconnects to the SSE stream after a disconnect. `server/youtube.ts`
