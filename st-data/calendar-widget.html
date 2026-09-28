@@ -517,7 +517,8 @@
   (() => {
     "use strict";
 
-    const REMOTE_BASE_URL = "https://remote.vmspchurch.org/api/chmeetings";
+    const REMOTE_BASE_URL = "http://192.168.100.252:8111/api/chmeetings"; 
+    //const REMOTE_BASE_URL = "https://remote.vmspchurch.org/api/chmeetings"; // Remote URL would require authentication
 
     const CONFIG = {
       eventsFeedUrl: `${REMOTE_BASE_URL}/events`,
