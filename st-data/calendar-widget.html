@@ -310,14 +310,29 @@
   }
 
   #vmsp-week .vmsp-progress i {
+    position: relative;
     height: 5px;
     flex: 1;
+    overflow: hidden;
     background: #ffffff38;
     border-radius: 9px;
   }
 
-  #vmsp-week .vmsp-progress i.active {
+  #vmsp-week .vmsp-progress i::before {
+    content: "";
+    position: absolute;
+    inset: 0;
     background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  #vmsp-week .vmsp-progress i.active::before {
+    animation: vmsp-progress-fill var(--vmsp-progress-duration) linear forwards;
+  }
+
+  @keyframes vmsp-progress-fill {
+    to { transform: scaleX(1); }
   }
 
   #vmsp-week .vmsp-empty {
@@ -513,6 +528,11 @@
       animation: none;
     }
 
+    #vmsp-week .vmsp-progress i.active::before {
+      animation: none;
+      transform: scaleX(1);
+    }
+
     #vmsp-week::before {
       transition: none;
     }
@@ -550,6 +570,7 @@
     const currentDay = root.querySelector("#vmsp-current-day");
     const countLabel = root.querySelector("#vmsp-count");
     let pages = [], pageIndex = 0, rotationTimer, transitionTimer, resizeTimer;
+    let pageIntervalMs = 0, nextAdvanceAt = 0;
     let refreshInProgress = false, refreshTimer, failedRefreshes = 0;
     let latestEvents = null, latestCelebrations = null;
     let latestFirst = "", latestLast = "", transitionMs = 650;
@@ -786,12 +807,17 @@
       pageLabel.textContent = `${index + 1} / ${pages.length}`;
       pageLabel.hidden = pages.length < 2;
       progress.hidden = pages.length < 2;
-      progress.replaceChildren(...pages.map((_, i) => make("i", i === index ? "active" : "")));
+      if (animate && pages.length > 1) {
+        const remainingMs = Math.max(1, nextAdvanceAt - performance.now());
+        progress.style.setProperty("--vmsp-progress-duration", `${remainingMs}ms`);
+        progress.replaceChildren(...pages.map((_, i) => make("i", i === index ? "active" : "")));
+      }
       if (animate) requestAnimationFrame(() => section.classList.add("is-visible"));
     }
 
     function advance() {
       if (pages.length < 2) return;
+      nextAdvanceAt = performance.now() + pageIntervalMs;
       section.classList.remove("is-visible");
       section.classList.add("is-leaving");
       const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -858,6 +884,13 @@
       section.hidden = pages.length === 0;
       empty.textContent = "No events or celebrations scheduled this week.";
       empty.hidden = pages.length > 0;
+      if (pages.length > 1) {
+        pageIntervalMs = CONFIG.fullRotationSeconds * 1000 / pages.length;
+        transitionMs = matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? 0 : Math.min(450, pageIntervalMs * .28);
+        section.style.setProperty("--vmsp-transition-ms", `${transitionMs}ms`);
+        nextAdvanceAt = performance.now() + pageIntervalMs;
+      }
       if (pages.length) draw(0);
       else {
         root.classList.remove("vmsp-celebrating");
@@ -867,13 +900,7 @@
         progress.hidden = true;
         progress.replaceChildren();
       }
-      if (pages.length > 1) {
-        const pageMs = CONFIG.fullRotationSeconds * 1000 / pages.length;
-        transitionMs = matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? 0 : Math.min(450, pageMs * .28);
-        section.style.setProperty("--vmsp-transition-ms", `${transitionMs}ms`);
-        rotationTimer = setInterval(advance, pageMs);
-      }
+      if (pages.length > 1) rotationTimer = setInterval(advance, pageIntervalMs);
     }
 
     function scheduleRefresh(delayMs) {
