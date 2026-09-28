@@ -3,6 +3,7 @@ import { createMediaMTXRouter } from './mediamtx.js';
 import { createAudioRouter } from './audio.js';
 import { createYouTubeRouter } from './youtube.js';
 import { createPageRouter } from './page.js';
+import { createChMeetingsRouter } from './chmeetings.js';
 
 /**
  * Combine all module routers into a single API router
@@ -15,6 +16,7 @@ export function createAPIRouter(): Router {
   router.use(createAudioRouter());
   router.use(createYouTubeRouter());
   router.use(createPageRouter());
+  router.use(createChMeetingsRouter());
 
   return router;
 }

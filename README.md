@@ -105,6 +105,7 @@ build output, and `node_modules` are ignored by Git.
 | --- | --- |
 | `PORT` | Express port; defaults to `8111` |
 | `SKIP_MEDIAMTX` | Set to `1` to prevent Express from starting MediaMTX |
+| `CHMEETINGS_API_KEY` | ChMeetings account key for the server-only calendar feed |
 | `YOUTUBE_CLIENT_ID` | Google OAuth client ID for YouTube features |
 | `YOUTUBE_CLIENT_SECRET` | Matching OAuth client secret |
 | `YOUTUBE_REDIRECT_URI` | OAuth callback URL ending in `/api/yt/callback` |
@@ -123,6 +124,7 @@ before the React Router handler.
 
 | Route | Purpose |
 | --- | --- |
+| `GET /api/chmeetings/events` | Public seven-day church calendar feed for ScreenTinker |
 | `POST /api/page` | Set the shared camera page; body: `{ "page": "main" }` |
 | `GET /api/page/current`, `GET /api/page/events` | Read the current page or subscribe to SSE updates |
 | `POST /api/restart-mediamtx` | Restart the MediaMTX child process |
@@ -130,6 +132,15 @@ before the React Router handler.
 | `GET /api/yt/status`, `GET /api/yt/auth`, `GET /api/yt/callback` | YouTube OAuth flow |
 | `POST /api/yt/update`, `GET /api/yt/broadcasts`, `GET /api/yt/thumbnails` | Broadcast metadata and available images |
 | `POST /api/yt/prepare`, `POST /api/yt/complete` | Prepare a broadcast or check whether it is ready to stream |
+
+The calendar feed reads `CHMEETINGS_API_KEY` from the server's `.env` and returns
+only `{ id, title, start, location }` for today and the next six dates in
+`America/New_York`. It includes recurring occurrences, refreshes the server
+cache periodically, and permits cross-origin GET requests from ScreenTinker.
+This endpoint is public: anyone with its URL can read the displayed event
+names, times, and locations. Do not put the API key in the widget or commit
+it to the repository. After deploying the server with the environment variable,
+use `https://remote.vmspchurch.org/api/chmeetings/events` as the widget feed.
 
 `server/page.ts` holds the shared camera selection in memory, so it resets to
 `atem` when the server restarts. The browser reconnects to the SSE stream after
