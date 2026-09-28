@@ -24,3 +24,4 @@ youtube-token.json
 st-data/*
 !st-data/README.md
 !st-data/start-screentinker.bat
+!st-data/calendar-widget.html

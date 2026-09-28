@@ -155,6 +155,7 @@ React Router handler.
 | Route | Purpose |
 | --- | --- |
 | `GET /api/chmeetings/events` | Public seven-day church calendar feed for ScreenTinker |
+| `GET /api/chmeetings/celebrations` | Public seven-day birthday and wedding anniversary names/dates for ScreenTinker |
 | `POST /api/page` | Set the shared camera page; body: `{ "page": "main" }` |
 | `GET /api/page/current`, `GET /api/page/events` | Read the current page or subscribe to SSE updates |
 | `POST /api/restart-mediamtx` | Restart the MediaMTX child process |

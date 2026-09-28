@@ -4,6 +4,7 @@ import { createAudioRouter } from './audio.js';
 import { createYouTubeRouter } from './youtube.js';
 import { createPageRouter } from './page.js';
 import { createChMeetingsRouter } from './chmeetings.js';
+import { createChMeetingsCelebrationsRouter } from './chmeetings-celebrations.js';
 
 /**
  * Combine all module routers into a single API router
@@ -17,6 +18,7 @@ export function createAPIRouter(): Router {
   router.use(createYouTubeRouter());
   router.use(createPageRouter());
   router.use(createChMeetingsRouter());
+  router.use(createChMeetingsCelebrationsRouter());
 
   return router;
 }

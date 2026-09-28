@@ -1,0 +1,863 @@
+<meta charset="utf-8">
+<!-- Paste this entire file into ScreenTinker's HTML Content field. Leave CSS blank.
+     The feed URLs contain no ChMeetings API key. -->
+<div id="vmsp-week" role="region" aria-label="Upcoming church events">
+  <div class="vmsp-shell">
+    <header class="vmsp-top">
+      <div class="vmsp-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" aria-hidden="true" focusable="false"><g><circle cx="350" cy="350" r="341.5" fill="#fff" stroke="#4a111a" stroke-miterlimit="10" stroke-width="12" /></g><g><path d="M596.77,591.46q-16.34,12-37.59,12c-19.86,0-41.67-11.16-63.41-39.48-10.82,21.66-24.2,37.89-43.68,53.64-10.29,8.9-45.87,39.67-100,42.48q-38.29,0-80.85-23.36-41.15-23.37-66-69.38c-29.79,24.07-46.43,36.1-63.92,36.1-11.35,0-28-4-36.08-12C137,568.34,148,550,152.8,514.29V159.59H103.86V107.9H252.09V527.74q0,29.73,27.66,65.84Q307.41,629,352.09,629q50.78-5.64,77.3-46.73,17.73-24.06,17.73-52.39V156.75H396.06V107.9H548.54V514.36C554.12,558.53,573.93,579.63,596.77,591.46Z" fill="#4a111a" /><rect x="102.89" y="107.75" width="495" height="51.5" fill="#4a111a" /></g><g><rect x="120.17" y="124" width="459.03" height="20" fill="#c3a54f" /><rect x="473.24" y="140.88" width="48" height="403.98" fill="#c3a54f" /><rect x="177.8" y="140.88" width="48" height="403.98" fill="#c3a54f" /></g><g><g><path d="M333.8,489.55l-88,51.37V161.25l88,49.48v63.21l-20.8,0L333.8,299v33H302l-21-25v28.5l-16,11.62,16,13.38v24.75L302,364h31.8v33.45L313,423l20.8.07Z" fill="none" stroke="#4a111a" stroke-miterlimit="10" stroke-width="12" /><path d="M364.83,489.55l88,51.37V161.25l-88,49.48v63.21l20.8,0L364.83,299v33h31.8l21-25v28.5l16,11.62-16,13.38v24.75l-21-21.25h-31.8v33.45L385.63,423l-20.8.07Z" fill="none" stroke="#4a111a" stroke-miterlimit="10" stroke-width="12" /></g></g></svg></div>
+      <div class="vmsp-top-text">
+        <div class="vmsp-church">Virgin Mary &amp; St. Pachomius</div>
+        <div class="vmsp-title">This week at church</div>
+        <div class="vmsp-week-range" id="vmsp-week-range"></div>
+      </div>
+      <div class="vmsp-day-meta">
+        <div class="vmsp-current-day" id="vmsp-current-day"></div>
+        <div class="vmsp-count" id="vmsp-count"></div>
+      </div>
+    </header>
+    <main class="vmsp-stage">
+      <div class="vmsp-section" id="vmsp-section" aria-live="polite"></div>
+      <div class="vmsp-empty" id="vmsp-empty" hidden></div>
+    </main>
+    <footer class="vmsp-foot">
+      <span class="vmsp-status" id="vmsp-status">Loading events…</span>
+      <span class="vmsp-page" id="vmsp-page"></span>
+      <div class="vmsp-progress" id="vmsp-progress" aria-hidden="true"></div>
+    </footer>
+  </div>
+</div>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    height: 100%;
+  }
+
+  #vmsp-week,
+  #vmsp-week * {
+    box-sizing: border-box;
+  }
+
+  #vmsp-week {
+    --ink: #f8f4ed;
+    --soft: #d1c9c0;
+    --gold: #e8bc70;
+    width: 100%;
+    height: 100vh;
+    color: var(--ink);
+    background: radial-gradient(ellipse at 83% 16%, #391c26 0, transparent 44%),
+      linear-gradient(138deg, #171820 0%, #10131a 58%, #20151b 100%);
+    font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #vmsp-week::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at 76% 14%, #315a6e 0, transparent 50%),
+      radial-gradient(ellipse at 18% 88%, #553155 0, transparent 46%),
+      linear-gradient(135deg, #12283b, #1b2444 56%, #322240);
+    opacity: 0;
+    transition: opacity 380ms ease;
+  }
+
+  #vmsp-week.vmsp-celebrating {
+    --ink: #fffaf4;
+    --soft: #d7dce7;
+    --gold: #ffcf9b;
+  }
+
+  #vmsp-week.vmsp-celebrating::before {
+    opacity: 1;
+  }
+
+  #vmsp-week .vmsp-shell {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    min-height: 0;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    padding: clamp(24px, 3vw, 58px) clamp(30px, 4.5vw, 88px) clamp(20px, 2.2vw, 42px);
+  }
+
+  #vmsp-week .vmsp-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #ffffff31;
+  }
+
+  #vmsp-week .vmsp-mark {
+    width: clamp(84px, 5vw, 100px);
+    height: clamp(84px, 5vw, 100px);
+    flex: none;
+  }
+
+  #vmsp-week .vmsp-mark svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  #vmsp-week .vmsp-top-text {
+    min-width: 0;
+  }
+
+  #vmsp-week .vmsp-church {
+    color: var(--soft);
+    font-size: clamp(18px, 1.35vw, 27px);
+  }
+
+  #vmsp-week .vmsp-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(32px, 3vw, 58px);
+    line-height: 1.07;
+    letter-spacing: -.025em;
+  }
+
+  #vmsp-week .vmsp-week-range {
+    margin-top: 7px;
+    color: var(--soft);
+    font-size: clamp(16px, 1.1vw, 22px);
+  }
+
+  #vmsp-week .vmsp-current-day {
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+    color: var(--gold);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(32px, 3.25vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -.025em;
+  }
+
+  #vmsp-week .vmsp-stage {
+    display: grid;
+    align-content: start;
+    min-height: 0;
+    overflow: hidden;
+    padding: clamp(36px, 5vh, 78px) 0 24px;
+  }
+
+  #vmsp-week .vmsp-section {
+    width: 100%;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity var(--vmsp-transition-ms, 650ms) ease,
+      transform var(--vmsp-transition-ms, 650ms) cubic-bezier(.2, .7, .2, 1);
+  }
+
+  #vmsp-week .vmsp-section[hidden] {
+    display: none;
+  }
+
+  #vmsp-week .vmsp-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #vmsp-week .vmsp-section.is-leaving {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  #vmsp-week .vmsp-day-meta {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  #vmsp-week .vmsp-count {
+    margin-top: 7px;
+    color: var(--soft);
+    font-size: clamp(17px, 1.2vw, 24px);
+  }
+
+  #vmsp-week .vmsp-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(14px, 1.4vw, 26px);
+  }
+
+  #vmsp-week .vmsp-list.is-single {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  #vmsp-week .vmsp-column {
+    display: grid;
+    align-content: start;
+    gap: clamp(10px, 1.5vh, 18px);
+    min-width: 0;
+  }
+
+  #vmsp-week .vmsp-time-group {
+    display: grid;
+    grid-template-columns: minmax(125px, 22%) minmax(0, 1fr);
+    align-items: start;
+    gap: clamp(12px, 1.3vw, 26px);
+    padding: clamp(15px, 1.25vw, 25px) clamp(18px, 1.6vw, 34px);
+    background: #ffffff0e;
+    border: 1px solid #ffffff28;
+    border-radius: 17px;
+  }
+
+  #vmsp-week .vmsp-time {
+    color: var(--gold);
+    font-size: clamp(23px, 1.65vw, 35px);
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+
+  #vmsp-week .vmsp-titles {
+    display: grid;
+    gap: 8px;
+  }
+
+  #vmsp-week .vmsp-titles.is-dense {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 32px);
+  }
+
+  #vmsp-week .vmsp-dense-column {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  #vmsp-week .vmsp-event-title {
+    font-size: clamp(28px, 2.1vw, 44px);
+    line-height: 1.12;
+    font-weight: 620;
+    letter-spacing: -.015em;
+    overflow-wrap: anywhere;
+  }
+
+  #vmsp-week .vmsp-event+.vmsp-event {
+    border-top: 1px solid #ffffff24;
+    padding-top: 8px;
+  }
+
+  #vmsp-week .vmsp-location {
+    margin-top: 4px;
+    color: var(--soft);
+    font-size: clamp(18px, 1.3vw, 27px);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+
+  #vmsp-week .vmsp-foot {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 20px;
+    border-top: 1px solid #ffffff31;
+    color: var(--soft);
+    font-size: clamp(16px, 1.15vw, 23px);
+  }
+
+  #vmsp-week .vmsp-page {
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  #vmsp-week .vmsp-page[hidden],
+  #vmsp-week .vmsp-progress[hidden] {
+    display: none;
+  }
+
+  #vmsp-week .vmsp-progress {
+    display: flex;
+    gap: 7px;
+    min-width: 20%;
+    max-width: 30%;
+  }
+
+  #vmsp-week .vmsp-progress i {
+    height: 5px;
+    flex: 1;
+    background: #ffffff38;
+    border-radius: 9px;
+  }
+
+  #vmsp-week .vmsp-progress i.active {
+    background: var(--gold);
+  }
+
+  #vmsp-week .vmsp-empty {
+    font-family: Georgia, "Times New Roman", serif;
+    text-align: center;
+    font-size: clamp(35px, 4vw, 70px);
+  }
+
+  #vmsp-week .vmsp-empty[hidden] {
+    display: none;
+  }
+
+  #vmsp-week .vmsp-celebrate {
+    position: relative;
+    min-height: 100%;
+  }
+
+  #vmsp-week .vmsp-celebrate-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 34px);
+    position: relative;
+    z-index: 1;
+  }
+
+  #vmsp-week .vmsp-celebrate-panels.is-single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #vmsp-week .vmsp-celebrate-panel {
+    min-width: 0;
+    padding: clamp(18px, 1.6vw, 30px);
+    border: 1px solid #ffffff37;
+    border-radius: 24px;
+    background: linear-gradient(145deg, #ffffff1c, #ffffff08);
+    box-shadow: 0 18px 50px #00000020;
+  }
+
+  #vmsp-week .vmsp-celebrate-panel.is-birthday {
+    border-top: 5px solid #ffa68e;
+  }
+
+  #vmsp-week .vmsp-celebrate-panel.is-anniversary {
+    border-top: 5px solid #90d9d2;
+  }
+
+  #vmsp-week .vmsp-celebrate-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: clamp(12px, 1.5vh, 24px);
+  }
+
+  #vmsp-week .vmsp-celebrate-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(34px, 3vw, 62px);
+    line-height: 1;
+    letter-spacing: -.035em;
+  }
+
+  #vmsp-week .is-birthday .vmsp-celebrate-title { color: #ffd0bd; }
+  #vmsp-week .is-anniversary .vmsp-celebrate-title { color: #b0ebe2; }
+
+  #vmsp-week .vmsp-celebrate-count {
+    color: var(--soft);
+    font-size: clamp(16px, 1.1vw, 23px);
+    white-space: nowrap;
+  }
+
+  #vmsp-week .vmsp-names {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: clamp(5px, .7vh, 10px) clamp(12px, 1.1vw, 22px);
+  }
+
+  #vmsp-week .is-single .vmsp-names {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #vmsp-week .vmsp-person {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(9px, .8vw, 16px);
+    min-width: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ffffff1f;
+  }
+
+  #vmsp-week .vmsp-person-date {
+    flex: none;
+    color: #ffcf9b;
+    font-size: clamp(15px, 1vw, 20px);
+    font-weight: 700;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  #vmsp-week .vmsp-person-name {
+    min-width: 0;
+    font-size: clamp(22px, 1.55vw, 34px);
+    font-weight: 620;
+    line-height: 1.13;
+    overflow-wrap: anywhere;
+  }
+
+  #vmsp-week .vmsp-confetti {
+    position: absolute;
+    inset: -35px 0 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  #vmsp-week .vmsp-confetti i {
+    position: absolute;
+    top: -24px;
+    left: var(--x);
+    width: var(--size);
+    height: calc(var(--size) * 1.7);
+    border-radius: 2px;
+    opacity: .78;
+    background: var(--color);
+    animation: vmsp-confetti-fall var(--duration) linear infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes vmsp-confetti-fall {
+    from { transform: translate3d(0, -25px, 0) rotate(0); }
+    to { transform: translate3d(50px, 105vh, 0) rotate(700deg); }
+  }
+
+  @media (max-width: 1399px) {
+    #vmsp-week .vmsp-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 850px) {
+    #vmsp-week .vmsp-shell {
+      padding: 24px;
+    }
+
+    #vmsp-week .vmsp-top {
+      flex-wrap: wrap;
+    }
+
+    #vmsp-week .vmsp-day-meta {
+      width: 100%;
+      margin-left: 0;
+      text-align: left;
+    }
+
+    #vmsp-week .vmsp-list {
+      grid-template-columns: 1fr;
+    }
+
+    #vmsp-week .vmsp-time-group {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    #vmsp-week .vmsp-celebrate-panels,
+    #vmsp-week .vmsp-names,
+    #vmsp-week .is-single .vmsp-names {
+      grid-template-columns: 1fr;
+    }
+
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #vmsp-week .vmsp-section {
+      transition: none;
+      transform: none;
+    }
+
+    #vmsp-week .vmsp-confetti i { animation: none; }
+    #vmsp-week::before { transition: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    "use strict";
+
+    const CONFIG = {
+      eventsFeedUrl: "https://remote.vmspchurch.org/api/chmeetings/events",
+      celebrationsFeedUrl: "https://remote.vmspchurch.org/api/chmeetings/celebrations",
+      churchTimeZone: "America/New_York",
+      daysIncludingToday: 7,
+      maxEventsPerPage: 12,
+      maxEventsPerTimeCard: 8,
+      fullRotationSeconds: 60,
+      refreshMinutes: 15
+    };
+
+    const root = document.getElementById("vmsp-week");
+    const stage = root.querySelector(".vmsp-stage");
+    const section = root.querySelector("#vmsp-section");
+    const status = root.querySelector("#vmsp-status");
+    const pageLabel = root.querySelector("#vmsp-page");
+    const progress = root.querySelector("#vmsp-progress");
+    const empty = root.querySelector("#vmsp-empty");
+    const weekRange = root.querySelector("#vmsp-week-range");
+    const currentDay = root.querySelector("#vmsp-current-day");
+    const countLabel = root.querySelector("#vmsp-count");
+    let pages = [], pageIndex = 0, rotationTimer, transitionTimer, resizeTimer;
+    let refreshInProgress = false, latestEvents = null, latestCelebrations = null;
+    let latestFirst = "", latestLast = "", transitionMs = 650;
+
+    const pad = n => String(n).padStart(2, "0");
+    const dateKey = d => {
+      const p = Object.fromEntries(new Intl.DateTimeFormat("en-US", {
+        timeZone: CONFIG.churchTimeZone, year: "numeric", month: "2-digit", day: "2-digit"
+      }).formatToParts(d).map(x => [x.type, x.value]));
+      return `${p.year}-${p.month}-${p.day}`;
+    };
+    const addDays = (key, count) => {
+      const [y, m, d] = key.split("-").map(Number);
+      return new Date(Date.UTC(y, m - 1, d + count)).toISOString().slice(0, 10);
+    };
+    const asUtcDay = key => new Date(`${key}T12:00:00Z`);
+    const dayLabel = key => new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC", weekday: "long", month: "long", day: "numeric"
+    }).format(asUtcDay(key));
+    const shortDay = key => new Intl.DateTimeFormat("en-US", {
+      timeZone: "UTC", weekday: "short", month: "short", day: "numeric"
+    }).format(asUtcDay(key));
+    const timeLabel = start => {
+      const match = /T(\d{2}):(\d{2})/.exec(start || "");
+      if (!match) return "All day";
+      const h = Number(match[1]);
+      return `${h % 12 || 12}:${match[2]} ${h < 12 ? "AM" : "PM"}`;
+    };
+    const timeOrder = label => {
+      if (label === "All day") return -1;
+      const match = /^(\d+):(\d+) (AM|PM)$/.exec(label);
+      return match ? ((Number(match[1]) % 12) + (match[3] === "PM" ? 12 : 0)) * 60 + Number(match[2]) : Infinity;
+    };
+    const make = (tag, className, value) => {
+      const el = document.createElement(tag);
+      el.className = className;
+      if (value !== undefined) el.textContent = value;
+      return el;
+    };
+
+    // The server feed returns only [{id, title, start, location}].
+    // The ChMeetings API key never enters this widget.
+    async function fetchEvents() {
+      const response = await fetch(CONFIG.eventsFeedUrl, {cache: "no-store"});
+      if (!response.ok) throw new Error(`Calendar feed returned HTTP ${response.status}.`);
+      const payload = await response.json();
+      if (!Array.isArray(payload.events)) throw new Error("Unexpected calendar feed response.");
+      return payload.events;
+    }
+
+    async function fetchCelebrations() {
+      const response = await fetch(CONFIG.celebrationsFeedUrl, {cache: "no-store"});
+      if (!response.ok) throw new Error(`Celebrations feed returned HTTP ${response.status}.`);
+      const payload = await response.json();
+      if (!Array.isArray(payload.celebrations)) throw new Error("Unexpected celebrations feed response.");
+      return payload.celebrations;
+    }
+
+    function prepare(events, first, last, pageCapacity) {
+      const byDay = new Map();
+      for (const event of events) {
+        if (!event?.title || !event.start) continue;
+        const day = String(event.start).slice(0, 10);
+        if (day < first || day > last) continue;
+        if (!byDay.has(day)) byDay.set(day, new Map());
+        const time = timeLabel(event.start);
+        if (!byDay.get(day).has(time)) byDay.get(day).set(time, []);
+        byDay.get(day).get(time).push(event);
+      }
+      const result = [];
+      for (const [day, times] of [...byDay.entries()].sort(([a], [b]) => a.localeCompare(b))) {
+        const groups = [...times.entries()]
+          .sort(([a], [b]) => timeOrder(a) - timeOrder(b))
+          .map(([time, items]) => ({time, items: items.sort((a, b) => a.title.localeCompare(b.title))}));
+        const total = groups.reduce((n, group) => n + group.items.length, 0);
+        let pageGroups = [], count = 0;
+        const flush = () => {
+          if (count) result.push({day, groups: pageGroups, total});
+          pageGroups = []; count = 0;
+        };
+        for (const group of groups) {
+          for (let i = 0; i < group.items.length;) {
+            if (count === pageCapacity) flush();
+            const take = Math.min(
+              pageCapacity - count,
+              CONFIG.maxEventsPerTimeCard,
+              group.items.length - i
+            );
+            pageGroups.push({time: group.time, items: group.items.slice(i, i + take)});
+            count += take;
+            i += take;
+          }
+        }
+        flush();
+      }
+      return result;
+    }
+
+    function splitColumns(groups) {
+      if (root.clientWidth < 1400 || groups.length < 2 || groups.some(group => group.items.length >= 4)) {
+        return [groups];
+      }
+      const weight = group => 42 + group.items.reduce((sum, event) =>
+        sum + 34 * Math.ceil(event.title.length / 27)
+          + (event.location ? 20 * Math.ceil(event.location.length / 37) + 7 : 0) + 9, 0);
+      const weights = groups.map(weight);
+      const total = weights.reduce((a, b) => a + b, 0);
+      let left = 0, split = 1, best = Infinity;
+      for (let i = 1; i < groups.length; i++) {
+        left += weights[i - 1];
+        const difference = Math.abs(total - 2 * left);
+        if (difference < best) { best = difference; split = i; }
+      }
+      return [groups.slice(0, split), groups.slice(split)];
+    }
+
+    function prepareCelebrations(items, first, last, capacity) {
+      const valid = items.filter(item =>
+        item && (item.kind === "birthday" || item.kind === "anniversary") &&
+        typeof item.name === "string" && item.name.trim() &&
+        typeof item.date === "string" && item.date >= first && item.date <= last
+      ).sort((a, b) => a.date.localeCompare(b.date) || a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name));
+      const result = [];
+      for (let i = 0; i < valid.length; i += capacity) {
+        result.push({kind: "celebration", items: valid.slice(i, i + capacity)});
+      }
+      return result;
+    }
+
+    function drawCelebration(page) {
+      const birthdays = page.items.filter(item => item.kind === "birthday");
+      const anniversaries = page.items.filter(item => item.kind === "anniversary");
+      currentDay.textContent = "Celebrating this week";
+      countLabel.textContent = `${page.items.length} special date${page.items.length === 1 ? "" : "s"}`;
+
+      const celebration = make("div", "vmsp-celebrate");
+      const confetti = make("div", "vmsp-confetti");
+      const colors = ["#ffa68e", "#ffcf9b", "#90d9d2", "#a8baff", "#f7e6a7"];
+      for (let i = 0; i < 28; i++) {
+        const piece = document.createElement("i");
+        piece.style.setProperty("--x", `${(i * 37.7) % 100}%`);
+        piece.style.setProperty("--size", `${6 + i % 4 * 2}px`);
+        piece.style.setProperty("--color", colors[i % colors.length]);
+        piece.style.setProperty("--duration", `${5 + i % 5}s`);
+        piece.style.setProperty("--delay", `${-i * .53}s`);
+        confetti.append(piece);
+      }
+      celebration.append(confetti);
+
+      const panels = make("div", "vmsp-celebrate-panels");
+      if (!birthdays.length || !anniversaries.length) panels.classList.add("is-single");
+      for (const [kind, entries, title] of [
+        ["birthday", birthdays, "Happy Birthday!"],
+        ["anniversary", anniversaries, "Happy Anniversary!"]
+      ]) {
+        if (!entries.length) continue;
+        const panel = make("div", `vmsp-celebrate-panel is-${kind}`);
+        const heading = make("div", "vmsp-celebrate-heading");
+        heading.append(make("div", "vmsp-celebrate-title", title));
+        heading.append(make("span", "vmsp-celebrate-count", `${entries.length} this week`));
+        panel.append(heading);
+        const names = make("div", "vmsp-names");
+        for (const item of entries) {
+          const row = make("div", "vmsp-person");
+          const date = new Intl.DateTimeFormat("en-US", {timeZone: "UTC", month: "short", day: "numeric"})
+            .format(asUtcDay(item.date));
+          row.append(make("span", "vmsp-person-date", date));
+          row.append(make("span", "vmsp-person-name", item.name));
+          names.append(row);
+        }
+        panel.append(names);
+        panels.append(panel);
+      }
+      celebration.append(panels);
+      section.append(celebration);
+    }
+
+    function draw(index, animate = true) {
+      const page = pages[index];
+      root.classList.toggle("vmsp-celebrating", page.kind === "celebration");
+      section.replaceChildren();
+      if (page.kind === "celebration") {
+        drawCelebration(page);
+      } else {
+        currentDay.textContent = dayLabel(page.day);
+        countLabel.textContent = `${page.total} event${page.total === 1 ? "" : "s"}`;
+        const list = make("div", "vmsp-list");
+        const columns = splitColumns(page.groups);
+        if (columns.length === 1) list.classList.add("is-single");
+        const appendEvent = (parent, event) => {
+          const item = make("div", "vmsp-event");
+          item.append(make("div", "vmsp-event-title", event.title));
+          if (event.location) item.append(make("div", "vmsp-location", event.location));
+          parent.append(item);
+        };
+        for (const groups of columns) {
+          const column = make("div", "vmsp-column");
+          for (const group of groups) {
+            const row = make("div", "vmsp-time-group");
+            row.append(make("span", "vmsp-time", group.time));
+            const titles = make("div", "vmsp-titles");
+            if (columns.length === 1 && group.items.length >= 3 && root.clientWidth >= 900) {
+              titles.classList.add("is-dense");
+              const halfway = Math.ceil(group.items.length / 2);
+              for (const items of [group.items.slice(0, halfway), group.items.slice(halfway)]) {
+                const denseColumn = make("div", "vmsp-dense-column");
+                for (const event of items) appendEvent(denseColumn, event);
+                titles.append(denseColumn);
+              }
+            } else {
+              for (const event of group.items) appendEvent(titles, event);
+            }
+            row.append(titles);
+            column.append(row);
+          }
+          list.append(column);
+        }
+        section.append(list);
+      }
+      pageLabel.textContent = `${index + 1} / ${pages.length}`;
+      pageLabel.hidden = pages.length < 2;
+      progress.hidden = pages.length < 2;
+      progress.replaceChildren(...pages.map((_, i) => make("i", i === index ? "active" : "")));
+      if (animate) requestAnimationFrame(() => section.classList.add("is-visible"));
+    }
+
+    function advance() {
+      if (pages.length < 2) return;
+      section.classList.remove("is-visible");
+      section.classList.add("is-leaving");
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      transitionTimer = setTimeout(() => {
+        pageIndex = (pageIndex + 1) % pages.length;
+        section.classList.remove("is-leaving");
+        draw(pageIndex);
+      }, reduced ? 0 : transitionMs);
+    }
+
+    function layoutEvents(events, celebrations, first, last) {
+      clearInterval(rotationTimer);
+      clearTimeout(transitionTimer);
+      section.classList.remove("is-visible", "is-leaving");
+      section.hidden = false;
+      empty.hidden = true;
+      stage.style.overflowY = "hidden";
+
+      const initialCapacity = root.clientWidth < 900 ? 4 : CONFIG.maxEventsPerPage;
+      const stageStyle = getComputedStyle(stage);
+      const availableHeight = stage.clientHeight
+        - parseFloat(stageStyle.paddingTop) - parseFloat(stageStyle.paddingBottom);
+      let eventFits = false;
+      for (let capacity = initialCapacity; capacity >= 1; capacity--) {
+        pages = prepare(events, first, last, capacity);
+        if (!pages.length) { eventFits = true; break; }
+        eventFits = true;
+        for (let i = 0; i < pages.length; i++) {
+          draw(i, false);
+          if (section.scrollHeight > availableHeight + 1) {
+            eventFits = false;
+            break;
+          }
+        }
+        if (eventFits) break;
+      }
+      const eventPages = pages;
+
+      let celebrationPages = [];
+      let celebrationFits = true;
+      if (celebrations.length) {
+        celebrationFits = false;
+        for (let capacity = celebrations.length; capacity >= 1; capacity--) {
+          pages = prepareCelebrations(celebrations, first, last, capacity);
+          let candidateFits = true;
+          for (let i = 0; i < pages.length; i++) {
+            draw(i, false);
+            if (section.scrollHeight > availableHeight + 1) {
+              candidateFits = false;
+              break;
+            }
+          }
+          celebrationPages = pages;
+          if (candidateFits) { celebrationFits = true; break; }
+        }
+      }
+      pages = [...eventPages, ...celebrationPages];
+
+      // A single exceptionally long event may still need scrolling, but the
+      // footer remains anchored to the bottom of the widget.
+      stage.style.overflowY = eventFits && celebrationFits ? "hidden" : "auto";
+      pageIndex = 0;
+      section.replaceChildren();
+      section.hidden = pages.length === 0;
+      empty.textContent = "No events or celebrations scheduled this week.";
+      empty.hidden = pages.length > 0;
+      if (pages.length) draw(0);
+      else {
+        root.classList.remove("vmsp-celebrating");
+        countLabel.textContent = "0 events";
+        pageLabel.textContent = "";
+        pageLabel.hidden = true;
+        progress.hidden = true;
+        progress.replaceChildren();
+      }
+      if (pages.length > 1) {
+        const pageMs = CONFIG.fullRotationSeconds * 1000 / pages.length;
+        transitionMs = matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? 0 : Math.min(450, pageMs * .28);
+        section.style.setProperty("--vmsp-transition-ms", `${transitionMs}ms`);
+        rotationTimer = setInterval(advance, pageMs);
+      }
+    }
+
+    async function refresh() {
+      if (refreshInProgress) return;
+      refreshInProgress = true;
+      const first = dateKey(new Date());
+      const last = addDays(first, CONFIG.daysIncludingToday - 1);
+      weekRange.textContent = `${shortDay(first)} – ${shortDay(last)}`;
+      if (!pages.length) currentDay.textContent = dayLabel(first);
+      try {
+        const [eventResult, celebrationResult] = await Promise.allSettled([
+          fetchEvents(), fetchCelebrations()
+        ]);
+        if (eventResult.status === "rejected" && celebrationResult.status === "rejected" &&
+            !latestEvents && !latestCelebrations) {
+          throw new Error("Both church feeds are unavailable.");
+        }
+        const events = eventResult.status === "fulfilled" ? eventResult.value : latestEvents || [];
+        const celebrations = celebrationResult.status === "fulfilled"
+          ? celebrationResult.value : latestCelebrations || [];
+        latestEvents = events;
+        latestCelebrations = celebrations;
+        latestFirst = first;
+        latestLast = last;
+        status.textContent = "Live church schedule · updated " + new Intl.DateTimeFormat("en-US", {
+          timeZone: CONFIG.churchTimeZone, hour: "numeric", minute: "2-digit"
+        }).format(new Date());
+        layoutEvents(events, celebrations, first, last);
+        if (eventResult.status === "rejected") console.warn("Events feed unavailable:", eventResult.reason);
+        if (celebrationResult.status === "rejected") console.warn("Celebrations feed unavailable:", celebrationResult.reason);
+      } catch (error) {
+        status.textContent = "Calendar unavailable";
+        if (!pages.length) {
+          empty.textContent = error.message;
+          empty.hidden = false;
+        }
+        console.error("Church calendar widget:", error);
+      } finally {
+        refreshInProgress = false;
+      }
+    }
+
+    refresh();
+    setInterval(refresh, CONFIG.refreshMinutes * 60 * 1000);
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (latestEvents || latestCelebrations) {
+          layoutEvents(latestEvents || [], latestCelebrations || [], latestFirst, latestLast);
+        }
+      }, 180);
+    });
+  })();
+</script>
