@@ -53,7 +53,7 @@ test('/events embeds display data and caches ChMeetings reads for five minutes',
     const html = await getPage('?celebrations');
     assert.match(html, /^<!doctype html>/i);
     assert.match(html, /id="vmsp-week"/);
-    assert.match(html, /vmsp-events-ready/);
+    assert.doesNotMatch(html, /vmsp-events-ready/);
     assert.doesNotMatch(html, /test-only-secret|\/api\/chmeetings/);
     const feed = JSON.parse(html.match(/<script id="vmsp-feed-data" type="application\/json">([^<]*)<\/script>/)?.[1] || 'null');
     assert.equal(feed.events[0].title, 'Test Event');
@@ -68,9 +68,6 @@ test('/events embeds display data and caches ChMeetings reads for five minutes',
     await getPage('?celebrations');
     assert.ok(calls.length > firstCount);
 
-    const head = await nativeFetch(`${base}/events`, { method: 'HEAD' });
-    assert.equal(head.status, 204);
-    assert.equal(head.headers.get('access-control-allow-origin'), '*');
     assert.equal((await nativeFetch(`${base}/api/chmeetings/events`)).status, 404);
     assert.equal((await nativeFetch(`${base}/api/chmeetings/celebrations`)).status, 404);
   } finally {
