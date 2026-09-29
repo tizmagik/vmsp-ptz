@@ -551,7 +551,7 @@
       daysIncludingToday: 7,
       maxEventsPerPage: 12,
       maxEventsPerTimeCard: 8,
-      fullRotationSeconds: 60,
+      fullRotationSeconds: 45,
       refreshMinutes: 15,
       retryBaseSeconds: 5,
       retryMaxSeconds: 60,
@@ -940,7 +940,7 @@
         latestCelebrations = celebrations;
         latestFirst = first;
         latestLast = last;
-        status.textContent = "Live church schedule · updated " + new Intl.DateTimeFormat("en-US", {
+        status.textContent = "Full calendar in NYNE Copts App  ·  updated " + new Intl.DateTimeFormat("en-US", {
           timeZone: CONFIG.churchTimeZone, hour: "numeric", minute: "2-digit"
         }).format(new Date());
         if (changed || !pages.length) layoutEvents(events, celebrations, first, last);
