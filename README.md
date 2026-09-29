@@ -170,10 +170,9 @@ the live slides without a browser-facing ChMeetings data API. The server reads
 `CHMEETINGS_API_KEY` from `.env`; the key never enters the page. Anyone who can
 open `/events` can see the displayed names, events, times, and locations.
 
-Paste `st-data/calendar-widget.html` into a ScreenTinker Text/HTML widget. The
-small iframe loader tries `http://192.168.100.252:8111/events` first and falls
-back to `https://remote.vmspchurch.org/events` if the local page cannot load.
-Set `INCLUDE_CELEBRATIONS` to `true` in the snippet to use `?celebrations`.
+Paste `st-data/calendar-widget.html` into a ScreenTinker Text/HTML widget. It
+embeds the public HTTPS page directly. To include birthdays and anniversaries,
+append `?celebrations` to the iframe's `src` URL.
 The full page source is `st-data/events-page.html`. Both server-side feeds cache
 successful ChMeetings results for five minutes.
 

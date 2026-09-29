@@ -23,13 +23,6 @@ const addDays = (key: string, count: number): string => {
 export function createEventsPageRouter(): Router {
   const router = Router();
 
-  // ScreenTinker uses HEAD on the same page URL before choosing a local iframe.
-  router.head('/events', (_req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Cache-Control', 'no-store');
-    res.sendStatus(204);
-  });
-
   router.get('/events', async (req, res, next) => {
     try {
       const first = churchDate();
@@ -48,8 +41,6 @@ export function createEventsPageRouter(): Router {
       ]);
       if ('error' in eventResult) console.warn('Events page calendar unavailable:', eventResult.error);
       if ('error' in celebrationResult) console.warn('Events page celebrations unavailable:', celebrationResult.error);
-      const hasData = 'value' in eventResult ||
-        (includeCelebrations && 'value' in celebrationResult);
       const feed = JSON.stringify({
         events: 'value' in eventResult ? eventResult.value : null,
         celebrations: 'value' in celebrationResult ? celebrationResult.value : null,
@@ -66,7 +57,6 @@ export function createEventsPageRouter(): Router {
 </head>
 <body>
 ${widget.replace(/^\s*<meta charset="utf-8">\s*/, '')}
-${hasData ? '<script>window.parent.postMessage({ type: "vmsp-events-ready" }, "*");</script>' : ''}
 </body>
 </html>`);
     } catch (error) {
