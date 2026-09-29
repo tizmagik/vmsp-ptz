@@ -19,6 +19,16 @@
     const REMOTE_ORIGIN = "https://remote.vmspchurch.org";
     const INCLUDE_CELEBRATIONS = false; // Set true to load /events?celebrations.
     const PAGE_PATH = INCLUDE_CELEBRATIONS ? "/events?celebrations" : "/events";
+    // ScreenTinker may run widget code inside about:srcdoc, so inspect its parent URL too.
+    const contextUrls = [window.location.href, document.referrer, document.baseURI,
+      ...Array.from(window.location.ancestorOrigins || [])];
+    try { contextUrls.push(window.parent.location.href); } catch { /* Cross-origin parent. */ }
+    const contextHosts = contextUrls.flatMap(value => {
+      try { return [new URL(value).hostname.toLowerCase()]; } catch { return []; }
+    }).filter(Boolean);
+    const useRemotePage = contextHosts.some(host =>
+      host === "vmspchurch.org" || host.endsWith(".vmspchurch.org")) ||
+      (!contextHosts.length && window.isSecureContext);
     const CHECK_INTERVAL_MS = 20000;
     const LOCAL_PROBE_TIMEOUT_MS = 4000;
     const PAGE_READY_TIMEOUT_MS = 30000;
@@ -78,6 +88,10 @@
       if (checking) return;
       checking = true;
       try {
+        if (useRemotePage) {
+          if (activeOrigin !== REMOTE_ORIGIN || (!confirmed && !awaiting)) load(REMOTE_ORIGIN);
+          return;
+        }
         const localUp = Date.now() >= localRetryAfter && await localReachable();
         if (localUp) {
           if (activeOrigin !== LOCAL_ORIGIN || (!confirmed && !awaiting)) load(LOCAL_ORIGIN);
